@@ -32,6 +32,7 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -166,6 +167,10 @@ public class VorbisTruncateTestCase
 			new DataLine.Info(SourceDataLine.class, streamToPlay.getFormat()));
 
 		line.open();
+FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+double gain = .2d; // number between 0 and 1 (loudest)
+float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+gainControl.setValue(dB);
 		line.start();
 		try {
 			byte[] buf = new byte[1024];
