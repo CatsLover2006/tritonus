@@ -110,7 +110,56 @@
               </execution>
             </executions>
           </plugin>
-        </plugins>
+
+          <plugin>
+            <artifactId>maven-install-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>install-library</id>
+                <phase>install</phase>
+                <goals>
+                  <goal>install-file</goal>
+                </goals>
+                <configuration>
+                  <groupId>${project.groupId}</groupId>
+                  <artifactId>${project.artifactId}</artifactId>
+                  <version>${project.parent.version}</version>
+                  <packaging>dylib</packaging>
+                  <file>${project.build.directory}/libtritonuspvorbis.dylib</file>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <plugin>
+            <!-- because of maven deploy-file uploads source, jar also -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.6.0</version>
+            <executions>
+              <execution>
+                <id>deploy-library</id>
+                <phase>deploy</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>mvn</executable>
+                  <arguments>
+                    <argument>deploy:deploy-file</argument>
+                    <argument>-DgroupId=${project.groupId}</argument>
+                    <argument>-DartifactId=${project.artifactId}</argument>
+                    <argument>-Dversion=${project.parent.version}</argument>
+                    <argument>-Dpackaging=dylib</argument>
+                    <argument>-Dfile=${project.build.directory}/libtritonuspvorbis.dylib</argument>
+                    <argument>-DgeneratePom=false</argument>
+                    <argument>-DrepositoryId=bintray</argument>
+                    <argument>-Durl=https://api.bintray.com/maven/umjammer/maven/tritonus/</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>        </plugins>
       </build>
     </profile>
   </profiles>

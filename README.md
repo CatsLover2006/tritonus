@@ -19,13 +19,13 @@ http://www.tritonus.org/plugins.html
 | javasequencer | ✅    |         | |
 | jorbis        | ✅    |         | |
 | midishare     | ✅    |         | |
-| mp3           | ✅    |         | |
+| mp3           | ✅    |         | brew:lame |
 | esd           | 🚫    | linux only | libesd |
 | alsa          | 🚫    | linux only | libasound |
-| vorbis        | ✅    |         | |
-| pvorbis       | 🚧    | test | |
+| vorbis        | ✅    |         | | brew:libvorbis |
+| pvorbis       | 🚧    | test | this |
 | cdda          | 🚫    | linux only | libcdda_interface libcdda_paranoia |
-| fluidsynth    | ✅    |         | liblfluidsynth |
+| fluidsynth    | ✅    |         | brew:fluid-synth |
 | src           | 🚫    |         | |
 | aos           | 🚫    |         | |
 | saol          | 🚫    |         | |
@@ -50,3 +50,7 @@ You may also have a look at the Tritonus page:
 http://www.tritonus.org/
 
 Have fun!
+
+## TODO
+
+ * deploy to bintray via github actions

@@ -32,4 +32,12 @@
 -->
   </modules>
 
+  <distributionManagement>
+    <repository>
+      <id>bintray</id>
+      <name>umjammer-maven</name>
+      <url>https://api.bintray.com/maven/umjammer/maven/tritonus/;publish=1</url>
+    </repository>
+  </distributionManagement>
+
 </project>
