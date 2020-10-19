@@ -9,7 +9,11 @@
   <artifactId>tritonus-saol</artifactId>
   <packaging>jar</packaging>
 
-  <name>Tritonus CDDA Module</name>
+  <name>Tritonus SAOL Module</name>
+
+  <properties>
+    <gensource.dir>${project.build.directory}/generated-sources</gensource.dir>
+  </properties>
 
   <build>
     <plugins>
@@ -19,8 +23,38 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <generatedSourcesDirectory>${gensource.dir}/sablecc</generatedSourcesDirectory>
+          <testExcludes>
+            <testExclude>saint.java</testExclude>
+          </testExcludes>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>com.github.verylazyboy</groupId>
+        <artifactId>sablecc-maven-plugin</artifactId>
+        <version>2.0-beta.2</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.verylazyboy</groupId>
+            <artifactId>sablecc-maven-port</artifactId>
+            <version>3.7</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>complex grammar</id>
+            <configuration>
+              <grammar>src/main/sablecc/saol.grammar</grammar>
+              <destination>${gensource.dir}/sablecc</destination>
+            </configuration>
+            <goals>
+              <goal>sablecc</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 

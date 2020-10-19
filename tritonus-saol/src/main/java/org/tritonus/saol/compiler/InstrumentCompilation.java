@@ -794,13 +794,13 @@ extends DepthFirstAdapter
 //         outAParamlistTailParamlistTail(node);
 //     }
 
-	public void inASigvarVardecl(ASigvarVardecl node)
-	{
-	}
+//	public void inASigvarVardecl(ASigvarVardecl node)
+//	{
+//	}
 
-	public void outASigvarVardecl(ASigvarVardecl node)
-	{
-	}
+//	public void outASigvarVardecl(ASigvarVardecl node)
+//	{
+//	}
 
 //     public void caseASigvarVardecl(ASigvarVardecl node)
 //     {
@@ -1027,10 +1027,10 @@ extends DepthFirstAdapter
 	}
 
 
-	public void outATableStype(ATableStype node)
-	{
-		// TODO:
-	}
+//	public void outATableStype(ATableStype node)
+//	{
+//		// TODO:
+//	}
 
 
 	public void outAOparrayStype(AOparrayStype node)
@@ -1039,16 +1039,16 @@ extends DepthFirstAdapter
 	}
 
 
-	public void outAXsigOtype(AXsigOtype node)
-	{
-		// TODO:
-	}
+//	public void outAXsigOtype(AXsigOtype node)
+//	{
+//		// TODO:
+//	}
 
 
-	public void outAStypeOtype(AStypeOtype node)
-	{
-		setNodeAttribute(node, getNodeAttribute(node.getStype()));
-	}
+//	public void outAStypeOtype(AStypeOtype node)
+//	{
+//		setNodeAttribute(node, getNodeAttribute(node.getStype()));
+//	}
 
 
 

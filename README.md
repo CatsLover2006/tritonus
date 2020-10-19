@@ -28,7 +28,7 @@ http://www.tritonus.org/plugins.html
 | fluidsynth    | ✅    |         | brew:fluid-synth |
 | src           | 🚫    |         | |
 | aos           | 🚫    |         | |
-| saol          | 🚫    |         | |
+| saol          | 🚧    | ?       | |
 | timidity      | 🚧    |         | [libtimidity](https://github.com/sezero/libtimidity) |
 
 

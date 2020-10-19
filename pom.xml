@@ -27,9 +27,8 @@
 <!--
     <module>tritonus-src</module>
     <module>tritonus-aos</module>
-
-    <module>tritonus-saol</module>
 -->
+    <module>tritonus-saol</module>
   </modules>
 
   <distributionManagement>
