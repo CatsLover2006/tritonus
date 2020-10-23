@@ -27,6 +27,7 @@
 #include "common/HandleFieldHandler.h"
 #include <ogg/ogg.h>
 #include "org_tritonus_lowlevel_ogg_SyncState.h"
+#include <stdlib.h>
 
 
 
