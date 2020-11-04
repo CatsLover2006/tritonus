@@ -35,7 +35,7 @@ public class FIRDirectFormFilterDescription implements FilterDescription {
 
 	/**
 	 * Constructor with filter coefficients.
-	 * 
+	 *
 	 * @param afCoefficients
 	 *            The array of filter coefficients
 	 */
@@ -55,7 +55,7 @@ public class FIRDirectFormFilterDescription implements FilterDescription {
 	 * of the filter. Commonly, the 'order' of a FIR filter is said to be the
 	 * number of coefficients minus 1: Since a single coefficient is only an
 	 * amplifier/attenuator, this is considered order zero.
-	 * 
+	 *
 	 * @return The length of the filter (the number of coefficients).
 	 */
 	private int getLength() {

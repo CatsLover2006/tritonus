@@ -32,7 +32,7 @@ package org.tritonus.lowlevel.dsp;
 public interface FIRWindow {
 	/**
 	 * Get an array containing the window coefficients.
-	 * 
+	 *
 	 * @param nOrder
 	 *            The number of elements that the returned array should have.
 	 */

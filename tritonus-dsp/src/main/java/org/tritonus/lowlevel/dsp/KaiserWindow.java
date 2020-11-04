@@ -37,7 +37,7 @@ public class KaiserWindow implements FIRWindow {
 
 	/**
 	 * Constructor taking alpha.
-	 * 
+	 *
 	 * @param dAlpha
 	 *            The alpha parameter of the Kaiser window.
 	 */
@@ -47,7 +47,7 @@ public class KaiserWindow implements FIRWindow {
 
 	/**
 	 * Returns alpha.
-	 * 
+	 *
 	 * @return alpha.
 	 */
 	public double getAlpha() {

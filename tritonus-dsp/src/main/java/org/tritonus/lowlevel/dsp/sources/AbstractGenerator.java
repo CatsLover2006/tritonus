@@ -4,14 +4,14 @@ import org.tritonus.share.sampled.FloatSampleBuffer;
 
 /**
  * Base class for waveform generators.
- * 
+ *
  * <p>
  * Note: amplitude and frequency can be changes on the fly cleanly. Sample rate
  * and number of channels are fixed after creation of the class.
  * </p>
- * 
+ *
  * @author Matthias Pfisterer
- * 
+ *
  */
 public abstract class AbstractGenerator {
 	private final int channelCount;

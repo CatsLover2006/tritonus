@@ -16,7 +16,7 @@
  * VNI WILL NOT BE LIABLE FOR ANY DAMAGES WHATSOEVER ARISING OUT OF THE USE
  * OF OR INABILITY TO USE THIS SOFTWARE, INCLUDING BUT NOT LIMITED TO DIRECT,
  * INDIRECT, SPECIAL, CONSEQUENTIAL, PUNITIVE, AND EXEMPLARY DAMAGES, EVEN
- * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
  *
  * -------------------------------------------------------------------------
  */
@@ -30,7 +30,7 @@ public class Sfun
 {
     /** The smallest relative spacing for doubles.*/
 	public final static double EPSILON_SMALL = 1.1102230246252e-16;
-    
+
 	/** The largest relative spacing for doubles. */
 	public final static double EPSILON_LARGE = 2.2204460492503e-16;
 
@@ -446,7 +446,7 @@ public class Sfun
 	 *	@return  The Gamma function of x.
 	 *	If x is a negative integer, the result is NaN.
 	 */
-	static public double gamma(double x) 
+	static public double gamma(double x)
 	{
 		double	ans;
 		double	y = Math.abs(x);
@@ -550,7 +550,7 @@ public class Sfun
 
 	/*
 	 *	Returns the log gamma correction term for argument
-	 *	values greater than or equal to 10.0.    
+	 *	values greater than or equal to 10.0.
 	 */
 	static double r9lgmc(double x)
 	{

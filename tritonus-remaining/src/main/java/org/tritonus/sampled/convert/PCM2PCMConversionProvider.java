@@ -197,7 +197,7 @@ public class PCM2PCMConversionProvider extends TSimpleFormatConversionProvider {
 		}
 		if (isConversionSupported(targetEncoding, sourceFormat)) {
 			// TODO: check that no duplicates may occur...
-			ArraySet<AudioFormat> result = new ArraySet<AudioFormat>();
+			ArraySet<AudioFormat> result = new ArraySet<>();
 			Iterator<AudioFormat> iterator = getCollectionTargetFormats().iterator();
 			while (iterator.hasNext()) {
 				AudioFormat targetFormat = iterator.next();

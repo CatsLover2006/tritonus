@@ -16,14 +16,14 @@
  * VNI WILL NOT BE LIABLE FOR ANY DAMAGES WHATSOEVER ARISING OUT OF THE USE
  * OF OR INABILITY TO USE THIS SOFTWARE, INCLUDING BUT NOT LIMITED TO DIRECT,
  * INDIRECT, SPECIAL, CONSEQUENTIAL, PUNITIVE, AND EXEMPLARY DAMAGES, EVEN
- * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. 
+ * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
  *
  * -------------------------------------------------------------------------
  */
 
 
 package org.tritonus.lowlevel.dsp;
- 
+
  /**
   * This class implements complex numbers. It provides the basic operations
   * (addition, subtraction, multiplication, division) as well as a set of
@@ -87,7 +87,7 @@ public class Complex implements java.io.Serializable, Cloneable
 
 
 
-	/** 
+	/**
 	 *	Constructs a Complex equal to the argument.
 	 *	@param	z	A Complex object
 	 *			If z is null then a NullPointerException is thrown.
@@ -99,7 +99,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Constructs a Complex with real and imaginary parts given
 	 *	by the input arguments.
 	 *	@param	re	A double value equal to the real part of the Complex object.
@@ -112,8 +112,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Constructs a Complex with a zero imaginary part. 
+	/**
+	 *	Constructs a Complex with a zero imaginary part.
 	 *	@param	re	A double value equal to the real part of the Complex object.
 	 */
 	public Complex(double re)
@@ -133,10 +133,10 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 	
 
-	/** 
-	 *	Tests if this is a complex Not-a-Number (NaN) value. 
+	/**
+	 *	Tests if this is a complex Not-a-Number (NaN) value.
 	 *	@return  True if either component of the Complex object is NaN;
-	 *	false, otherwise. 
+	 *	false, otherwise.
 	 */
 	private boolean isNaN()
 	{
@@ -144,8 +144,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 	
-	/** 
-	 *	Compares with another Complex. 
+	/**
+	 *	Compares with another Complex.
      *	<p><em>Note: To be useful in hashtables this method
      *	considers two NaN double values to be equal. This
      *	is not according to IEEE specification.</em>
@@ -162,7 +162,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		}
 	}
 
-   
+
 	/**
      *	Compares this object against the specified object.
      *	<p><em>Note: To be useful in hashtables this method
@@ -184,7 +184,7 @@ public class Complex implements java.io.Serializable, Cloneable
 
     /**
      *	Returns a hashcode for this Complex.
-     *	@return  A hash code value for this object. 
+     *	@return  A hash code value for this object.
      */
     public int hashCode()
 	{
@@ -193,8 +193,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return (int)((re_bits^im_bits)^((re_bits^im_bits)>>32));
     }
 
-	/** 
-	 *	Returns the real part of a Complex object. 
+	/**
+	 *	Returns the real part of a Complex object.
 	 *	@return	The real part of z.
 	 */
 	public double real()
@@ -203,8 +203,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns the imaginary part of a Complex object. 
+	/**
+	 *	Returns the imaginary part of a Complex object.
 	 *	@param	z	A Complex object.
 	 *	@return	The imaginary part of z.
 	 */
@@ -214,8 +214,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 	
 	
-	/** 
-	 *	Returns the real part of a Complex object. 
+	/**
+	 *	Returns the real part of a Complex object.
 	 *	@param	z	A Complex object.
 	 *	@return	The real part of z.
 	 */
@@ -225,8 +225,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns the imaginary part of a Complex object. 
+	/**
+	 *	Returns the imaginary part of a Complex object.
 	 *	@param	z	A Complex object.
 	 *	@return	The imaginary part of z.
 	 */
@@ -236,8 +236,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns the negative of a Complex object, -z. 
+	/**
+	 *	Returns the negative of a Complex object, -z.
 	 *	@param	z	A Complex object.
 	 *	@return A newly constructed Complex initialized to
 	 *			the negative of the argument.
@@ -248,7 +248,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 	
-	/** 
+	/**
 	 *	Returns the complex conjugate of a Complex object.
 	 *	@param	z	A Complex object.
 	 *	@return A newly constructed Complex initialized to complex conjugate of z.
@@ -259,7 +259,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 	
-	/** 
+	/**
 	 *	Returns the sum of two Complex objects, x+y.
 	 *	@param	x	A Complex object.
 	 *	@param	y	A Complex object.
@@ -270,8 +270,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x.m_re+y.m_re, x.m_im+y.m_im);
 	}
 
-	/** 
-	 *	Returns the sum of a Complex and a double, x+y. 
+	/**
+	 *	Returns the sum of a Complex and a double, x+y.
 	 *	@param	x	A Complex object.
 	 *	@param	y	A double value.
 	 *	@return A newly constructed Complex initialized to x+y.
@@ -281,8 +281,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x.m_re+y, x.m_im);
 	}
 
-	/** 
-	 *	Returns the sum of a double and a Complex, x+y. 
+	/**
+	 *	Returns the sum of a double and a Complex, x+y.
 	 *	@param	x	A double value.
 	 *	@param	y	A Complex object.
 	 *	@return A newly constructed Complex initialized to x+y.
@@ -292,8 +292,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x+y.m_re, y.m_im);
 	}
 
-	/** 
-	 *	Returns the sum of this Complex and another Complex, this+y. 
+	/**
+	 *	Returns the sum of this Complex and another Complex, this+y.
 	 *	@param	y	A Complex object.
 	 *	@return A newly constructed Complex initialized to this+y.
 	 */
@@ -302,8 +302,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(m_re+y.m_re, m_im+y.m_im);
 	}
 
-	/** 
-	 *	Returns the sum of this Complex a double, this+y. 
+	/**
+	 *	Returns the sum of this Complex a double, this+y.
 	 *	@param	y	A double value.
 	 *	@return A newly constructed Complex initialized to this+y.
 	 */
@@ -312,8 +312,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(m_re+y, m_im);
 	}
 	
-	/** 
-	 *	Returns the sum of this Complex and a double, x+this. 
+	/**
+	 *	Returns the sum of this Complex and a double, x+this.
 	 *	@param	x	A double value.
 	 *	@return A newly constructed Complex initialized to x+this.
 	 */
@@ -323,7 +323,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Returns the difference of two Complex objects, x-y.
 	 *	@param	x	A Complex object.
 	 *	@param	y	A Complex object.
@@ -334,8 +334,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x.m_re-y.m_re, x.m_im-y.m_im);
 	}
 
-	/** 
-	 *	Returns the difference of a Complex object and a double, x-y. 
+	/**
+	 *	Returns the difference of a Complex object and a double, x-y.
 	 *	@param	x	A Complex object.
 	 *	@param	y	A double value.
 	 *	@return A newly constructed Complex initialized to x-y.
@@ -345,8 +345,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x.m_re-y, x.m_im);
 	}
 	
-	/** 
-	 *	Returns the difference of a double and a Complex object, x-y. 
+	/**
+	 *	Returns the difference of a double and a Complex object, x-y.
 	 *	@param	x	A double value.
 	 *	@param	y	A Complex object.
 	 *	@return A newly constructed Complex initialized to x-y..
@@ -356,9 +356,9 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x-y.m_re, -y.m_im);
 	}
 
-	/** 
+	/**
 	 *	Returns the difference of this Complex object and
-	 *	another Complex object, this-y. 
+	 *	another Complex object, this-y.
 	 *	@param	y	A Complex object.
 	 *	@return A newly constructed Complex initialized to this-y.
 	 */
@@ -367,7 +367,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(m_re-y.m_re, m_im-y.m_im);
 	}
 
-	/** 
+	/**
 	 *	Subtracts a double from this Complex and returns the difference, this-y.
 	 *	@param	y	A double value.
 	 *	@return A newly constructed Complex initialized to this-y.
@@ -378,7 +378,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Returns the difference of this Complex object and a double, this-y.
 	 *	@param	y	A double value.
 	 *	@return A newly constructed Complex initialized to x-this.
@@ -389,8 +389,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns the product of two Complex objects, x*y. 
+	/**
+	 *	Returns the product of two Complex objects, x*y.
 	 *	@param	x	A Complex object.
 	 *	@param	y	A Complex object.
 	 *	@return A newly constructed Complex initialized to x*y.
@@ -471,8 +471,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns the product of a Complex object and a double, x*y. 
+	/**
+	 *	Returns the product of a Complex object and a double, x*y.
 	 *	@param	x	A Complex object.
 	 *	@param	y	A double value.
 	 *	@return  A newly constructed Complex initialized to x*y.
@@ -482,8 +482,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x.m_re*y, x.m_im*y);
 	}
 
-	/** 
-	 *	Returns the product of a double and a Complex object, x*y. 
+	/**
+	 *	Returns the product of a double and a Complex object, x*y.
 	 *	@param	x	A double value.
 	 *	@param	y	A Complex object.
 	 *	@return A newly constructed Complex initialized to x*y.
@@ -493,8 +493,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x*y.m_re, x*y.m_im);
 	}
 
-	/** 
-	 * Returns the product of this Complex object and another Complex object, this*y. 
+	/**
+	 * Returns the product of this Complex object and another Complex object, this*y.
 	 * @param	y	A Complex object.
 	 * @return  A newly constructed Complex initialized to this*y.
 	 */
@@ -503,7 +503,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return times(this,y);
 	}
 
-	/** 
+	/**
 	 *	Returns the product of this Complex object and a double, this*y.
 	 *	@param	y	A double value.
 	 *	@return A newly constructed Complex initialized to this*y.
@@ -513,8 +513,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(m_re*y, m_im*y);
 	}
 
-	/** 
-	 *	Returns the product of a double and this Complex, x*this. 
+	/**
+	 *	Returns the product of a double and this Complex, x*this.
 	 *	@param	y	A double value.
 	 *	@return A newly constructed Complex initialized to x*this.
 	 */
@@ -530,8 +530,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns Complex object divided by a Complex object, x/y. 
+	/**
+	 *	Returns Complex object divided by a Complex object, x/y.
 	 *	@param	x	The numerator, a Complex object.
 	 *	@param	y	The denominator, a Complex object.
 	 *	@return A newly constructed Complex initialized to x/y.
@@ -584,7 +584,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 	
-	/** 
+	/**
 	 *	Returns Complex object divided by a double, x/y.
 	 *	@param	x	The numerator, a Complex object.
 	 *	@param	y	The denominator, a double.
@@ -595,8 +595,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(x.m_re/y, x.m_im/y);
 	}
 
-	/** 
-	 *	Returns a double divided by a Complex object, x/y. 
+	/**
+	 *	Returns a double divided by a Complex object, x/y.
 	 *	@param	x	A double value.
 	 *	@param	y	The denominator, a Complex object.
 	 *	@return A newly constructed Complex initialized to x/y.
@@ -606,8 +606,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return y.overReverse(x);
 	}
 
-	/** 
-	 *	Returns this Complex object divided by another Complex object, this/y. 
+	/**
+	 *	Returns this Complex object divided by another Complex object, this/y.
 	 *	@param	y	The denominator, a Complex object.
 	 *	@return A newly constructed Complex initialized to x/y.
 	 */
@@ -616,8 +616,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return over(this, y);
 	}
 
-	/** 
-	 *	Returns this Complex object divided by double, this/y. 
+	/**
+	 *	Returns this Complex object divided by double, this/y.
 	 *	@param	y	The denominator, a double.
 	 *	@return  A newly constructed Complex initialized to x/y.
 	 */
@@ -626,8 +626,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return over(this, y);
 	}
 
-	/** 
-	 *	Returns a double dividied by this Complex object, x/this. 
+	/**
+	 *	Returns a double dividied by this Complex object, x/this.
 	 *	@param	x	The numerator, a double.
 	 *	@return A newly constructed Complex initialized to x/this.
 	 */
@@ -649,8 +649,8 @@ public class Complex implements java.io.Serializable, Cloneable
 
 
 
-	/** 
-	 *	Returns the absolute value (modulus) of a Complex, |z|. 
+	/**
+	 *	Returns the absolute value (modulus) of a Complex, |z|.
 	 *	@param	z	A Complex object.
 	 *	@return A double value equal to the absolute value of the argument.
 	 */
@@ -674,7 +674,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Returns the argument (phase) of a Complex, in radians,
 	 *	with a branch cut along the negative real axis.
 	 *	@param	z	A Complex object.
@@ -687,7 +687,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 	
-	/** 
+	/**
 	 *	Returns the square root of a Complex,
 	 *	with a branch cut along the negative real axis.
 	 *	@param	z	A Complex object.
@@ -744,11 +744,11 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Returns the exponential of a Complex z, exp(z).
 	 *	@param	z	A Complex object.
 	 *	@return A newly constructed Complex initialized to exponential
-	 *			of the argument. 
+	 *			of the argument.
 	 */
 	public static Complex exp(Complex z)
 	{
@@ -777,7 +777,7 @@ public class Complex implements java.io.Serializable, Cloneable
 				if (Double.isNaN(z.m_im)) cosa = 1;
 			}
 		}
-        
+
 		if (z.m_im == 0.0) {
 			result.m_re = r;
 			result.m_im = z.m_im;
@@ -789,7 +789,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Returns the logarithm of a Complex z,
 	 *	with a branch cut along the negative real axis.
 	 *	@param	z	A Complex object.
@@ -817,8 +817,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns the sine of a Complex. 
+	/**
+	 *	Returns the sine of a Complex.
 	 *	@param	z	A Complex object.
 	 *	@return A newly constructed Complex initialized to sine of the argument.
 	 */
@@ -834,8 +834,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
-	 *	Returns the cosine of a Complex. 
+	/**
+	 *	Returns the cosine of a Complex.
 	 *	@param	z	A Complex object.
 	 *	@return A newly constructed Complex initialized to cosine of the argument.
 	 */
@@ -845,8 +845,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return cosh(new Complex(-z.m_im,z.m_re));
 	}
 
-	/** 
-	 *	Returns the tangent of a Complex. 
+	/**
+	 *	Returns the tangent of a Complex.
 	 *	@param	z	A Complex object.
 	 *	@return A newly constructed Complex initialized
 	 *			to tangent of the argument.
@@ -862,7 +862,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return s;
 	}
 
-	/** 
+	/**
 	 *	Returns the inverse sine (arc sine) of a Complex,
 	 *	with branch cuts outside the interval [-1,1] along the
 	 *	real axis.
@@ -946,7 +946,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Returns the inverse cosine (arc cosine) of a Complex,
 	 *	with branch cuts outside the interval [-1,1] along the
 	 *	real axis.
@@ -975,7 +975,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return result;
 	}
 
-	/** 
+	/**
 	 * Returns the inverse tangent (arc tangent) of a Complex,
 	 * with branch cuts outside the interval [-i,i] along the
 	 * imaginary axis.
@@ -1023,8 +1023,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return result;
 	}
 
-	/** 
-	 * Returns the hyperbolic sine of a Complex. 
+	/**
+	 * Returns the hyperbolic sine of a Complex.
 	 * @param	z	A Complex object.
 	 * @return  A newly constructed Complex initialized to hyperbolic
 	 *			sine of the argument.
@@ -1058,8 +1058,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return result;
 	}
 
-	/** 
-	 * Returns the hyperbolic cosh of a Complex. 
+	/**
+	 * Returns the hyperbolic cosh of a Complex.
 	 * @param	z	A Complex object.
 	 * @return  A newly constructed Complex initialized to
 	 *			the hyperbolic cosine of the argument.
@@ -1095,8 +1095,8 @@ public class Complex implements java.io.Serializable, Cloneable
 		return result;
 	}
 
-	/** 
-	 * Returns the hyperbolic tanh of a Complex. 
+	/**
+	 * Returns the hyperbolic tanh of a Complex.
 	 * @param	z	A Complex object.
 	 * @return  A newly constructed Complex initialized to
 	 *			the hyperbolic tangent of the argument.
@@ -1118,7 +1118,7 @@ public class Complex implements java.io.Serializable, Cloneable
 
 		// Workaround for bug in JDK 1.2beta4
 		if (Double.isInfinite(z.m_im) || Double.isNaN(z.m_im)) {
-			cos2y = sin2y = Double.NaN;  
+			cos2y = sin2y = Double.NaN;
 		}
 
 		if (infiniteX)
@@ -1129,7 +1129,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return new Complex(sinh2x/den, sin2y/den);
 	}
 	
-	/** 
+	/**
 	 *	Returns the Complex z raised to the x power,
 	 *	with a branch cut for the first parameter (z) along the
 	 *	negative real axis.
@@ -1153,7 +1153,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return result;
 	}
 
-	/** 
+	/**
 	 *	Returns the inverse hyperbolic sine (arc sinh) of a Complex,
 	 *	with a branch cuts outside the interval [-i,i].
 	 *	@param	z	A Complex object.
@@ -1164,7 +1164,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	public static Complex asinh(Complex z)
 	{
 		// asinh(z) = i*asin(-i*z)
-		Complex miz = new Complex(z.m_im,-z.m_re); 
+		Complex miz = new Complex(z.m_im,-z.m_re);
 		Complex result = asin(miz);
 		double rx = result.m_im;
 		result.m_im = result.m_re;
@@ -1172,7 +1172,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return result;
 	}
 	
-	/** 
+	/**
 	 *	Returns the inverse hyperbolic cosine (arc cosh) of a Complex,
 	 *	with a branch cut at values less than one along the real axis.
 	 *	@param	z	A Complex object.
@@ -1203,7 +1203,7 @@ public class Complex implements java.io.Serializable, Cloneable
 		return (Double.doubleToLongBits(x) == negZeroBits);
 	}
 
-	/** 
+	/**
 	 *	Returns the inverse hyperbolic tangent (arc tanh) of a Complex,
 	 *	with a branch cuts outside the interval [-1,1] on the real axis.
 	 *	@param	z	A Complex object.
@@ -1215,7 +1215,7 @@ public class Complex implements java.io.Serializable, Cloneable
 	public static Complex atanh(Complex z)
 	{
 		// atanh(z) = i*atan(-i*z)
-		Complex miz = new Complex(z.m_im,-z.m_re); 
+		Complex miz = new Complex(z.m_im,-z.m_re);
 		Complex result = atan(miz);
 		double rx = result.m_im;
 		result.m_im = result.m_re;
@@ -1225,8 +1225,8 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 	
 
-	/** 
-	 *	Returns the Complex x raised to the Complex y power. 
+	/**
+	 *	Returns the Complex x raised to the Complex y power.
 	 *	@param	x	A Complex object.
 	 *	@param	y	A Complex object.
 	 *	@return A newly constructed Complex initialized
@@ -1240,8 +1240,8 @@ public class Complex implements java.io.Serializable, Cloneable
 
 
 
-	/** 
-	 *	Returns a String representation for the specified Complex. 
+	/**
+	 *	Returns a String representation for the specified Complex.
 	 *	@return A String representation for this object.
 	 */
 	public String toString()
@@ -1257,10 +1257,10 @@ public class Complex implements java.io.Serializable, Cloneable
 	}
 
 
-	/** 
+	/**
 	 *	Parses a string into a Complex.
 	 *	@param	s	The string to be parsed.
-	 *	@return A newly constructed Complex initialized to the value represented 
+	 *	@return A newly constructed Complex initialized to the value represented
 	 *			by the string argument.
 	 *	@exception NumberFormatException	If the string does not contain a parsable Complex number.
 	 *  @exception NullPointerException		If the input argument is null.
@@ -1325,7 +1325,7 @@ public class Complex implements java.io.Serializable, Cloneable
 				else
 					throw new NumberFormatException(input);
 				break;
-   
+
 			case 'i': case 'I':
 			case 'j': case 'J':
 				if (k+1 != input.length()) {

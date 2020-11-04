@@ -97,7 +97,7 @@ implements Source
 		m_b6 = fWhite * 0.115926F;
 		return fPink;
 	}
-} 
+}
 
 
 

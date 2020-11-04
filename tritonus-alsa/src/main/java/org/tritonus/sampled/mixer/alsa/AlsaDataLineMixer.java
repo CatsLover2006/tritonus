@@ -122,14 +122,14 @@ extends TMixer
 		m_strPcmName = strPcmName;
 		List<AudioFormat>	sourceFormats = getSupportedFormats(AlsaPcm.SND_PCM_STREAM_PLAYBACK);
 		List<AudioFormat>	targetFormats = getSupportedFormats(AlsaPcm.SND_PCM_STREAM_CAPTURE);
-		List<Line.Info>	sourceLineInfos = new ArrayList<Line.Info>();
+		List<Line.Info>	sourceLineInfos = new ArrayList<>();
 		Line.Info	sourceLineInfo = new DataLine.Info(
 			SourceDataLine.class,
 			sourceFormats.toArray(EMPTY_AUDIOFORMAT_ARRAY),
 			AudioSystem.NOT_SPECIFIED,
 			AudioSystem.NOT_SPECIFIED);
 		sourceLineInfos.add(sourceLineInfo);
-		List<Line.Info>	targetLineInfos = new ArrayList<Line.Info>();
+		List<Line.Info>	targetLineInfos = new ArrayList<>();
 		Line.Info	targetLineInfo = new DataLine.Info(
 			TargetDataLine.class,
 			targetFormats.toArray(EMPTY_AUDIOFORMAT_ARRAY),
