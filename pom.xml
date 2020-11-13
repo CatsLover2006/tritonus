@@ -3,7 +3,7 @@
 
   <groupId>org.tritonus</groupId>
   <artifactId>tritonus</artifactId>
-  <version>0.3.8</version>
+  <version>0.3.9</version>
   <packaging>pom</packaging>
 
   <name>Tritonus Parent Module</name>
@@ -24,9 +24,10 @@
     <module>tritonus-pvorbis</module>
     <module>tritonus-cdda</module>
     <module>tritonus-fluidsynth</module>
-<!--
     <module>tritonus-src</module>
     <module>tritonus-aos</module>
+<!--
+    <module>tritonus-timidity</module>
 -->
     <module>tritonus-saol</module>
   </modules>

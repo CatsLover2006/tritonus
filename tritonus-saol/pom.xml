@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.8-SNAPSHOT</version>
+    <version>0.3.9</version>
   </parent>
   <artifactId>tritonus-saol</artifactId>
   <packaging>jar</packaging>
@@ -24,9 +24,6 @@
           <source>1.8</source>
           <target>1.8</target>
           <generatedSourcesDirectory>${gensource.dir}/sablecc</generatedSourcesDirectory>
-          <testExcludes>
-            <testExclude>saint.java</testExclude>
-          </testExcludes>
         </configuration>
       </plugin>
 
@@ -43,9 +40,9 @@
         </dependencies>
         <executions>
           <execution>
-            <id>complex grammar</id>
+            <id>saol grammar</id>
             <configuration>
-              <grammar>src/main/sablecc/saol.grammar</grammar>
+              <grammar>${project.basedir}/src/main/sablecc/saol.grammar</grammar>
               <destination>${gensource.dir}/sablecc</destination>
             </configuration>
             <goals>
@@ -68,18 +65,6 @@
       <groupId>org.apache.bcel</groupId>
       <artifactId>bcel</artifactId>
       <version>6.3.1</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.media</groupId>
-      <artifactId>jmf</artifactId>
-      <version>2.1.1e</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>gnu.getopt</groupId>
-      <artifactId>java-getopt</artifactId>
-      <version>1.0.13</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 
