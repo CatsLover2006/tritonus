@@ -54,9 +54,9 @@ public class FIR implements Filter {
 
 	/**
 	 * Constructor with filter coefficients.
-	 * 
-	 * @param afCoefficients
-	 *            The array of filter coefficients
+	 *
+     * @param filterDescription
+     *            filter description containing the new coefficients
 	 */
 	public FIR(FIRDirectFormFilterDescription filterDescription) {
 		float[] afCoefficients = filterDescription.getCoefficients();
@@ -69,13 +69,13 @@ public class FIR implements Filter {
 
 	/**
 	 * Change filter coefficients on the fly.
-	 * 
+	 *
 	 * <p>
 	 * Note that this method does not allow to change the order of the filter
 	 * (by passing a different number of filter coefficients) from the value set
 	 * in the constructor.
 	 * </p>
-	 * 
+	 *
 	 * @param filterDescription
 	 *            filter description containing the new coefficients
 	 * @throws IllegalArgumentException
@@ -116,7 +116,7 @@ public class FIR implements Filter {
 	 * of the filter. Commonly, the 'order' of a FIR filter is said to be the
 	 * number of coefficients minus 1: Since a single coefficient is only an
 	 * amplifier/attenuator, this is considered order zero.
-	 * 
+	 *
 	 * @return The length of the filter (the number of coefficients).
 	 */
 	public int getLength() {

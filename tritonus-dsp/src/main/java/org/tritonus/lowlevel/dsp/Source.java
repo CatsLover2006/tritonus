@@ -36,7 +36,7 @@ public interface Source
 		Samples are normally in the range [-1.0 .. +1.0].
 	*/
 	public float process();
-} 
+}
 
 
 

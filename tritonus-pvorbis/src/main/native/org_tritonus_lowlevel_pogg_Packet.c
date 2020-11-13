@@ -22,6 +22,7 @@
 |<---            this code is formatted to fit into 80 columns             --->|
 */
 
+#include <string.h>
 #include "common.h"
 #include "org_tritonus_lowlevel_pogg_Packet.h"
 

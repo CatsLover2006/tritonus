@@ -2,9 +2,9 @@ package org.tritonus.lowlevel.dsp.sources;
 
 /**
  * Generator for sine waveform.
- * 
+ *
  * @author Matthias Pfisterer
- * 
+ *
  * @see SawtoothGenerator
  * @see SquareGenerator
  * @see TriangleGenerator

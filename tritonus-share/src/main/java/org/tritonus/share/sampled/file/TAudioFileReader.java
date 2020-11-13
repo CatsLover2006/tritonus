@@ -333,7 +333,7 @@ extends	AudioFileReader
 		    try {
 		        inputStream.reset();
 		    } catch (IOException f) {
-		        f.printStackTrace();
+		        if (TDebug.TraceAudioFileReader) f.printStackTrace();
 		    }
 			throw e;
 		}

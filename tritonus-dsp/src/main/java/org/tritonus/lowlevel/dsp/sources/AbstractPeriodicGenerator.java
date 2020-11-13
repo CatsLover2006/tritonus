@@ -41,7 +41,7 @@ public abstract class AbstractPeriodicGenerator extends AbstractGenerator {
 
 	/**
 	 * Generates a single sample of the waveform.
-	 * 
+	 *
 	 * @param fPeriodPosition
 	 *            the relative position inside a single period of the waveform.
 	 *            The value passed is in the range [0.0, 1.0]

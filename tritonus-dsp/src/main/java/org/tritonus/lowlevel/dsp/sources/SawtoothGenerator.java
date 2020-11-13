@@ -2,9 +2,9 @@ package org.tritonus.lowlevel.dsp.sources;
 
 /**
  * Generator for sawtooth waveform.
- * 
+ *
  * @author Matthias Pfisterer
- * 
+ *
  * @see SineGenerator
  * @see SquareGenerator
  * @see TriangleGenerator

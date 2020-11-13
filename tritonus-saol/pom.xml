@@ -4,12 +4,16 @@
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.8-SNAPSHOT</version>
+    <version>0.3.9</version>
   </parent>
   <artifactId>tritonus-saol</artifactId>
   <packaging>jar</packaging>
 
-  <name>Tritonus CDDA Module</name>
+  <name>Tritonus SAOL Module</name>
+
+  <properties>
+    <gensource.dir>${project.build.directory}/generated-sources</gensource.dir>
+  </properties>
 
   <build>
     <plugins>
@@ -19,8 +23,35 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <generatedSourcesDirectory>${gensource.dir}/sablecc</generatedSourcesDirectory>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>com.github.verylazyboy</groupId>
+        <artifactId>sablecc-maven-plugin</artifactId>
+        <version>2.0-beta.2</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.github.verylazyboy</groupId>
+            <artifactId>sablecc-maven-port</artifactId>
+            <version>3.7</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>saol grammar</id>
+            <configuration>
+              <grammar>${project.basedir}/src/main/sablecc/saol.grammar</grammar>
+              <destination>${gensource.dir}/sablecc</destination>
+            </configuration>
+            <goals>
+              <goal>sablecc</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -28,24 +59,11 @@
     <dependency>
       <groupId>org.tritonus</groupId>
       <artifactId>tritonus-remaining</artifactId>
-      <version>0.3.8-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.apache.bcel</groupId>
       <artifactId>bcel</artifactId>
       <version>6.3.1</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.media</groupId>
-      <artifactId>jmf</artifactId>
-      <version>2.1.1e</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>gnu.getopt</groupId>
-      <artifactId>java-getopt</artifactId>
-      <version>1.0.13</version>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 

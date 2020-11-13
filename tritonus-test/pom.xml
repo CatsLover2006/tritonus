@@ -4,15 +4,14 @@
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.9</version>
+    <version>0.3.9-SNAPSHOT</version>
   </parent>
-  <artifactId>tritonus-aos</artifactId>
+  <artifactId>tritonus-test</artifactId>
   <packaging>jar</packaging>
 
-  <name>Tritonus AudioOutputStream Module</name>
+  <name>Tritonus Test Module</name>
 
   <build>
-    <sourceDirectory>../tritonus-remaining/src/main/java</sourceDirectory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -20,10 +19,6 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
-          <includes>
-            <include>org/tritonus/sampled/file/*AudioOutputStream.java</include>
-            <include>org/tritonus/sampled/file/*Tool..java</include>
-          </includes>
         </configuration>
       </plugin>
     </plugins>
@@ -32,7 +27,20 @@
   <dependencies>
     <dependency>
       <groupId>org.tritonus</groupId>
-      <artifactId>tritonus-share</artifactId>
+      <artifactId>tritonus-remaining</artifactId>
+      <version>0.3.8-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.media</groupId>
+      <artifactId>jmf</artifactId>
+      <version>2.1.1e</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>gnu.getopt</groupId>
+      <artifactId>java-getopt</artifactId>
+      <version>1.0.13</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

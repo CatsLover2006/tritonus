@@ -278,11 +278,11 @@ extends DepthFirstAdapter
 	}
 
 
-	public void outATableStype(ATableStype node)
-	{
-		NodeSemantics	nodeSemantics = new NodeSemantics(WidthAndRate.WIDTH_UNKNOWN, WidthAndRate.RATE_TABLE);
-		setNodeSemantics(node, nodeSemantics);
-	}
+//	public void outATableStype(ATableStype node)
+//	{
+//		NodeSemantics	nodeSemantics = new NodeSemantics(WidthAndRate.WIDTH_UNKNOWN, WidthAndRate.RATE_TABLE);
+//		setNodeSemantics(node, nodeSemantics);
+//	}
 
 
 	public void outAOparrayStype(AOparrayStype node)
@@ -292,18 +292,18 @@ extends DepthFirstAdapter
 	}
 
 
-	public void outAXsigOtype(AXsigOtype node)
+	public void outAXsigStype(AXsigStype node)
 	{
 		NodeSemantics	nodeSemantics = new NodeSemantics(WidthAndRate.WIDTH_UNKNOWN, WidthAndRate.RATE_X);
 		setNodeSemantics(node, nodeSemantics);
 	}
 
 
-	public void outAStypeOtype(AStypeOtype node)
-	{
-		NodeSemantics	nodeSemantics = getNodeSemantics(node.getStype());
-		setNodeSemantics(node, nodeSemantics);
-	}
+//	public void outAStypeOtype(AStypeOtype node)
+//	{
+//		NodeSemantics	nodeSemantics = getNodeSemantics(node.getStype());
+//		setNodeSemantics(node, nodeSemantics);
+//	}
 
 
 

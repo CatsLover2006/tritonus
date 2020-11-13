@@ -26,6 +26,7 @@
 #include "common/debug.h"
 #include "common/HandleFieldHandler.h"
 #include <vorbis/codec.h>
+#include <vorbis/vorbisenc.h>
 #include <stdlib.h>
 #include "org_tritonus_lowlevel_vorbis_Info.h"
 

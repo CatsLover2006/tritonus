@@ -109,9 +109,9 @@ extends TMixer
 			      GlobalInfo.getVersion()),
 		      new Line.Info(Mixer.class));
 		if (TDebug.TraceMixer) { TDebug.out("AlsaPortMixer.<init>: begin"); }
-		m_mixerElements = new ArrayList<AlsaMixerElement>();
-		m_mixerElementMap = new HashMap<Port.Info, AlsaMixerElement>();
-		m_portMap = new HashMap<Port.Info, Port>();
+		m_mixerElements = new ArrayList<>();
+		m_mixerElementMap = new HashMap<>();
+		m_portMap = new HashMap<>();
 		AlsaMixer	alsaMixer = null;
 		try
 		{
@@ -138,8 +138,8 @@ extends TMixer
 			if (TDebug.TraceMixer) { TDebug.out("AlsaPortMixer.<init>: increasing array size for AlsaMixer.readControlList(): now " + nArraySize * 2); }
 			nArraySize *= 2;
 		}
-		List<Line.Info>	sourcePortInfos = new ArrayList<Line.Info>();
-		List<Line.Info>	targetPortInfos = new ArrayList<Line.Info>();
+		List<Line.Info>	sourcePortInfos = new ArrayList<>();
+		List<Line.Info>	targetPortInfos = new ArrayList<>();
 		for (int i = 0; i < nControlCount; i++)
 		{
 			if (TDebug.TraceMixer) { TDebug.out("AlsaPortMixer.<init>(): control " + i + ": " + anIndices[i] + " " + astrNames[i]); }
@@ -286,7 +286,7 @@ extends TMixer
 		{
 			//nDirection = DIRECTION_CAPTURE;
 			// controls = createTargetPortControls(element);
-			controls = new ArrayList<Control>();
+			controls = new ArrayList<>();
 		}
 		Port	port = new TPort(this, info, controls);
 		if (TDebug.TraceMixer) { TDebug.out("AlsaPortMixer.createPort(): end"); }
@@ -299,7 +299,7 @@ extends TMixer
 	private List<Control> createSourcePortControls(AlsaMixerElement element)
 	{
 		int	nDirection = DIRECTION_PLAYBACK;
-		List<Control>	controls = new ArrayList<Control>();
+		List<Control>	controls = new ArrayList<>();
 		Control	c;
 		if (element.hasPlaybackVolume() ||
 		    element.hasCommonVolume())
@@ -312,7 +312,7 @@ extends TMixer
 			}
 			else
 			{
-				List<Control>	volumeControls = new ArrayList<Control>();
+				List<Control>	volumeControls = new ArrayList<>();
 				for (int nChannel = AlsaMixerElement.SND_MIXER_SCHN_FRONT_LEFT; nChannel < AlsaMixerElement.SND_MIXER_SCHN_LAST; nChannel++)
 				{
 					if (element.hasPlaybackChannel(nChannel))
@@ -343,7 +343,7 @@ extends TMixer
 			}
 			else
 			{
-				List<Control>	volumeControls = new ArrayList<Control>();
+				List<Control>	volumeControls = new ArrayList<>();
 				for (int nChannel = AlsaMixerElement.SND_MIXER_SCHN_FRONT_LEFT; nChannel < AlsaMixerElement.SND_MIXER_SCHN_LAST; nChannel++)
 				{
 					if (element.hasPlaybackChannel(nChannel))

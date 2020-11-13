@@ -99,8 +99,8 @@ implements Mixer
 			supportedTargetFormats,
 			supportedSourceLineInfos,
 			supportedTargetLineInfos);
-		m_openSourceDataLines = new ArraySet<SourceDataLine>();
-		m_openTargetDataLines = new ArraySet<TargetDataLine>();
+		m_openSourceDataLines = new ArraySet<>();
+		m_openTargetDataLines = new ArraySet<>();
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.<init>(): end"); }
 	}
 
@@ -134,7 +134,7 @@ implements Mixer
 	public Line.Info[] getSourceLineInfo()
 	{
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.getSourceLineInfo(): begin"); }
-		Line.Info[]	infos = (Line.Info[]) m_supportedSourceLineInfos.toArray(EMPTY_LINE_INFO_ARRAY);
+		Line.Info[]	infos = m_supportedSourceLineInfos.toArray(EMPTY_LINE_INFO_ARRAY);
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.getSourceLineInfo(): end"); }
 		return infos;
 	}
@@ -144,7 +144,7 @@ implements Mixer
 	public Line.Info[] getTargetLineInfo()
 	{
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.getTargetLineInfo(): begin"); }
-		Line.Info[]	infos = (Line.Info[]) m_supportedTargetLineInfos.toArray(EMPTY_LINE_INFO_ARRAY);
+		Line.Info[]	infos = m_supportedTargetLineInfos.toArray(EMPTY_LINE_INFO_ARRAY);
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.getTargetLineInfo(): end"); }
 		return infos;
 	}
@@ -172,7 +172,7 @@ implements Mixer
 	public boolean isLineSupported(Line.Info info)
 	{
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.isLineSupported(): info to test: " + info); }
-		Class	lineClass = info.getLineClass();
+		Class<?>	lineClass = info.getLineClass();
 		if (lineClass.equals(SourceDataLine.class))
 		{
 			return isLineSupportedImpl(info, m_supportedSourceLineInfos);
@@ -193,12 +193,12 @@ implements Mixer
 
 
 
-	private static boolean isLineSupportedImpl(Line.Info info, Collection supportedLineInfos)
+	private static boolean isLineSupportedImpl(Line.Info info, Collection<Line.Info> supportedLineInfos)
 	{
-		Iterator	iterator = supportedLineInfos.iterator();
+		Iterator<Line.Info>	iterator = supportedLineInfos.iterator();
 		while (iterator.hasNext())
 		{
-			Line.Info	info2 = (Line.Info) iterator.next();
+			Line.Info	info2 = iterator.next();
 			if (info2.matches(info))
 			{
 				return true;
@@ -213,7 +213,7 @@ implements Mixer
 		throws LineUnavailableException
 	{
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.getLine(): begin"); }
-		Class		lineClass = info.getLineClass();
+		Class<?>		lineClass = info.getLineClass();
 		DataLine.Info	dataLineInfo = null;
 		Port.Info	portInfo = null;
 		AudioFormat[]	aFormats = null;
@@ -386,7 +386,7 @@ implements Mixer
 	public Line[] getSourceLines()
 	{
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.getSourceLines(): called"); }
-		return (Line[]) m_openSourceDataLines.toArray(EMPTY_LINE_ARRAY);
+		return m_openSourceDataLines.toArray(EMPTY_LINE_ARRAY);
 	}
 
 
@@ -394,7 +394,7 @@ implements Mixer
 	public Line[] getTargetLines()
 	{
 		if (TDebug.TraceMixer) { TDebug.out("TMixer.getTargetLines(): called"); }
-		return (Line[]) m_openTargetDataLines.toArray(EMPTY_LINE_ARRAY);
+		return m_openTargetDataLines.toArray(EMPTY_LINE_ARRAY);
 	}
 
 
@@ -402,14 +402,14 @@ implements Mixer
 	public void synchronize(Line[] aLines,
 				boolean bMaintainSync)
 	{
-		throw new IllegalArgumentException("synchronization not supported");
+		throw new UnsupportedOperationException("synchronization not supported");
 	}
 
 
 
 	public void unsynchronize(Line[] aLines)
 	{
-		throw new IllegalArgumentException("synchronization not supported");
+		throw new UnsupportedOperationException("synchronization not supported");
 	}
 
 
@@ -485,14 +485,14 @@ implements Mixer
 		{
 			synchronized (m_openSourceDataLines)
 			{
-				m_openSourceDataLines.remove((SourceDataLine) line);
+				m_openSourceDataLines.remove(line);
 			}
 		}
 		else if (line instanceof TargetDataLine)
 		{
 			synchronized (m_openTargetDataLines)
 			{
-				m_openTargetDataLines.remove((TargetDataLine) line);
+				m_openTargetDataLines.remove(line);
 			}
 		}
 	}

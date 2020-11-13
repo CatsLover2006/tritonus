@@ -3,7 +3,7 @@
 
   <groupId>org.tritonus</groupId>
   <artifactId>tritonus</artifactId>
-  <version>0.3.8</version>
+  <version>0.3.9</version>
   <packaging>pom</packaging>
 
   <name>Tritonus Parent Module</name>
@@ -24,12 +24,75 @@
     <module>tritonus-pvorbis</module>
     <module>tritonus-cdda</module>
     <module>tritonus-fluidsynth</module>
-<!--
     <module>tritonus-src</module>
     <module>tritonus-aos</module>
-
-    <module>tritonus-saol</module>
+<!--
+    <module>tritonus-timidity</module>
 -->
+    <module>tritonus-saol</module>
   </modules>
 
+  <distributionManagement>
+    <repository>
+      <id>bintray</id>
+      <name>umjammer-maven</name>
+      <url>https://api.bintray.com/maven/umjammer/maven/tritonus/;publish=1</url>
+    </repository>
+  </distributionManagement>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.tritonus</groupId>
+        <artifactId>tritonus-share</artifactId>
+        <version>0.3.9</version>
+      </dependency>
+      <dependency>
+        <groupId>org.tritonus</groupId>
+        <artifactId>tritonus-remaining</artifactId>
+        <version>0.3.9</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.3.0</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.3.0</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.tritonus</groupId>
+        <artifactId>tritonus-midishare</artifactId>
+        <version>0.3.9</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.tritonus</groupId>
+        <artifactId>tritonus-share</artifactId>
+        <version>0.3.9</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.tritonus</groupId>
+        <artifactId>tritonus-remaining</artifactId>
+        <version>0.3.9</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.tritonus</groupId>
+        <artifactId>tritonus-midishare</artifactId>
+        <version>0.3.9</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

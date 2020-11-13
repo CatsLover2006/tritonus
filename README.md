@@ -1,4 +1,4 @@
-[![Release](https://jitpack.io/v/umjammer/tritonus.svg)](https://jitpack.io/#umjammer/tritonus) [![Parent](https://img.shields.io/badge/Parent-vavi--sound--sandbox-pink)](https://github.com/umjammer/vavi-sound-sandbox)
+[![Download](https://api.bintray.com/packages/umjammer/maven/tritonus/images/download.svg)](https://bintray.com/umjammer/maven/tritonus/_latestVersion) [![Maven Package](https://github.com/umjammer/tritonus/workflows/Maven%20Package/badge.svg)](https://github.com/umjammer/tritonus/actions) [![Parent](https://img.shields.io/badge/Parent-vavi--sound--sandbox-pink)](https://github.com/umjammer/vavi-sound-sandbox)
 
 # tritonus
 
@@ -19,34 +19,37 @@ http://www.tritonus.org/plugins.html
 | javasequencer | ✅    |         | |
 | jorbis        | ✅    |         | |
 | midishare     | ✅    |         | |
-| mp3           | ✅    |         | |
+| mp3           | ✅    |         | brew:lame |
 | esd           | 🚫    | linux only | libesd |
 | alsa          | 🚫    | linux only | libasound |
-| vorbis        | ✅    |         | |
-| pvorbis       | 🚧    | test | |
+| vorbis        | ✅    |         | | brew:libvorbis |
+| pvorbis       | 🚧    | test | this |
 | cdda          | 🚫    | linux only | libcdda_interface libcdda_paranoia |
-| fluidsynth    | ✅    |         | liblfluidsynth |
-| src           | 🚫    |         | |
-| aos           | 🚫    |         | |
-| saol          | 🚫    |         | |
+| fluidsynth    | ✅    |         | brew:fluid-synth |
+| src           | ✅    |         | |
+| aos           | ✅    |         | |
+| saol          | 🚧    |         | |
+| test          | 🚧    |         | |
 | timidity      | 🚧    |         | [libtimidity](https://github.com/sezero/libtimidity) |
 
 
 ## License
+
 Tritonus is distributed under the terms of the Apache License,
 Version 2.0. See the file LICENSE for details.
 
 ### License Exceptions
+
 - the low level GSM code (package org.tritonus.lowlevel.gsm)
   is licensed under the GNU GPL
 - BladeMP3EncDLL.h for Windows is licensed under the GNU LGPL.
 - the pvorbis lib is licensed under a BSD style license
 
 ## Installation
-For installation instructions, see the file INSTALL.
 
-For new features and bug fixes, see file NEWS
-You may also have a look at the Tritonus page:
-http://www.tritonus.org/
+https://bintray.com/umjammer/maven/tritonus
 
-Have fun!
+## TODO
+
+ * ~~deploy to bintray via github actions~~
+ * timidity
