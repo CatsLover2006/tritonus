@@ -19,3 +19,4 @@ eclipse_build.xml
 .cvsignore
 /bin/
 /tmp/
+target/

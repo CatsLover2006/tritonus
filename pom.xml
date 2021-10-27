@@ -3,7 +3,7 @@
 
   <groupId>org.tritonus</groupId>
   <artifactId>tritonus</artifactId>
-  <version>0.3.9</version>
+  <version>0.3.10</version>
   <packaging>pom</packaging>
 
   <name>Tritonus Parent Module</name>
@@ -34,9 +34,9 @@
 
   <distributionManagement>
     <repository>
-      <id>bintray</id>
-      <name>umjammer-maven</name>
-      <url>https://api.bintray.com/maven/umjammer/maven/tritonus/;publish=1</url>
+      <id>github</id>
+      <name>GitHub umjammer Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/umjammer/tritonus</url>
     </repository>
   </distributionManagement>
 
@@ -45,12 +45,12 @@
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-share</artifactId>
-        <version>0.3.9</version>
+        <version>0.3.10</version>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-remaining</artifactId>
-        <version>0.3.9</version>
+        <version>0.3.10</version>
       </dependency>
 
       <dependency>
@@ -69,27 +69,27 @@
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-midishare</artifactId>
-        <version>0.3.9</version>
+        <version>0.3.10</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-share</artifactId>
-        <version>0.3.9</version>
+        <version>0.3.10</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-remaining</artifactId>
-        <version>0.3.9</version>
+        <version>0.3.10</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-midishare</artifactId>
-        <version>0.3.9</version>
+        <version>0.3.10</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>

@@ -1,4 +1,4 @@
-[![Download](https://api.bintray.com/packages/umjammer/maven/tritonus/images/download.svg)](https://bintray.com/umjammer/maven/tritonus/_latestVersion) [![Maven Package](https://github.com/umjammer/tritonus/workflows/Maven%20Package/badge.svg)](https://github.com/umjammer/tritonus/actions) [![Parent](https://img.shields.io/badge/Parent-vavi--sound--sandbox-pink)](https://github.com/umjammer/vavi-sound-sandbox)
+[![GitHub Packages](https://github.com/umjammer/tritonus/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/umjammer/tritonus/actions/workflows/maven-publish.yml) [![Java CI](https://github.com/umjammer/tritonus/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/tritonus/actions) [![Parent](https://img.shields.io/badge/Parent-vavi--sound--sandbox-pink)](https://github.com/umjammer/vavi-sound-sandbox)
 
 # tritonus
 
