@@ -47,7 +47,7 @@ Version 2.0. See the file LICENSE for details.
 
 ## Installation
 
-https://bintray.com/umjammer/maven/tritonus
+https://github.com/umjammer/tritonus/packages
 
 ## TODO
 

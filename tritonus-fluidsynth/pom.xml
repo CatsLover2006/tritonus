@@ -119,7 +119,7 @@
                     <argument>-Dpackaging=dylib</argument>
                     <argument>-Dfile=${project.build.directory}/libtritonusfluid.dylib</argument>
                     <argument>-DgeneratePom=false</argument>
-                    <argument>-DrepositoryId=bintray</argument>
+                    <argument>-DrepositoryId=github</argument>
                     <argument>-Durl=https://maven.pkg.github.com/umjammer/tritonus</argument>
                     <argument>-DgeneratePom=false</argument>
                     <argument>-s</argument>
