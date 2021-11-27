@@ -288,17 +288,22 @@ JNIEXPORT jint JNICALL Java_org_tritonus_lowlevel_lame_Lame_nEncodeFinish
 #endif
 	conf=getNativeGlobalFlags(env, obj);
 	if (conf!=NULL) {
-		jsize charBufferSize=(*env)->GetArrayLength(env, buffer);
-		char* charBuffer=NULL;
-		if (charBufferSize>0) {
-			charBuffer=(*env)->GetByteArrayElements(env, buffer, NULL);
+        char* charBuffer=NULL;
+        jsize charBufferSize=0;
+        if (buffer != 0) {
+		    charBufferSize=(*env)->GetArrayLength(env, buffer);
+		    if (charBufferSize>0) {
+			    charBuffer=(*env)->GetByteArrayElements(env, buffer, NULL);
+		    }
+            result=doEncodeFinish(conf, charBuffer, charBufferSize);
 		}
-		result=doEncodeFinish(conf, charBuffer, charBufferSize);
 		doClose(conf);
 #ifdef _DEBUG
 		printf("   %d bytes returned\n", (int) result);
 #endif
-		(*env)->ReleaseByteArrayElements(env, buffer, charBuffer, 0);
+        if (buffer != 0) {
+		    (*env)->ReleaseByteArrayElements(env, buffer, charBuffer, 0);
+		}
 		setNativeGlobalFlags(env, obj, 0);
 		free(conf);
 	}
