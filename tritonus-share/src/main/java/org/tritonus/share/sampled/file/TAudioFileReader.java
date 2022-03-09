@@ -322,6 +322,7 @@ extends	AudioFileReader
 		AudioInputStream	audioInputStream = null;
 		if (!inputStream.markSupported()) {
 			inputStream = new BufferedInputStream(inputStream, getMarkLimit());
+TDebug.out("wrapped: " + inputStream.getClass().getName() + ", " + getMarkLimit());
 		}
 		inputStream.mark(getMarkLimit());
 		try
