@@ -17,6 +17,6 @@ aclocal.m4
 .settings
 eclipse_build.xml
 .cvsignore
-/bin/
-/tmp/
+tmp/
 target/
+local.properties
