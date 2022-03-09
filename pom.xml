@@ -3,7 +3,7 @@
 
   <groupId>org.tritonus</groupId>
   <artifactId>tritonus</artifactId>
-  <version>0.3.10</version>
+  <version>0.3.11</version>
   <packaging>pom</packaging>
 
   <name>Tritonus Parent Module</name>
@@ -45,12 +45,12 @@
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-share</artifactId>
-        <version>0.3.10</version>
+        <version>0.3.11</version>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-remaining</artifactId>
-        <version>0.3.10</version>
+        <version>0.3.11</version>
       </dependency>
 
       <dependency>
@@ -64,27 +64,27 @@
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-midishare</artifactId>
-        <version>0.3.10</version>
+        <version>0.3.11</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-share</artifactId>
-        <version>0.3.10</version>
+        <version>0.3.11</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-remaining</artifactId>
-        <version>0.3.10</version>
+        <version>0.3.11</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-midishare</artifactId>
-        <version>0.3.10</version>
+        <version>0.3.11</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
