@@ -1,4 +1,7 @@
-[![GitHub Packages](https://github.com/umjammer/tritonus/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/umjammer/tritonus/actions/workflows/maven-publish.yml) [![Java CI](https://github.com/umjammer/tritonus/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/tritonus/actions) [![Parent](https://img.shields.io/badge/Parent-vavi--sound--sandbox-pink)](https://github.com/umjammer/vavi-sound-sandbox)
+[![GitHub Packages](https://github.com/umjammer/tritonus/actions/workflows/maven-publish.yml/badge.svg)](https://github.com/umjammer/tritonus/actions/workflows/maven-publish.yml)
+[![Java CI](https://github.com/umjammer/tritonus/actions/workflows/maven.yml/badge.svg)](https://github.com/umjammer/tritonus/actions)
+[![Parent](https://img.shields.io/badge/Parent-vavi--sound--sandbox-pink)](https://github.com/umjammer/vavi-sound-sandbox)
+![Java](https://img.shields.io/badge/Java-8-b07219)
 
 # tritonus
 
