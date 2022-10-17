@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.11</version>
+    <version>0.3.12-SNAPSHOT</version>
   </parent>
 
   <artifactId>tritonus-alsa</artifactId>
@@ -64,9 +64,9 @@
                 <compilerStartOption>-g -Wall -O2 -fomit-frame-pointer -fPIC</compilerStartOption>
                 <!-- unless locating jdk includes, cause error why??? -->
                 <compilerStartOption>
-                      -I${java.home}/../include
-                      -I${java.home}/../include/darwin
-                      -I/usr/local/include/libasound
+                  -I${java.home}/../include
+                  -I${java.home}/../include/darwin
+                  -I/usr/local/include/libasound
                 </compilerStartOption>
               </compilerStartOptions>
               <sources>
@@ -74,25 +74,25 @@
                   <directory>src/main/native</directory>
                   <fileNames>
                     <fileName>init.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_Alsa.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaCtl.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaCtlCardInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaMixer.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaMixerElement.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcm.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParams.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParamsFormatMask.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcmSWParams.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeq.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqClientInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqEvent.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortSubscribe.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueStatus.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueTempo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqRemoveEvents.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqSystemInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_Alsa.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaCtl.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaCtlCardInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaMixer.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaMixerElement.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcm.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParams.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParamsFormatMask.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcmSWParams.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeq.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqClientInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqEvent.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortSubscribe.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueStatus.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueTempo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqRemoveEvents.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqSystemInfo.c</fileName>
                   </fileNames>
                 </source>
               </sources>

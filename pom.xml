@@ -4,7 +4,7 @@
 
   <groupId>org.tritonus</groupId>
   <artifactId>tritonus</artifactId>
-  <version>0.3.11</version>
+  <version>0.3.12-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Tritonus Parent Module</name>
@@ -27,9 +27,9 @@
     <module>tritonus-fluidsynth</module>
     <module>tritonus-src</module>
     <module>tritonus-aos</module>
-<!--
-    <module>tritonus-timidity</module>
--->
+    <!--
+        <module>tritonus-timidity</module>
+    -->
     <module>tritonus-saol</module>
   </modules>
 
@@ -46,12 +46,12 @@
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-share</artifactId>
-        <version>0.3.11</version>
+        <version>0.3.12-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-remaining</artifactId>
-        <version>0.3.11</version>
+        <version>0.3.12-SNAPSHOT</version>
       </dependency>
 
       <dependency>
@@ -65,27 +65,27 @@
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-midishare</artifactId>
-        <version>0.3.11</version>
+        <version>0.3.12-SNAPSHOT</version>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-share</artifactId>
-        <version>0.3.11</version>
+        <version>0.3.12-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-remaining</artifactId>
-        <version>0.3.11</version>
+        <version>0.3.12-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
       <dependency>
         <groupId>org.tritonus</groupId>
         <artifactId>tritonus-midishare</artifactId>
-        <version>0.3.11</version>
+        <version>0.3.12-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>

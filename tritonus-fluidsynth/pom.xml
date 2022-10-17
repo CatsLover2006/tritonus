@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.11</version>
+    <version>0.3.12-SNAPSHOT</version>
   </parent>
 
   <artifactId>tritonus-fluidsynth</artifactId>
@@ -44,9 +44,9 @@
                 <compilerStartOption>-g -Wall -O2 -fomit-frame-pointer -fPIC</compilerStartOption>
                 <!-- unless locating jdk includes, cause error why??? -->
                 <compilerStartOption>-arch x86_64
-                      -I${java.home}/../include
-                      -I${java.home}/../include/darwin
-                      -I /usr/local/include
+                  -I${java.home}/../include
+                  -I${java.home}/../include/darwin
+                  -I /usr/local/include
                 </compilerStartOption>
               </compilerStartOptions>
               <sources>
