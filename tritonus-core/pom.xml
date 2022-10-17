@@ -39,6 +39,7 @@
               <testExcludes>
                 <testExclude>org/tritonus/debug/AJDebug.java</testExclude>
                 <testExclude>org/tritonus/debug/AJDebugVorbis.java</testExclude>
+                <testExclude>org/tritonus/debug/AJ*.java</testExclude>
               </testExcludes>
             </configuration>
             <goals>
