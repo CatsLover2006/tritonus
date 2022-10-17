@@ -16,4 +16,4 @@ jobs:
       - name: Build with Maven
         run: |
           brew install lame fluid-synth libvorbis
-          mvn -B package --file pom.xml
+          mvn -B install --file pom.xml
