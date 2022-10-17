@@ -661,7 +661,7 @@ public class SampleRateConversionProvider extends
 						} else if (iInIndex < 0) {
 							int histIndex = iInIndex + historyLength;
 							if (histIndex >= 0) {
-								value += history[histIndex] * factor;
+                                value += (float) (history[histIndex] * factor);
 								if (DEBUG_STREAM) {
 									TDebug.out("linear interpolation: using history["
 											+ iInIndex + "]");
