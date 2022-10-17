@@ -1,5 +1,5 @@
 /*
- *	ImaAdpcmFormatConversionProviderTestCase.java
+ * ImaAdpcmFormatConversionProviderTestCase.java
  */
 
 /*
@@ -21,16 +21,12 @@
 package org.tritonus.test;
 
 
-
 public class ImaAdpcmFormatConversionProviderTestCase
-extends BaseFormatConversionProviderTestCase
-{
-	public ImaAdpcmFormatConversionProviderTestCase()
-	{
-		setResourcePrefix("imaadpcm");
-	}
+        extends BaseFormatConversionProviderTestCase {
+    public ImaAdpcmFormatConversionProviderTestCase() {
+        setResourcePrefix("imaadpcm");
+    }
 }
 
 
-
-/*** ImaAdpcmFormatConversionProviderTestCase.java ***/
+/* ImaAdpcmFormatConversionProviderTestCase.java */

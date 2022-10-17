@@ -1,4 +1,4 @@
-//    $Id$	
+//    $Id$
 
 //    This file is part of the GSM 6.10 audio decoder library for Java
 //    Copyright (C) 1998 Steven Pickles (pix@test.at)
@@ -24,8 +24,7 @@
 
 package org.tritonus.lowlevel.gsm;
 
-public class InvalidGSMFrameException extends Exception
-{
+public class InvalidGSMFrameException extends Exception {
 }
 
-/*** InvalidGSMFrameException.java ***/
+/* InvalidGSMFrameException.java */

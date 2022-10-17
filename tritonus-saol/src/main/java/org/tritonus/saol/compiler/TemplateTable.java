@@ -1,10 +1,4 @@
 /*
- *	TemplateTable.java
- *
- *	This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  *  Copyright (c) 2002 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,47 +14,36 @@
  *   limitations under the License.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.saol.compiler;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-
-/**	The template table.
-	TODO: use generics
+/**
+ * The template table.
+ * TODO: use generics
  */
-public class TemplateTable
-{
-	/**	Map that holds the template entries.
-		Key: the name of the template.
-		Value: a TemplateEntry instance.
-	*/
-	private Map		m_templateMap;
+public class TemplateTable {
 
+    /**
+     * Map that holds the template entries.
+     * Key: the name of the template.
+     * Value: a TemplateEntry instance.
+     */
+    private Map<String, TemplateEntry> m_templateMap;
 
-	public TemplateTable()
-	{
-		m_templateMap = new HashMap();
-	}
+    public TemplateTable() {
+        m_templateMap = new HashMap<>();
+    }
 
+    public void add(TemplateEntry templateEntry) {
+        m_templateMap.put(templateEntry.getTemplateName(), templateEntry);
+    }
 
-	public void add(TemplateEntry templateEntry)
-	{
-		m_templateMap.put(templateEntry.getTemplateName(), templateEntry);
-	}
-
-
-	public TemplateEntry get(String strTemplateName)
-	{
-		return (TemplateEntry) m_templateMap.get(strTemplateName);
-	}
+    public TemplateEntry get(String strTemplateName) {
+        return m_templateMap.get(strTemplateName);
+    }
 }
 
-
-
-/*** TemplateTable.java ***/
+/* TemplateTable.java */

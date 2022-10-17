@@ -1,7 +1,7 @@
 /*
- *	AlsaSeqClientInfo.java
+ * AlsaSeqClientInfo.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -30,86 +30,81 @@ package org.tritonus.lowlevel.alsa;
 import org.tritonus.share.TDebug;
 
 
-
-public class AlsaSeqClientInfo
-{
-	static
-	{
-		Alsa.loadNativeLibrary();
-		if (TDebug.TraceAlsaSeqNative)
-		{
-			setTrace(true);
-		}
-	}
+public class AlsaSeqClientInfo {
+    static {
+        Alsa.loadNativeLibrary();
+        if (TDebug.TraceAlsaSeqNative) {
+            setTrace(true);
+        }
+    }
 
 
-
-	/**
-	 *	Holds the pointer to snd_seq_port_info_t
-	 *	for the native code.
-	 *	This must be long to be 64bit-clean.
-	 */
-	/*private*/ long	m_lNativeHandle;
-
+    /**
+     * Holds the pointer to snd_seq_port_info_t
+     * for the native code.
+     * This must be long to be 64bit-clean.
+     */
+    /*private*/ long m_lNativeHandle;
 
 
-	public AlsaSeqClientInfo()
-	{
-		if (TDebug.TraceAlsaSeqNative) { TDebug.out("AlsaSeq.ClientInfo.<init>(): begin"); }
-		int	nReturn = malloc();
-		if (TDebug.TraceAlsaSeqNative) { TDebug.out("AlsaSeq.ClientInfo.<init>(): malloc() returns: " + nReturn); }
-		if (nReturn < 0)
-		{
-			throw new RuntimeException("malloc of client_info failed");
-		}
-		if (TDebug.TraceAlsaSeqNative) { TDebug.out("AlsaSeq.ClientInfo.<init>(): end"); }
-	}
+    public AlsaSeqClientInfo() {
+        if (TDebug.TraceAlsaSeqNative) {
+            TDebug.out("AlsaSeq.ClientInfo.<init>(): begin");
+        }
+        int nReturn = malloc();
+        if (TDebug.TraceAlsaSeqNative) {
+            TDebug.out("AlsaSeq.ClientInfo.<init>(): malloc() returns: " + nReturn);
+        }
+        if (nReturn < 0) {
+            throw new RuntimeException("malloc of client_info failed");
+        }
+        if (TDebug.TraceAlsaSeqNative) {
+            TDebug.out("AlsaSeq.ClientInfo.<init>(): end");
+        }
+    }
 
 
-
-	public void finalize()
-	{
-		// TODO: call free()
-		// call super.finalize() first or last?
-		// and introduce a flag if free() has already been called?
-	}
+    protected void finalize() {
+        // TODO: call free()
+        // call super.finalize() first or last?
+        // and introduce a flag if free() has already been called?
+    }
 
 
+    private native int malloc();
 
-	private native int malloc();
-	public native void free();
-
-
-
-	public native int getClient();
-
-	public native int getType();
-
-	public native String getName();
-
-	public native int getBroadcastFilter();
-
-	public native int getErrorBounce();
-
-	// TODO: event filter
-
-	public native int getNumPorts();
-
-	public native int getEventLost();
+    public native void free();
 
 
-	public native void setClient(int nClient);
+    public native int getClient();
 
-	public native void setName(String strName);
+    public native int getType();
 
-	public native void setBroadcastFilter(int nBroadcastFilter);
+    public native String getName();
+
+    public native int getBroadcastFilter();
+
+    public native int getErrorBounce();
+
+    // TODO: event filter
+
+    public native int getNumPorts();
+
+    public native int getEventLost();
 
 
-	public native void setErrorBounce(int nErrorBounce);
+    public native void setClient(int nClient);
 
-	private static native void setTrace(boolean bTrace);
-	// TODO: event filter
+    public native void setName(String strName);
+
+    public native void setBroadcastFilter(int nBroadcastFilter);
+
+
+    public native void setErrorBounce(int nErrorBounce);
+
+    private static native void setTrace(boolean bTrace);
+    // TODO: event filter
 }
 
 
-/*** AlsaSeqClientInfo.java ***/
+/* AlsaSeqClientInfo.java */

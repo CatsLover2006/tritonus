@@ -36,7 +36,7 @@ import org.apache.bcel.generic.Type;
 
 /**
  * BCELTest.
- *
+ * <p>
  * Example program using the BCEL. BCEL is the Byte Code Engineering Library,
  * part of the jakarta project (http://jakarta.apache.org/bcel/).
  */
@@ -44,10 +44,10 @@ public class BCELTest {
     public static void main(String[] args) {
         String strClassName = "tone";
         ClassGen classGen = new ClassGen(strClassName,
-                                         "AbstractInstrument",
-                                         "<generated>",
-                                         Const.ACC_PUBLIC | Const.ACC_SUPER,
-                                         null);
+                "AbstractInstrument",
+                "<generated>",
+                Const.ACC_PUBLIC | Const.ACC_SUPER,
+                null);
         ConstantPoolGen constantPoolGen = classGen.getConstantPool();
         int nAInitValueIndex = constantPoolGen.addFloat(0.196307F);
         int nXInitValueIndex = constantPoolGen.addFloat(0.5F);
@@ -64,17 +64,17 @@ public class BCELTest {
         InstructionList il = new InstructionList();
         MethodGen methodGen;
         methodGen = new MethodGen(Const.ACC_PUBLIC,
-                                  Type.VOID,
-                                  new Type[] {
-                                      new ObjectType("RTSystem")
-                                  },
-                                  new String[] {
-                                      "rtSystem"
-                                  },
-                                  "doAPass",
-                                  strClassName,
-                                  il,
-                                  constantPoolGen);
+                Type.VOID,
+                new Type[] {
+                        new ObjectType("RTSystem")
+                },
+                new String[] {
+                        "rtSystem"
+                },
+                "doAPass",
+                strClassName,
+                il,
+                constantPoolGen);
 
         InstructionFactory ifac = new InstructionFactory(constantPoolGen);
         il.append(InstructionConst.ALOAD_0);
@@ -117,12 +117,12 @@ public class BCELTest {
         il.append(InstructionConst.ALOAD_0);
         il.append(ifac.createGetField(strClassName, "y", Type.FLOAT));
         il.append(ifac.createInvoke("RTSystem",
-                                    "output",
-                                    Type.VOID,
-                                    new Type[] {
-                                        Type.FLOAT
-                                    },
-                                    Const.INVOKEVIRTUAL));
+                "output",
+                Type.VOID,
+                new Type[] {
+                        Type.FLOAT
+                },
+                Const.INVOKEVIRTUAL));
         il.append(InstructionConst.RETURN);
         methodGen.setMaxStack();
         classGen.addMethod(methodGen.getMethod());

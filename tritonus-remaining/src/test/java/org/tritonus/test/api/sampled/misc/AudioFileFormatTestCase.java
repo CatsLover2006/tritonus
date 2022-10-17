@@ -1,5 +1,5 @@
 /*
- *	AudioFileFormatTestCase.java
+ * AudioFileFormatTestCase.java
  */
 
 /*
@@ -22,105 +22,81 @@ package org.tritonus.test.api.sampled.misc;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.sound.sampled.AudioFileFormat;
-/*
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioSystem;
-*/
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
-public class AudioFileFormatTestCase
-{
-    @Test
-	public void testNoMap()
-	{
-		AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0);
-		Map<String, Object> propReturn = fileFormat.properties();
-		assertNotNull(propReturn);
-		assertTrue(propReturn.isEmpty());
-		Object result = propReturn.get("bitrate");
-		assertNull(result);
-	}
-
+class AudioFileFormatTestCase {
 
     @Test
-	public void testNullMap()
-	{
-        assertThrows(NullPointerException.class, () -> {
-            new AudioFileFormat(null, null, 0, null);
+    public void testNoMap() {
+        AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertNotNull(propReturn);
+        assertTrue(propReturn.isEmpty());
+        Object result = propReturn.get("bitrate");
+        assertNull(result);
+    }
+
+    @Test
+    public void testNullMap() {
+        assertThrows(NullPointerException.class, () -> new AudioFileFormat(null, null, 0, null));
+    }
+
+    @Test
+    public void testEmptyMap() {
+        Map<String, Object> prop = new HashMap<>();
+        AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0,
+                prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertTrue(propReturn.isEmpty());
+        Object result = propReturn.get("bitrate");
+        assertNull(result);
+    }
+
+    @Test
+    public void testCopying() {
+        Map<String, Object> prop = new HashMap<>();
+        prop.put("bitrate", 22.5F);
+        AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0, prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertNotSame(prop, propReturn);
+        prop.put("bitrate", 42.5F);
+        Object result = propReturn.get("bitrate");
+        assertEquals(22.5F, result);
+    }
+
+    @Test
+    public void testUnmodifiable() {
+        Map<String, Object> prop = new HashMap<>();
+        AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0, prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertThrows(UnsupportedOperationException.class, () -> {
+            propReturn.put("author", "Matthias Pfisterer");
+            fail("returned Map allows modifications");
         });
-	}
-
-
-    @Test
-	public void testEmptyMap()
-	{
-		Map<String, Object> prop = new HashMap<String, Object>();
-		AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0,
-														 prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		assertTrue(propReturn.isEmpty());
-		Object result = propReturn.get("bitrate");
-		assertNull(result);
-	}
-
-
+    }
 
     @Test
-	public void testCopying()
-	{
-		Map<String, Object> prop = new HashMap<String, Object>();
-		prop.put("bitrate", new Float(22.5F));
-		AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0,
-														 prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		assertTrue(prop != propReturn);
-		prop.put("bitrate", new Float(42.5F));
-		Object result = propReturn.get("bitrate");
-		assertEquals(new Float(22.5F), result);
-	}
-
-
-	public void testUnmodifiable()
-	{
-		Map<String, Object> prop = new HashMap<String, Object>();
-		AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0,
-														 prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		try
-		{
-			propReturn.put("author", "Matthias Pfisterer");
-			fail("returned Map allows modifications");
-		}
-		catch (UnsupportedOperationException e)
-		{
-		}
-	}
-
-
-	public void testGet()
-	{
-		Map<String, Object> prop = new HashMap<String, Object>();
-		prop.put("bitrate", new Float(22.5F));
-		prop.put("author", "Matthias Pfisterer");
-		AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0,
-														 prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		assertEquals(new Float(22.5F), propReturn.get("bitrate"));
-		assertEquals("Matthias Pfisterer", propReturn.get("author"));
-	}
+    public void testGet() {
+        Map<String, Object> prop = new HashMap<>();
+        prop.put("bitrate", 22.5F);
+        prop.put("author", "Matthias Pfisterer");
+        AudioFileFormat fileFormat = new AudioFileFormat(null, null, 0,
+                prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertEquals(22.5F, propReturn.get("bitrate"));
+        assertEquals("Matthias Pfisterer", propReturn.get("author"));
+    }
 }
 
-
-
-/*** AudioFileFormatTestCase.java ***/
+/* AudioFileFormatTestCase.java */

@@ -1,7 +1,7 @@
 /*
- *	THeaderlessAudioFileWriter.java
+ * THeaderlessAudioFileWriter.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,55 +29,57 @@ package org.tritonus.share.sampled.file;
 
 import java.io.IOException;
 import java.util.Collection;
-
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 
 import org.tritonus.share.TDebug;
 
 
-
-/**	Base class for formats without extra header.
-	This AudioFileWriter is typically used for compressed formats
-	where the encoder puts a header into the encoded stream. In this
-	case, the AudioFileWriter needs not to add a header. This is why
-	THeaderlessAudioOutputStream is used here.
-
-	@author Florian Bomers
-	@author Matthias Pfisterer
-*/
+/**
+ * Base class for formats without extra header.
+ * This AudioFileWriter is typically used for compressed formats
+ * where the encoder puts a header into the encoded stream. In this
+ * case, the AudioFileWriter needs not to add a header. This is why
+ * THeaderlessAudioOutputStream is used here.
+ *
+ * @author Florian Bomers
+ * @author Matthias Pfisterer
+ */
 public class THeaderlessAudioFileWriter
-extends TAudioFileWriter
-{
-	protected THeaderlessAudioFileWriter(Collection<AudioFileFormat.Type> fileTypes,
-										 Collection<AudioFormat> audioFormats)
-	{
-		super(fileTypes, audioFormats);
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("THeaderlessAudioFileWriter.<init>(): begin"); }
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("THeaderlessAudioFileWriter.<init>(): end"); }
-	}
+        extends TAudioFileWriter {
+    protected THeaderlessAudioFileWriter(Collection<AudioFileFormat.Type> fileTypes,
+                                         Collection<AudioFormat> audioFormats) {
+        super(fileTypes, audioFormats);
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("THeaderlessAudioFileWriter.<init>(): begin");
+        }
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("THeaderlessAudioFileWriter.<init>(): end");
+        }
+    }
 
 
-
-	@Override
-	protected AudioOutputStream getAudioOutputStream(
-		AudioFormat audioFormat,
-		long lLengthInBytes,
-		AudioFileFormat.Type fileType,
-		TDataOutputStream dataOutputStream)
-		throws IOException
-	{
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("THeaderlessAudioFileWriter.getAudioOutputStream(): begin"); }
-		AudioOutputStream	aos = new HeaderlessAudioOutputStream(
-			audioFormat,
-			lLengthInBytes,
-			dataOutputStream);
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("THeaderlessAudioFileWriter.getAudioOutputStream(): end"); }
-		return aos;
-	}
+    @Override
+    protected AudioOutputStream getAudioOutputStream(
+            AudioFormat audioFormat,
+            long lLengthInBytes,
+            AudioFileFormat.Type fileType,
+            TDataOutputStream dataOutputStream)
+            throws IOException {
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("THeaderlessAudioFileWriter.getAudioOutputStream(): begin");
+        }
+        AudioOutputStream aos = new HeaderlessAudioOutputStream(
+                audioFormat,
+                lLengthInBytes,
+                dataOutputStream);
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("THeaderlessAudioFileWriter.getAudioOutputStream(): end");
+        }
+        return aos;
+    }
 
 }
 
 
-
-/*** THeaderlessAudioFileWriter.java ***/
+/* THeaderlessAudioFileWriter.java */

@@ -28,7 +28,7 @@ import org.tritonus.share.TDebug;
 
 /**
  * RTSystem.
- *
+ * <p>
  * This file is part of Tritonus: http://www.tritonus.org/
  */
 public class RTSystem extends Thread {
@@ -43,7 +43,7 @@ public class RTSystem extends Thread {
     private int m_nKRate;
     private int m_nAToKRateFactor;
     private List<AbstractInstrument> m_activeInstruments;
-    private List<AbstractInstrument> m_scheduledInstruments;
+    private final List<AbstractInstrument> m_scheduledInstruments;
     private int m_nScheduledEndTime;
     private float m_fFloatToIntTimeFactor;
     private float m_fIntToFloatTimeFactor;
@@ -131,9 +131,7 @@ public class RTSystem extends Thread {
     }
 
     private void doK() {
-        Iterator<AbstractInstrument> activeInstruments = m_activeInstruments.iterator();
-        while (activeInstruments.hasNext()) {
-            AbstractInstrument instrument = activeInstruments.next();
+        for (AbstractInstrument instrument : m_activeInstruments) {
             instrument.doKPass(this);
         }
     }
@@ -141,10 +139,8 @@ public class RTSystem extends Thread {
     private void doA() throws IOException {
         // TDebug.out("doA()");
         m_output.clear();
-        Iterator<AbstractInstrument> activeInstruments = m_activeInstruments.iterator();
-        while (activeInstruments.hasNext()) {
+        for (AbstractInstrument instrument : m_activeInstruments) {
             // TDebug.out("doA(): has active Instrument");
-            AbstractInstrument instrument = activeInstruments.next();
             instrument.doAPass(this);
         }
         m_output.emit();

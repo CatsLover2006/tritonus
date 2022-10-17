@@ -1,7 +1,7 @@
 /*
- *	FloatSampleProcessor.java
+ * FloatSampleProcessor.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,12 +29,9 @@ package org.tritonus.dsp.interfaces;
 import org.tritonus.share.sampled.FloatSampleBuffer;
 
 
-
-public interface FloatSampleProcessor
-{
-	public void process(FloatSampleBuffer buffer);
+public interface FloatSampleProcessor {
+    void process(FloatSampleBuffer buffer);
 }
 
 
-
-/*** FloatSampleProcessor.java ***/
+/* FloatSampleProcessor.java */

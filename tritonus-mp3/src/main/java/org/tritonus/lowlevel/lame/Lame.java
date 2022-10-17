@@ -18,17 +18,21 @@
 
 package org.tritonus.lowlevel.lame;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 import javax.sound.sampled.AudioFormat;
-import static javax.sound.sampled.AudioSystem.NOT_SPECIFIED;
+
 import org.tritonus.share.TDebug;
-import java.util.*;
+
+import static javax.sound.sampled.AudioSystem.NOT_SPECIFIED;
 
 
 /**
  * Low level wrapper for the LAME native encoder.
- *
+ * <p>
  * TODO: fill frame rate, frame size
+ *
  * @author Florian Bomers
  */
 public class Lame {
@@ -174,9 +178,9 @@ public class Lame {
      * Initializes the encoder with the given source/PCM format. The default mp3
      * encoding parameters are used, see DEFAULT_BITRATE, DEFAULT_CHANNEL_MODE,
      * DEFAULT_QUALITY, and DEFAULT_VBR.
-     * 
+     *
      * @throws IllegalArgumentException when parameters are not supported by
-     *             LAME.
+     *                                  LAME.
      */
     public Lame(AudioFormat sourceFormat) {
         readParams(sourceFormat, null);
@@ -189,9 +193,9 @@ public class Lame {
      * that is not set, global system properties are queried for backwards
      * tritonus compatibility. Last, parameters will use the default values
      * DEFAULT_BITRATE, DEFAULT_CHANNEL_MODE, DEFAULT_QUALITY, and DEFAULT_VBR.
-     * 
+     *
      * @throws IllegalArgumentException when parameters are not supported by
-     *             LAME.
+     *                                  LAME.
      */
     public Lame(AudioFormat sourceFormat, AudioFormat targetFormat) {
         readParams(sourceFormat, targetFormat.properties());
@@ -201,12 +205,12 @@ public class Lame {
     /**
      * Initializes the encoder, overriding any parameters set in the audio
      * format's properties or in the system properties.
-     * 
+     *
      * @throws IllegalArgumentException when parameters are not supported by
-     *             LAME.
+     *                                  LAME.
      */
     public Lame(AudioFormat sourceFormat, int bitRate, int channelMode,
-            int quality, boolean VBR) {
+                int quality, boolean VBR) {
         this.bitRate = bitRate;
         this.chMode = channelMode;
         this.quality = quality;
@@ -231,7 +235,7 @@ public class Lame {
             bitRate = 160;
         }
         if (TDebug.TraceAudioConverter) {
-            String br = bitRate < 0 ? "auto" : (String.valueOf(bitRate)
+            String br = bitRate < 0 ? "auto" : (bitRate
                     + "KBit/s");
             TDebug.out("LAME parameters: channels="
                     + sourceFormat.getChannels() + "  sample rate="
@@ -267,7 +271,7 @@ public class Lame {
      * parameters are not supported by LAME.
      */
     private native int nInitParams(int channels, int sampleRate, int bitrate,
-            int mode, int quality, boolean VBR, boolean bigEndian);
+                                   int mode, int quality, boolean VBR, boolean bigEndian);
 
     /**
      * returns -1 if string is too short or returns one of the exception
@@ -287,14 +291,7 @@ public class Lame {
         }
         String sRes = "";
         if (res > 0) {
-            try {
-                sRes = new String(string, 0, res, "ISO-8859-1");
-            } catch (UnsupportedEncodingException uee) {
-                if (TDebug.TraceAllExceptions) {
-                    TDebug.out(uee);
-                }
-                sRes = new String(string, 0, res);
-            }
+            sRes = new String(string, 0, res, StandardCharsets.ISO_8859_1);
         }
         return sRes;
     }
@@ -324,14 +321,14 @@ public class Lame {
     }
 
     private native int nEncodeBuffer(byte[] pcm, int offset, int length,
-            byte[] encoded);
+                                     byte[] encoded);
 
     /**
      * Encode a block of data. Throws IllegalArgumentException when parameters
      * are wrong. When the <code>encoded</code> array is too small, an
      * ArrayIndexOutOfBoundsException is thrown. <code>length</code> should be
      * the value returned by getPCMBufferSize.
-     * 
+     *
      * @return the number of bytes written to <code>encoded</code>. May be 0.
      */
     public int encodeBuffer(byte[] pcm, int offset, int length, byte[] encoded)
@@ -353,7 +350,7 @@ public class Lame {
 
     /**
      * Has to be called to finish encoding. <code>encoded</code> may be null.
-     * 
+     *
      * @return the number of bytes written to <code>encoded</code>
      */
     private native int nEncodeFinish(byte[] encoded);
@@ -435,7 +432,7 @@ public class Lame {
      */
     public AudioFormat getEffectiveFormat() {
         // first gather properties
-        HashMap<String, Object> map = new HashMap<String, Object>();
+        HashMap<String, Object> map = new HashMap<>();
         map.put(P_QUALITY, getEffectiveQuality());
         map.put(P_BITRATE, getEffectiveBitRate());
         map.put(P_CHMODE, chmode2string(getEffectiveChannelMode()));
@@ -566,15 +563,16 @@ public class Lame {
     }
 
     private int string2quality(String quality, int def) {
-        if (quality.equals("lowest")) {
+        switch (quality) {
+        case "lowest":
             return QUALITY_LOWEST;
-        } else if (quality.equals("low")) {
+        case "low":
             return QUALITY_LOW;
-        } else if (quality.equals("middle")) {
+        case "middle":
             return QUALITY_MIDDLE;
-        } else if (quality.equals("high")) {
+        case "high":
             return QUALITY_HIGH;
-        } else if (quality.equals("highest")) {
+        case "highest":
             return QUALITY_HIGHEST;
         }
         return def;
@@ -596,15 +594,16 @@ public class Lame {
     }
 
     private int string2chmode(String chmode, int def) {
-        if (chmode.equals("stereo")) {
+        switch (chmode) {
+        case "stereo":
             return CHANNEL_MODE_STEREO;
-        } else if (chmode.equals("jointstereo")) {
+        case "jointstereo":
             return CHANNEL_MODE_JOINT_STEREO;
-        } else if (chmode.equals("dual")) {
+        case "dual":
             return CHANNEL_MODE_DUAL_CHANNEL;
-        } else if (chmode.equals("mono")) {
+        case "mono":
             return CHANNEL_MODE_MONO;
-        } else if (chmode.equals("auto")) {
+        case "auto":
             return CHANNEL_MODE_AUTO;
         }
         return def;
@@ -612,7 +611,7 @@ public class Lame {
 
     /**
      * @return true if val is starts with t or y or on, false if val starts with
-     *         f or n or off.
+     * f or n or off.
      * @throws IllegalArgumentException if val is neither true nor false
      */
     private static boolean string2bool(String val) {
@@ -686,7 +685,7 @@ public class Lame {
             String s = System.getProperty(strPropertyName);
             if (s != null && s.length() > 0) {
                 hadSystemProps = true;
-                value = new Integer(s).intValue();
+                value = new Integer(s);
             }
         } catch (Throwable e) {
             if (TDebug.TraceAllExceptions) {

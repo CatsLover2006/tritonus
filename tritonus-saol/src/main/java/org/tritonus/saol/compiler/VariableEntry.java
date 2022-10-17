@@ -1,7 +1,7 @@
 /*
- *	VariableEntry.java
+ * VariableEntry.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -26,52 +26,40 @@
 
 package org.tritonus.saol.compiler;
 
-import org.tritonus.saol.sablecc.node.AInstrdeclInstrdecl;
-
-
 
 public class VariableEntry
-extends WidthAndRate
-{
-	private String			m_strVariableName;
-	private boolean			m_bImports;
-	private boolean			m_bExports;
+        extends WidthAndRate {
+    private String m_strVariableName;
+    private boolean m_bImports;
+    private boolean m_bExports;
 
 
-	public VariableEntry(String strVariableName,
-			     int nWidth,
-			     int nRate,
-			     boolean bImports,
-			     boolean bExports)
-	{
-		super(nWidth, nRate);
-		m_strVariableName = strVariableName;
-		m_bImports = bImports;
-		m_bExports = bExports;
-	}
+    public VariableEntry(String strVariableName,
+                         int nWidth,
+                         int nRate,
+                         boolean bImports,
+                         boolean bExports) {
+        super(nWidth, nRate);
+        m_strVariableName = strVariableName;
+        m_bImports = bImports;
+        m_bExports = bExports;
+    }
 
 
-
-	public String getVariableName()
-	{
-		return m_strVariableName;
-	}
+    public String getVariableName() {
+        return m_strVariableName;
+    }
 
 
-
-	public boolean getImports()
-	{
-		return m_bImports;
-	}
+    public boolean getImports() {
+        return m_bImports;
+    }
 
 
-
-	public boolean getExports()
-	{
-		return m_bExports;
-	}
+    public boolean getExports() {
+        return m_bExports;
+    }
 }
 
 
-
-/*** VariableEntry.java ***/
+/* VariableEntry.java */

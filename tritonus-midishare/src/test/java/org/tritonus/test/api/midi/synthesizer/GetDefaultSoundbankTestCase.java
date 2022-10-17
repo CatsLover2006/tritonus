@@ -1,5 +1,5 @@
 /*
- *	GetDefaultSoundbankTestCase.java
+ * GetDefaultSoundbankTestCase.java
  */
 
 /*
@@ -20,38 +20,31 @@
 
 package org.tritonus.test.api.midi.synthesizer;
 
+import javax.sound.midi.Soundbank;
 import javax.sound.midi.Synthesizer;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import javax.sound.midi.Soundbank;
 
-
-/**	Test for javax.sound.midi.Synthesizer.getDefaultSoundbank().
+/**
+ * Test for javax.sound.midi.Synthesizer.getDefaultSoundbank().
  */
 public class GetDefaultSoundbankTestCase
-extends BaseSynthesizerTestCase
-{
-	protected void checkSynthesizer(Synthesizer synth)
-		throws Exception
-	{
-		synth.open();
-		try
-		{
-			Soundbank sb = synth.getDefaultSoundbank();
-			if (sb != null)
-			{
-				assertTrue(synth.isSoundbankSupported(sb),
-				           constructErrorMessage(synth, "default soundbank not supported by isSoundbankSupported()", true));
-			}
-		}
-		finally
-		{
-			synth.close();
-		}
-	}
+        extends BaseSynthesizerTestCase {
+    protected void checkSynthesizer(Synthesizer synth)
+            throws Exception {
+        synth.open();
+        try {
+            Soundbank sb = synth.getDefaultSoundbank();
+            if (sb != null) {
+                assertTrue(synth.isSoundbankSupported(sb),
+                        constructErrorMessage(synth, "default soundbank not supported by isSoundbankSupported()", true));
+            }
+        } finally {
+            synth.close();
+        }
+    }
 }
-
 
 
 /*** GetDefaultSoundbankTestCase ***/

@@ -1,7 +1,7 @@
 /*
- *	InstrumentTable.java
+ * InstrumentTable.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,25 +29,18 @@ package org.tritonus.saol.compiler;
 import java.util.HashMap;
 
 
-
-/**	The instrument table.
-	TODO: use generics
+/**
+ * The instrument table.
  */
-public class InstrumentTable
-extends HashMap
-{
-	public void add(InstrumentEntry instrumentEntry)
-	{
-		put(instrumentEntry.getInstrumentName(), instrumentEntry);
-	}
+public class InstrumentTable extends HashMap<String, InstrumentEntry> {
 
+    public void add(InstrumentEntry instrumentEntry) {
+        put(instrumentEntry.getInstrumentName(), instrumentEntry);
+    }
 
-	public InstrumentEntry getEntry(String strInstrumentName)
-	{
-		return (InstrumentEntry) get(strInstrumentName);
-	}
+    public InstrumentEntry getEntry(String strInstrumentName) {
+        return get(strInstrumentName);
+    }
 }
 
-
-
-/*** InstrumentTable.java ***/
+/* InstrumentTable.java */

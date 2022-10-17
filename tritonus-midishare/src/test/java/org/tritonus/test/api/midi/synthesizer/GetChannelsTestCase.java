@@ -1,5 +1,5 @@
 /*
- *	GetChannelsTestCase.java
+ * GetChannelsTestCase.java
  */
 
 /*
@@ -20,45 +20,37 @@
 
 package org.tritonus.test.api.midi.synthesizer;
 
+import javax.sound.midi.MidiChannel;
 import javax.sound.midi.Synthesizer;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import javax.sound.midi.MidiChannel;
 
 
-/**	Test for javax.sound.midi.Synthesizer.getLatency().
+/**
+ * Test for javax.sound.midi.Synthesizer.getLatency().
  */
 public class GetChannelsTestCase
-extends BaseSynthesizerTestCase
-{
-	protected void checkSynthesizer(Synthesizer synth)
-		throws Exception
-	{
-		MidiChannel[] channels;
-		synth.open();
-		try
-		{
-			channels = synth.getChannels();
-			assertNotNull(
-					channels, constructErrorMessage(synth, "getChannels() result null", true));
-			int numChannels = channels.length;
-			assertTrue(
-					numChannels == 16, constructErrorMessage(synth, "getChannels() result has wrong length", true));
-			for (int i = 0; i < channels.length; i++)
-			{
-				assertNotNull(
-						channels[i], constructErrorMessage(synth, "getChannels() result element null", true));
-			}
-		}
-		finally
-		{
-			synth.close();
-		}
-	}
+        extends BaseSynthesizerTestCase {
+    protected void checkSynthesizer(Synthesizer synth)
+            throws Exception {
+        MidiChannel[] channels;
+        synth.open();
+        try {
+            channels = synth.getChannels();
+            assertNotNull(
+                    channels, constructErrorMessage(synth, "getChannels() result null", true));
+            int numChannels = channels.length;
+            assertEquals(16, numChannels, constructErrorMessage(synth, "getChannels() result has wrong length", true));
+            for (MidiChannel channel : channels) {
+                assertNotNull(
+                        channel, constructErrorMessage(synth, "getChannels() result element null", true));
+            }
+        } finally {
+            synth.close();
+        }
+    }
 }
 
 
-
-/*** GetChannelsTestCase.java ***/
+/* GetChannelsTestCase.java */

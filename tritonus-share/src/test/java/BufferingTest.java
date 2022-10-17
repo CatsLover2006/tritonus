@@ -1,5 +1,5 @@
 /*
- *	BufferingTest.java
+ * BufferingTest.java
  */
 
 /*
@@ -21,59 +21,49 @@
  */
 
 
-import	java.io.BufferedInputStream;
-import	java.io.ByteArrayInputStream;
-import	java.io.FileInputStream;
-import	java.io.InputStream;
-import	java.io.IOException;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 
+public class BufferingTest {
+    public static void main(String[] args)
+            throws IOException {
+//   byte[] abData = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//   ByteArrayInputStream bais = new ByteArrayInputStream(abData);
+//   System.out.println(bais.markSupported());
+//   bais.mark(15);
+//   bais.reset();
 
-public class BufferingTest
-{
-	public static void main(String[] args)
-		throws IOException
-	{
-// 		byte[]	abData = new byte[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-// 		ByteArrayInputStream	bais = new ByteArrayInputStream(abData);
-// 		System.out.println(bais.markSupported());
-// 		bais.mark(15);
-// 		bais.reset();
+        FileInputStream fis = new FileInputStream("BufferingTest.java");
+        System.out.println("FileInputStream supports mark: " + fis.markSupported());
 
-		FileInputStream	fis = new FileInputStream("BufferingTest.java");
-		System.out.println("FileInputStream supports mark: " + fis.markSupported());
+        BufferedInputStream bis = new BufferedInputStream(fis, 5);
+        byte[] abRead1 = new byte[9];
+        byte[] abRead2 = new byte[9];
+        byte[] abRead3 = new byte[9];
+        byte[] abRead4 = new byte[9];
+        bis.mark(9);
+        bis.read(abRead1);
+        bis.mark(9);
+        bis.read(abRead2);
+        bis.reset();
+        bis.read(abRead3);
+        bis.reset();
+        bis.read(abRead4);
 
-		BufferedInputStream	bis = new BufferedInputStream(fis, 5);
-		byte[]	abRead1 = new byte[9];
-		byte[]	abRead2 = new byte[9];
-		byte[]	abRead3 = new byte[9];
-		byte[]	abRead4 = new byte[9];
-		bis.mark(9);
-		bis.read(abRead1);
-		bis.mark(9);
-		bis.read(abRead2);
-		bis.reset();
-		bis.read(abRead3);
-		bis.reset();
-		bis.read(abRead4);
-
-		for (int i = 0; i < abRead1.length; i++)
-		{
-			if (abRead1[i] != abRead4[i])
-			{
-				System.out.println("1 difference!!");
-			}
-		}
-		for (int i = 0; i < abRead1.length; i++)
-		{
-			if (abRead2[i] != abRead3[i])
-			{
-				System.out.println("2 difference!!");
-			}
-		}
-	}
+        for (int i = 0; i < abRead1.length; i++) {
+            if (abRead1[i] != abRead4[i]) {
+                System.out.println("1 difference!!");
+            }
+        }
+        for (int i = 0; i < abRead1.length; i++) {
+            if (abRead2[i] != abRead3[i]) {
+                System.out.println("2 difference!!");
+            }
+        }
+    }
 }
 
 
-
-/*** BufferingTest.java ***/
+/* BufferingTest.java */

@@ -1,5 +1,5 @@
 /*
- *	AlsaMixerTestCase.java
+ * AlsaMixerTestCase.java
  */
 
 /*
@@ -23,49 +23,42 @@ package org.tritonus.test.alsa;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-//import org.tritonus.lowlevel.alsa.AlsaCtl;
 import org.tritonus.lowlevel.alsa.AlsaMixer;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-
-public class AlsaMixerTestCase
-{
-	private static final boolean	DEBUG = true;
-
+public class AlsaMixerTestCase {
+    private static final boolean DEBUG = true;
 
 
     @Test
-	public void testOpenClose()
-		throws Exception
-	{
-		int	nDefaultMixerCard = 0;
-		String	strMixerName = "hw:" + nDefaultMixerCard;
-		AlsaMixer	mixer = new AlsaMixer(strMixerName);
-		assertTrue(mixer != null);
-		mixer.close();
-		// Intentionally a second time to test idempotence of close().
-		mixer.close();
-	}
-
+    public void testOpenClose()
+            throws Exception {
+        int nDefaultMixerCard = 0;
+        String strMixerName = "hw:" + nDefaultMixerCard;
+        AlsaMixer mixer = new AlsaMixer(strMixerName);
+        assertNotNull(mixer);
+        mixer.close();
+        // Intentionally a second time to test idempotence of close().
+        mixer.close();
+    }
 
 
     @Test
-	public void testControls()
-		throws Exception
-	{
-		int	nDefaultMixerCard = 0;
-		String	strMixerName = "hw:" + nDefaultMixerCard;
-		AlsaMixer	mixer = new AlsaMixer(strMixerName);
-		List	controlsList = null;	// mixer.getControls();
-		assertTrue(controlsList != null);
-		assertTrue(controlsList.size() > 0);
-		mixer.close();
-	}
+    public void testControls()
+            throws Exception {
+        int nDefaultMixerCard = 0;
+        String strMixerName = "hw:" + nDefaultMixerCard;
+        AlsaMixer mixer = new AlsaMixer(strMixerName);
+        List controlsList = null; // mixer.getControls();
+        assertNotNull(controlsList);
+        assertTrue(controlsList.size() > 0);
+        mixer.close();
+    }
 
 }
 
 
-
-/*** AlsaMixerTestCase.java ***/
+/* AlsaMixerTestCase.java */

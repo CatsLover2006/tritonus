@@ -1,5 +1,5 @@
 /*
- *	MixerTestCase.java
+ * MixerTestCase.java
  */
 
 /*
@@ -21,8 +21,6 @@
 package org.tritonus.test.api.sampled.mixer;
 
 import javax.sound.sampled.Mixer;
-//import javax.sound.sampled.DataLine;
-//import javax.sound.sampled.Line;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,55 +28,41 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-/** Class for tests of javax.sound.sampled.Mixer.
+/**
+ * Class for tests of javax.sound.sampled.Mixer.
  */
 public class MixerTestCase
-extends BaseMixerTestCase
-{
+        extends BaseMixerTestCase {
     @Test
-	public void testGetMixerInfo()
-		throws Exception
-	{
-		Check check = new Check()
-			{
-				public void check(Mixer mixer)
-					throws Exception
-				{
-					Mixer.Info info = mixer.getMixerInfo();
-					assertNotNull(info, "getMixerInfo()");
-					assertNotNull(info.getName(), "MixerInfo.getName()");
-					assertNotNull(info.getVendor(), "MixerInfo.getVendor()");
-					assertNotNull(info.getDescription(), "MixerInfo.getDescription()");
-					assertNotNull(info.getVersion(), "MixerInfo.getVersion()");
-				}
-			};
-		checkMixer(check);
-	}
+    public void testGetMixerInfo()
+            throws Exception {
+        Check check = mixer -> {
+            Mixer.Info info = mixer.getMixerInfo();
+            assertNotNull(info, "getMixerInfo()");
+            assertNotNull(info.getName(), "MixerInfo.getName()");
+            assertNotNull(info.getVendor(), "MixerInfo.getVendor()");
+            assertNotNull(info.getDescription(), "MixerInfo.getDescription()");
+            assertNotNull(info.getVersion(), "MixerInfo.getVersion()");
+        };
+        checkMixer(check);
+    }
 
 
     @Test
-	public void testOpenClose()
-		throws Exception
-	{
-		Check check = new Check()
-			{
-				public void check(Mixer mixer)
-					throws Exception
-				{
-					assertTrue(! mixer.isOpen(), "closed");
-					mixer.open();
-					assertTrue(mixer.isOpen(), "open");
-					mixer.close();
-					assertTrue(! mixer.isOpen(), "closed");
-				}
-			};
-		checkMixer(check);
-	}
-
+    public void testOpenClose()
+            throws Exception {
+        Check check = mixer -> {
+            assertTrue(!mixer.isOpen(), "closed");
+            mixer.open();
+            assertTrue(mixer.isOpen(), "open");
+            mixer.close();
+            assertTrue(!mixer.isOpen(), "closed");
+        };
+        checkMixer(check);
+    }
 
 
 }
 
 
-
-/*** MixerTestCase.java ***/
+/* MixerTestCase.java */

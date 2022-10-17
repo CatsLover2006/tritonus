@@ -9,7 +9,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -24,10 +23,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.tritonus.sampled.convert.javalayer.MpegFormatConversionProvider;
 import org.tritonus.share.TDebug;
-
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
-
 import vavix.util.Checksum;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -75,37 +72,37 @@ class Test3 {
     void test2() throws Exception {
         AudioInputStream originalAudioInputStream = AudioSystem.getAudioInputStream(Paths.get(inFile).toFile());
         AudioFormat originalAudioFormat = originalAudioInputStream.getFormat();
-System.err.println(originalAudioFormat);
+        System.err.println(originalAudioFormat);
         AudioFormat targetAudioFormat = new AudioFormat(
-            AudioFormat.Encoding.PCM_SIGNED,
-            originalAudioFormat.getSampleRate(),
-            16,
-            2,
-            4,
-            originalAudioFormat.getSampleRate(),
-            false);
-System.err.println(targetAudioFormat);
+                AudioFormat.Encoding.PCM_SIGNED,
+                originalAudioFormat.getSampleRate(),
+                16,
+                2,
+                4,
+                originalAudioFormat.getSampleRate(),
+                false);
+        System.err.println(targetAudioFormat);
         AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(targetAudioFormat, originalAudioInputStream);
         AudioFormat audioFormat = audioInputStream.getFormat();
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, audioFormat, AudioSystem.NOT_SPECIFIED);
         SourceDataLine line = (SourceDataLine) AudioSystem.getLine(info);
         line.addLineListener(event -> {
             if (event.getType().equals(LineEvent.Type.START)) {
-System.err.println("play");
+                System.err.println("play");
             }
             if (event.getType().equals(LineEvent.Type.STOP)) {
-System.err.println("done");
+                System.err.println("done");
             }
         });
 
         byte[] buf = new byte[8192];
         line.open(audioFormat, buf.length);
-FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-double gain = .2d; // number between 0 and 1 (loudest)
-float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-gainControl.setValue(dB);
+        FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+        double gain = .2d; // number between 0 and 1 (loudest)
+        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+        gainControl.setValue(dB);
         line.start();
-        int r = 0;
+        int r;
         while (true) {
             r = audioInputStream.read(buf, 0, buf.length);
             if (r < 0) {
@@ -124,16 +121,16 @@ gainControl.setValue(dB);
         URL url = Test3.class.getResource("/test.wav");
         AudioInputStream ais = AudioSystem.getAudioInputStream(url);
         AudioFormat inFormat = ais.getFormat();
-System.err.println(inFormat);
+        System.err.println(inFormat);
         AudioFormat outFormat = new AudioFormat(
-            MpegFormatConversionProvider.MPEG1L3,
-            -1f,
-            -1,
-            2,
-            -1,
-            -1f,
-            false);
-System.err.println(outFormat);
+                MpegFormatConversionProvider.MPEG1L3,
+                -1f,
+                -1,
+                2,
+                -1,
+                -1f,
+                false);
+        System.err.println(outFormat);
         AudioInputStream aout = AudioSystem.getAudioInputStream(outFormat, ais);
 
         OutputStream fos = Files.newOutputStream(Paths.get("tmp", "out.mp3"), StandardOpenOption.CREATE, StandardOpenOption.WRITE);

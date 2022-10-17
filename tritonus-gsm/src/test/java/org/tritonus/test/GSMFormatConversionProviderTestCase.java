@@ -1,5 +1,5 @@
 /*
- *	GSMFormatConversionProviderTestCase.java
+ * GSMFormatConversionProviderTestCase.java
  */
 
 /*
@@ -22,16 +22,14 @@ package org.tritonus.test;
 
 import org.junit.jupiter.api.Disabled;
 
+
 @Disabled // no suitable class
 public class GSMFormatConversionProviderTestCase
-extends BaseFormatConversionProviderTestCase
-{
-	public GSMFormatConversionProviderTestCase()
-	{
-		setResourcePrefix("gsm");
-	}
+        extends BaseFormatConversionProviderTestCase {
+    public GSMFormatConversionProviderTestCase() {
+        setResourcePrefix("gsm");
+    }
 }
 
 
-
-/*** GSMFormatConversionProviderTestCase.java ***/
+/* GSMFormatConversionProviderTestCase.java */

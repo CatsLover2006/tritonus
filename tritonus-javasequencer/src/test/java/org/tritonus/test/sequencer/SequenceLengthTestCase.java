@@ -1,5 +1,5 @@
 /*
- *	SequenceLengthTestCase.java
+ * SequenceLengthTestCase.java
  */
 
 /*
@@ -21,7 +21,6 @@
 package org.tritonus.test.sequencer;
 
 import java.io.InputStream;
-
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
@@ -29,38 +28,34 @@ import javax.sound.midi.Sequencer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-
-/**	Tests for class javax.sound.midi.MidiMessage.
+/**
+ * Tests for class javax.sound.midi.MidiMessage.
  */
 public class SequenceLengthTestCase
-extends BaseSequencerTestCase
-{
-	private static final String MIDI_FILENAME = "trippygaia1.mid";
+        extends BaseSequencerTestCase {
+    private static final String MIDI_FILENAME = "trippygaia1.mid";
 
 
-	protected void checkSequencer(Sequencer seq)
-		throws Exception
-	{
-		seq.open();
+    protected void checkSequencer(Sequencer seq)
+            throws Exception {
+        seq.open();
 
-		Sequence sequence = MidiSystem.getSequence(getMediaFile(MIDI_FILENAME));
-		seq.setSequence(sequence);
-		assertEquals(sequence.getTickLength(),
-					 seq.getTickLength(), getMessagePrefix(seq) + ": tick length");
-		assertEquals(sequence.getMicrosecondLength(),
-					 seq.getMicrosecondLength(), getMessagePrefix(seq) + ": time length");
+        Sequence sequence = MidiSystem.getSequence(getMediaFile(MIDI_FILENAME));
+        seq.setSequence(sequence);
+        assertEquals(sequence.getTickLength(),
+                seq.getTickLength(), getMessagePrefix(seq) + ": tick length");
+        assertEquals(sequence.getMicrosecondLength(),
+                seq.getMicrosecondLength(), getMessagePrefix(seq) + ": time length");
 
-		// clean up
-		seq.close();
-	}
+        // clean up
+        seq.close();
+    }
 
 
-	private static InputStream getMediaFile(String strFilename)
-	{
-		return SequenceLengthTestCase.class.getResourceAsStream("/sounds/" + strFilename);
-	}
+    private static InputStream getMediaFile(String strFilename) {
+        return SequenceLengthTestCase.class.getResourceAsStream("/sounds/" + strFilename);
+    }
 }
 
 
-
-/*** SequenceLengthTestCase.java ***/
+/* SequenceLengthTestCase.java */

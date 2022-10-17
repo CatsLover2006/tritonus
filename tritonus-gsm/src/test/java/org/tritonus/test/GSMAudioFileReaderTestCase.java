@@ -1,5 +1,5 @@
 /*
- *	GSMAudioFileReaderTestCase.java
+ * GSMAudioFileReaderTestCase.java
  */
 
 /*
@@ -21,17 +21,13 @@
 package org.tritonus.test;
 
 
-
 public class GSMAudioFileReaderTestCase
-extends BaseAudioFileReaderTestCase
-{
-	public GSMAudioFileReaderTestCase()
-	{
-		setResourcePrefix("gsm");
-		setCheckRealLengths(false);
-	}
+        extends BaseAudioFileReaderTestCase {
+    public GSMAudioFileReaderTestCase() {
+        setResourcePrefix("gsm");
+        setCheckRealLengths(false);
+    }
 }
 
 
-
-/*** GSMAudioFileReaderTestCase.java ***/
+/* GSMAudioFileReaderTestCase.java */

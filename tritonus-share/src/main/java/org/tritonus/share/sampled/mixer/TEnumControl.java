@@ -1,7 +1,7 @@
 /*
- *	TEnumControl.java
+ * TEnumControl.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -33,58 +33,45 @@ import javax.sound.sampled.EnumControl;
 import org.tritonus.share.TDebug;
 
 
-
-
-/**	Base class for classes implementing Line.
+/**
+ * Base class for classes implementing Line.
  */
 public class TEnumControl
-extends EnumControl
-implements TControllable
-{
-	private TControlController	m_controller;
+        extends EnumControl
+        implements TControllable {
+    private TControlController m_controller;
 
 
-
-	public TEnumControl(EnumControl.Type type,
-			    Object[] aValues,
-			    Object value)
-	{
-		super(type,
-		      aValues,
-		      value);
-		if (TDebug.TraceControl)
-		{
-			TDebug.out("TEnumControl.<init>: begin");
-		}
-		m_controller = new TControlController();
-		if (TDebug.TraceControl)
-		{
-			TDebug.out("TEnumControl.<init>: end");
-		}
-	}
+    public TEnumControl(EnumControl.Type type,
+                        Object[] aValues,
+                        Object value) {
+        super(type,
+                aValues,
+                value);
+        if (TDebug.TraceControl) {
+            TDebug.out("TEnumControl.<init>: begin");
+        }
+        m_controller = new TControlController();
+        if (TDebug.TraceControl) {
+            TDebug.out("TEnumControl.<init>: end");
+        }
+    }
 
 
-
-	public void setParentControl(TCompoundControl compoundControl)
-	{
-		m_controller.setParentControl(compoundControl);
-	}
+    public void setParentControl(TCompoundControl compoundControl) {
+        m_controller.setParentControl(compoundControl);
+    }
 
 
-
-	public TCompoundControl getParentControl()
-	{
-		return m_controller.getParentControl();
-	}
+    public TCompoundControl getParentControl() {
+        return m_controller.getParentControl();
+    }
 
 
-
-	public void commit()
-	{
-		m_controller.commit();
-	}
+    public void commit() {
+        m_controller.commit();
+    }
 }
 
 
-
-/*** TEnumControl.java ***/
+/* TEnumControl.java */

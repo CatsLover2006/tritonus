@@ -1,5 +1,5 @@
 /*
- *	BaseDataOutputStreamTestCase.java
+ * BaseDataOutputStreamTestCase.java
  */
 
 /*
@@ -27,65 +27,56 @@ import org.tritonus.test.Util;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public abstract class BaseDataOutputStreamTestCase
-{
-	private boolean		m_bSeekable;
+
+public abstract class BaseDataOutputStreamTestCase {
+    private boolean m_bSeekable;
 
 
-	protected BaseDataOutputStreamTestCase(boolean bSeekable)
-	{
-		m_bSeekable = bSeekable;
-	}
+    protected BaseDataOutputStreamTestCase(boolean bSeekable) {
+        m_bSeekable = bSeekable;
+    }
 
 
-	protected abstract TDataOutputStream createDataOutputStream()
-		throws Exception;
+    protected abstract TDataOutputStream createDataOutputStream()
+            throws Exception;
 
-	protected abstract byte[] getWrittenData()
-		throws Exception;
-
-
-    @Test
-	public void testWriting()
-		throws Exception
-	{
-		TDataOutputStream	dataOutputStream = createDataOutputStream();
-		checkTDataOutputStream(dataOutputStream);
- 		byte[]	abResultingData = getWrittenData();
-		// Util.dumpByteArray(abResultingData);
-		checkTDataOutputStream2(abResultingData);
-	}
-
+    protected abstract byte[] getWrittenData()
+            throws Exception;
 
 
     @Test
-	public void testSupportsSeek()
-		throws Exception
-	{
-		TDataOutputStream dataOutputStream = createDataOutputStream();
-		assertEquals(m_bSeekable, dataOutputStream.supportsSeek(), "seekability");
-	}
+    public void testWriting()
+            throws Exception {
+        TDataOutputStream dataOutputStream = createDataOutputStream();
+        checkTDataOutputStream(dataOutputStream);
+        byte[] abResultingData = getWrittenData();
+        // Util.dumpByteArray(abResultingData);
+        checkTDataOutputStream2(abResultingData);
+    }
 
 
-
-	private void checkTDataOutputStream(TDataOutputStream dataOutputStream)
-		throws Exception
-	{
-		dataOutputStream.writeLittleEndian32(0x12345678);
-		dataOutputStream.writeLittleEndian16((short) 0x2345);
-		dataOutputStream.close();
-	}
+    @Test
+    public void testSupportsSeek()
+            throws Exception {
+        TDataOutputStream dataOutputStream = createDataOutputStream();
+        assertEquals(m_bSeekable, dataOutputStream.supportsSeek(), "seekability");
+    }
 
 
+    private void checkTDataOutputStream(TDataOutputStream dataOutputStream)
+            throws Exception {
+        dataOutputStream.writeLittleEndian32(0x12345678);
+        dataOutputStream.writeLittleEndian16((short) 0x2345);
+        dataOutputStream.close();
+    }
 
-	private void checkTDataOutputStream2(byte[] abResultingData)
-		throws Exception
-	{
- 		byte[]	abExpectedData = new byte[]{0x78, 0x56, 0x34, 0x12, 0x45, 0x23};
- 		assertTrue(Util.compareByteArrays(abExpectedData, 0, abResultingData, 0, abExpectedData.length));
-	}
+
+    private void checkTDataOutputStream2(byte[] abResultingData)
+            throws Exception {
+        byte[] abExpectedData = new byte[] {0x78, 0x56, 0x34, 0x12, 0x45, 0x23};
+        assertTrue(Util.compareByteArrays(abExpectedData, 0, abResultingData, 0, abExpectedData.length));
+    }
 }
 
 
-
-/*** BaseDataOutputStreamTestCase.java ***/
+/* BaseDataOutputStreamTestCase.java */

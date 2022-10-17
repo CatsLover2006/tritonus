@@ -1,7 +1,7 @@
 /*
- *	AlsaSeqPortInfo.java
+ * AlsaSeqPortInfo.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -30,104 +30,87 @@ package org.tritonus.lowlevel.alsa;
 import org.tritonus.share.TDebug;
 
 
-
-public class AlsaSeqPortInfo
-{
-	static
-	{
-		Alsa.loadNativeLibrary();
-		if (TDebug.TraceAlsaSeqNative)
-		{
-			setTrace(true);
-		}
-	}
+public class AlsaSeqPortInfo {
+    static {
+        Alsa.loadNativeLibrary();
+        if (TDebug.TraceAlsaSeqNative) {
+            setTrace(true);
+        }
+    }
 
 
-
-	/**
-	 *	Holds the pointer to snd_seq_port_info_t
-	 *	for the native code.
-	 *	This must be long to be 64bit-clean.
-	 */
-	/*private*/ long	m_lNativeHandle;
-
+    /**
+     * Holds the pointer to snd_seq_port_info_t
+     * for the native code.
+     * This must be long to be 64bit-clean.
+     */
+    /*private*/ long m_lNativeHandle;
 
 
-	public AlsaSeqPortInfo()
-	{
-		if (TDebug.TraceAlsaSeqNative) { TDebug.out("AlsaSeq.PortInfo.<init>(): begin"); }
-		int	nReturn = malloc();
-		if (nReturn < 0)
-		{
-			throw new RuntimeException("malloc of port_info failed");
-		}
-		if (TDebug.TraceAlsaSeqNative) { TDebug.out("AlsaSeq.PortInfo.<init>(): end"); }
-	}
+    public AlsaSeqPortInfo() {
+        if (TDebug.TraceAlsaSeqNative) {
+            TDebug.out("AlsaSeq.PortInfo.<init>(): begin");
+        }
+        int nReturn = malloc();
+        if (nReturn < 0) {
+            throw new RuntimeException("malloc of port_info failed");
+        }
+        if (TDebug.TraceAlsaSeqNative) {
+            TDebug.out("AlsaSeq.PortInfo.<init>(): end");
+        }
+    }
 
 
-
-	public void finalize()
-	{
-		// TODO: call free()
-		// call super.finalize() first or last?
-		// and introduce a flag if free() has already been called?
-	}
+    protected void finalize() {
+        // TODO: call free()
+        // call super.finalize() first or last?
+        // and introduce a flag if free() has already been called?
+    }
 
 
+    private native int malloc();
 
-	private native int malloc();
-	public native void free();
-
-
-
-	public native int getClient();
+    public native void free();
 
 
-
-	public native int getPort();
-
-
-	/**	Returns the name of the port.
-		Calls snd_seq_port_info_get_name().
-	*/
-	public native String getName();
+    public native int getClient();
 
 
-
-	public native int getCapability();
-
+    public native int getPort();
 
 
-	public native int getType();
+    /**
+     * Returns the name of the port.
+     * Calls snd_seq_port_info_get_name().
+     */
+    public native String getName();
 
 
-
-	public native int getMidiChannels();
-
+    public native int getCapability();
 
 
-	public native int getMidiVoices();
+    public native int getType();
 
 
-
-	public native int getSynthVoices();
-
+    public native int getMidiChannels();
 
 
-	public native int getReadUse();
+    public native int getMidiVoices();
 
 
-
-	public native int getWriteUse();
-
+    public native int getSynthVoices();
 
 
-	public native int getPortSpecified();
+    public native int getReadUse();
 
-	private static native void setTrace(boolean bTrace);
+
+    public native int getWriteUse();
+
+
+    public native int getPortSpecified();
+
+    private static native void setTrace(boolean bTrace);
 }
 
 
-
-
-/*** AlsaSeqPortInfo.java ***/
+/* AlsaSeqPortInfo.java */

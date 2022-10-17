@@ -1,5 +1,5 @@
 /*
- *	SyncModesTestCase.java
+ * SyncModesTestCase.java
  */
 
 /*
@@ -28,126 +28,109 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-
-/**	Tests for class javax.sound.midi.MidiMessage.
+/**
+ * Tests for class javax.sound.midi.MidiMessage.
  */
 public class SyncModesTestCase
-extends BaseSequencerTestCase
-{
-	private static final Sequencer.SyncMode[] MASTER_SYNC_MODES =
-	{
-		Sequencer.SyncMode.INTERNAL_CLOCK,
-		Sequencer.SyncMode.MIDI_SYNC,
-		Sequencer.SyncMode.MIDI_TIME_CODE
-	};
+        extends BaseSequencerTestCase {
+    private static final Sequencer.SyncMode[] MASTER_SYNC_MODES =
+            {
+                    Sequencer.SyncMode.INTERNAL_CLOCK,
+                    Sequencer.SyncMode.MIDI_SYNC,
+                    Sequencer.SyncMode.MIDI_TIME_CODE
+            };
 
-	private static final Sequencer.SyncMode[] SLAVE_SYNC_MODES =
-	{
-		Sequencer.SyncMode.NO_SYNC,
-		Sequencer.SyncMode.MIDI_SYNC,
-		Sequencer.SyncMode.MIDI_TIME_CODE
-	};
-
-
-	protected void checkSequencer(Sequencer seq)
-		throws Exception
-	{
-		Sequencer.SyncMode syncMode;
-		Sequencer.SyncMode[] syncModes;
-
-		// slave sync modes
-		syncMode = seq.getSlaveSyncMode();
-		assertNotNull(syncMode, "initial slave sync mode");
-		assertTrue(isSlaveSyncMode(syncMode));
-
-		syncModes = seq.getSlaveSyncModes();
-		assertNotNull(syncModes,
-					  "available slave sync modes");
-		assertTrue(syncModes.length >= 1,
-				   "number of available slave sync modes");
-		for (int i = 0; i < syncModes.length; i++)
-		{
-			assertTrue(isSlaveSyncMode(syncModes[i]));
-			checkSyncModeAccepted(seq, syncModes[i], false);
-		}
-		checkSyncModeAccepted(seq, Sequencer.SyncMode.NO_SYNC, false);
-
-		// master sync modes
-		syncMode = seq.getMasterSyncMode();
-		assertNotNull(syncMode, "initial master sync mode");
-		assertTrue(isMasterSyncMode(syncMode));
-
-		syncModes = seq.getMasterSyncModes();
-		assertNotNull(syncModes,
-					  "available master sync modes");
-		assertTrue(syncModes.length >= 1,
-				   "number of available master sync modes");
-		for (int i = 0; i < syncModes.length; i++)
-		{
-			assertTrue(isMasterSyncMode(syncModes[i]));
-			checkSyncModeAccepted(seq, syncModes[i], true);
-		}
-		checkSyncModeAccepted(seq, Sequencer.SyncMode.INTERNAL_CLOCK, true);
-	}
+    private static final Sequencer.SyncMode[] SLAVE_SYNC_MODES =
+            {
+                    Sequencer.SyncMode.NO_SYNC,
+                    Sequencer.SyncMode.MIDI_SYNC,
+                    Sequencer.SyncMode.MIDI_TIME_CODE
+            };
 
 
-	private void checkSyncModeAccepted(Sequencer seq,
-									   Sequencer.SyncMode syncMode,
-									   boolean bMaster)
-	{
-		String strErrorMessage = constructErrorMessage(seq, syncMode,
-													   bMaster);
-		if (bMaster)
-		{
-			seq.setMasterSyncMode(syncMode);
-			assertSame(syncMode, seq.getMasterSyncMode(), strErrorMessage);
-		}
-		else
-		{
-			seq.setSlaveSyncMode(syncMode);
-			assertSame(syncMode, seq.getSlaveSyncMode(), strErrorMessage);
-		}
-	}
+    protected void checkSequencer(Sequencer seq)
+            throws Exception {
+        Sequencer.SyncMode syncMode;
+        Sequencer.SyncMode[] syncModes;
+
+        // slave sync modes
+        syncMode = seq.getSlaveSyncMode();
+        assertNotNull(syncMode, "initial slave sync mode");
+        assertTrue(isSlaveSyncMode(syncMode));
+
+        syncModes = seq.getSlaveSyncModes();
+        assertNotNull(syncModes,
+                "available slave sync modes");
+        assertTrue(syncModes.length >= 1,
+                "number of available slave sync modes");
+        for (SyncMode value : syncModes) {
+            assertTrue(isSlaveSyncMode(value));
+            checkSyncModeAccepted(seq, value, false);
+        }
+        checkSyncModeAccepted(seq, Sequencer.SyncMode.NO_SYNC, false);
+
+        // master sync modes
+        syncMode = seq.getMasterSyncMode();
+        assertNotNull(syncMode, "initial master sync mode");
+        assertTrue(isMasterSyncMode(syncMode));
+
+        syncModes = seq.getMasterSyncModes();
+        assertNotNull(syncModes,
+                "available master sync modes");
+        assertTrue(syncModes.length >= 1,
+                "number of available master sync modes");
+        for (SyncMode mode : syncModes) {
+            assertTrue(isMasterSyncMode(mode));
+            checkSyncModeAccepted(seq, mode, true);
+        }
+        checkSyncModeAccepted(seq, Sequencer.SyncMode.INTERNAL_CLOCK, true);
+    }
 
 
-
-	private boolean isMasterSyncMode(SyncMode syncMode)
-	{
-		return contains(MASTER_SYNC_MODES, syncMode);
-	}
-
-
-	private boolean isSlaveSyncMode(SyncMode syncMode)
-	{
-		return contains(SLAVE_SYNC_MODES, syncMode);
-	}
-
-
-	private boolean contains(SyncMode[] list, SyncMode test)
-	{
-		for (int i = 0; i < list.length; i++)
-		{
-			if (list[i].equals(test))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+    private void checkSyncModeAccepted(Sequencer seq,
+                                       Sequencer.SyncMode syncMode,
+                                       boolean bMaster) {
+        String strErrorMessage = constructErrorMessage(seq, syncMode,
+                bMaster);
+        if (bMaster) {
+            seq.setMasterSyncMode(syncMode);
+            assertSame(syncMode, seq.getMasterSyncMode(), strErrorMessage);
+        } else {
+            seq.setSlaveSyncMode(syncMode);
+            assertSame(syncMode, seq.getSlaveSyncMode(), strErrorMessage);
+        }
+    }
 
 
+    private boolean isMasterSyncMode(SyncMode syncMode) {
+        return contains(MASTER_SYNC_MODES, syncMode);
+    }
 
-	private static String constructErrorMessage(Sequencer seq,
-												Sequencer.SyncMode syncMode,
-												boolean bMaster)
-	{
-		String strMessage =  seq.getDeviceInfo().getName() + ": ";
-		strMessage += syncMode.toString();
-		strMessage += bMaster ? " as master " : " as slave ";
-		return strMessage;
-	}
+
+    private boolean isSlaveSyncMode(SyncMode syncMode) {
+        return contains(SLAVE_SYNC_MODES, syncMode);
+    }
+
+
+    private boolean contains(SyncMode[] list, SyncMode test) {
+        for (SyncMode syncMode : list) {
+            if (syncMode.equals(test)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private static String constructErrorMessage(Sequencer seq,
+                                                Sequencer.SyncMode syncMode,
+                                                boolean bMaster) {
+        String strMessage = seq.getDeviceInfo().getName() + ": ";
+        strMessage += syncMode.toString();
+        strMessage += bMaster ? " as master " : " as slave ";
+        return strMessage;
+    }
 }
 
 
-
-/*** SyncModesTestCase.java ***/
+/* SyncModesTestCase.java */

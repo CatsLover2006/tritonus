@@ -1,7 +1,7 @@
 /*
- *	MemoryClassLoader.java
+ * MemoryClassLoader.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -26,52 +26,41 @@
 
 package org.tritonus.saol.compiler;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
+import java.io.FileInputStream;
 
 
 public class MemoryClassLoader
-extends ClassLoader
-{
-	public Class findClass(String strName,
-			       byte[] classData)
-	{
-		Class	cls = defineClass(strName, classData, 0, classData.length);
-		return cls;
-	}
+        extends ClassLoader {
+    public Class findClass(String strName,
+                           byte[] classData) {
+        Class<?> cls = defineClass(strName, classData, 0, classData.length);
+        return cls;
+    }
 
 
-	/*	For testing
-	 */
-	public static void main(String[] args)
-	{
-		try
-		{
-			FileInputStream	fis = new FileInputStream(new File("Instrument.class"));
-			ByteArrayOutputStream	baos = new ByteArrayOutputStream();
-			byte[]	buffer = new byte[4096];
-			while (true)
-			{
-				int	nRead = fis.read(buffer);
-				if (nRead == -1)
-				{
-					break;
-				}
-				baos.write(buffer, 0, nRead);
-			}
-			MemoryClassLoader	mcl = new MemoryClassLoader();
-			Class	cls = mcl.findClass("Instrument", baos.toByteArray());
-			System.out.println("class loaded: " + cls.getName());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+    /* For testing
+     */
+    public static void main(String[] args) {
+        try {
+            FileInputStream fis = new FileInputStream("Instrument.class");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            while (true) {
+                int nRead = fis.read(buffer);
+                if (nRead == -1) {
+                    break;
+                }
+                baos.write(buffer, 0, nRead);
+            }
+            MemoryClassLoader mcl = new MemoryClassLoader();
+            Class cls = mcl.findClass("Instrument", baos.toByteArray());
+            System.out.println("class loaded: " + cls.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
-/*** MemoryClassLoader.java ***/
+/* MemoryClassLoader.java */

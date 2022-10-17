@@ -1,7 +1,7 @@
 /*
- *	FloatSampleReader.java
+ * FloatSampleReader.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,12 +29,9 @@ package org.tritonus.dsp.interfaces;
 import org.tritonus.share.sampled.FloatSampleBuffer;
 
 
-
-public interface FloatSampleReader
-{
-	public void read(FloatSampleBuffer buffer);
+public interface FloatSampleReader {
+    void read(FloatSampleBuffer buffer);
 }
 
 
-
-/*** FloatSampleReader.java ***/
+/* FloatSampleReader.java */

@@ -6,9 +6,9 @@ import javax.sound.sampled.spi.FormatConversionProvider;
 import org.tritonus.lowlevel.gsm.GsmFrameFormat;
 import org.tritonus.test.tritonus.sampled.convert.AbstractFormatConversionProviderTest;
 
+
 public abstract class AbstractGsmFormatConversionProviderTest extends
-        AbstractFormatConversionProviderTest
-{
+        AbstractFormatConversionProviderTest {
     /**
      * Encoding for the "toast" frame format. Corresponds to
      * {@link GsmFrameFormat#TOAST}.
@@ -25,16 +25,14 @@ public abstract class AbstractGsmFormatConversionProviderTest extends
 
     private FormatConversionProvider formatConversionProvider;
 
-    protected final FormatConversionProvider getFormatConversionProvider()
-    {
+    protected final FormatConversionProvider getFormatConversionProvider() {
         return formatConversionProvider;
     }
 
     protected final void setFormatConversionProvider(
-            FormatConversionProvider formatConversionProvider)
-    {
+            FormatConversionProvider formatConversionProvider) {
         this.formatConversionProvider = formatConversionProvider;
     }
 
-   
+
 }

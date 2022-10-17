@@ -1,7 +1,7 @@
 /*
- *	TPort.java
+ * TPort.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,36 +29,29 @@
 package org.tritonus.share.sampled.mixer;
 
 import java.util.Collection;
-
 import javax.sound.sampled.Control;
 import javax.sound.sampled.Line;
 import javax.sound.sampled.Port;
 
 
-
-
-/**	Base class for Ports.
+/**
+ * Base class for Ports.
  */
 public class TPort
-extends TLine
-implements Port
-{
-	public TPort(TMixer mixer,
-				 Line.Info info)
-	{
-		super(mixer, info);
-	}
+        extends TLine
+        implements Port {
+    public TPort(TMixer mixer,
+                 Line.Info info) {
+        super(mixer, info);
+    }
 
 
-
-	public TPort(TMixer mixer,
-				 Line.Info info,
-				 Collection<Control> controls)
-	{
-		super(mixer, info, controls);
-	}
+    public TPort(TMixer mixer,
+                 Line.Info info,
+                 Collection<Control> controls) {
+        super(mixer, info, controls);
+    }
 }
 
 
-
-/*** TPort.java ***/
+/* TPort.java */

@@ -1,7 +1,7 @@
 /*
- *	HeaderlessAudioOutputStream.java
+ * HeaderlessAudioOutputStream.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -42,16 +42,15 @@ import javax.sound.sampled.AudioFormat;
 
 public class HeaderlessAudioOutputStream extends TAudioOutputStream {
 
-	public HeaderlessAudioOutputStream(AudioFormat audioFormat,
-				   long lLength,
-				   TDataOutputStream dataOutputStream) {
-		super(audioFormat, lLength, dataOutputStream, false);
-	}
+    public HeaderlessAudioOutputStream(AudioFormat audioFormat,
+                                       long lLength,
+                                       TDataOutputStream dataOutputStream) {
+        super(audioFormat, lLength, dataOutputStream, false);
+    }
 
-	@Override
-	protected void writeHeader() throws IOException
-	{
-	}
+    @Override
+    protected void writeHeader() throws IOException {
+    }
 }
 
-/*** HeaderlessAudioOutputStream.java ***/
+/* HeaderlessAudioOutputStream.java */

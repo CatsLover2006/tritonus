@@ -17,11 +17,10 @@
 package org.tritonus.saol.engine;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Map;
-
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 
@@ -31,7 +30,7 @@ import org.tritonus.share.TDebug;
 
 /**
  * Main
- *
+ * <p>
  * This file is part of Tritonus: http://www.tritonus.org/
  */
 public class Main {
@@ -52,7 +51,7 @@ public class Main {
         SystemOutput output = new FileOutput(outputFile, targetType, audioFormat);
         RTSystem rtSystem = new RTSystem(output, instrumentMap);
         rtSystem.start();
-        InputStream saslInputStream = new FileInputStream(saslFile);
+        InputStream saslInputStream = Files.newInputStream(saslFile.toPath());
         SaslParser saslParser = new SaslParser(rtSystem, saslInputStream);
         new Thread(saslParser).start();
     }

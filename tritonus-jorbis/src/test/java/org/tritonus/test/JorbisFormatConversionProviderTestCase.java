@@ -1,5 +1,5 @@
 /*
- *	JorbisFormatConversionProviderTestCase.java
+ * JorbisFormatConversionProviderTestCase.java
  */
 
 /*
@@ -21,16 +21,12 @@
 package org.tritonus.test;
 
 
-
 public class JorbisFormatConversionProviderTestCase
-extends BaseFormatConversionProviderTestCase
-{
-	public JorbisFormatConversionProviderTestCase()
-	{
-		setResourcePrefix("jorbis");
-	}
+        extends BaseFormatConversionProviderTestCase {
+    public JorbisFormatConversionProviderTestCase() {
+        setResourcePrefix("jorbis");
+    }
 }
 
 
-
-/*** JorbisFormatConversionProviderTestCase.java ***/
+/* JorbisFormatConversionProviderTestCase.java */

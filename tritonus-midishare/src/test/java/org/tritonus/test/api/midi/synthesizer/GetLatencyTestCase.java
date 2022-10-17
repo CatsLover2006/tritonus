@@ -1,5 +1,5 @@
 /*
- *	GetLatencyTestCase.java
+ * GetLatencyTestCase.java
  */
 
 /*
@@ -25,37 +25,31 @@ import javax.sound.midi.Synthesizer;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-/**	Test for javax.sound.midi.Synthesizer.getLatency().
+/**
+ * Test for javax.sound.midi.Synthesizer.getLatency().
  */
 public class GetLatencyTestCase
-extends BaseSynthesizerTestCase
-{
-	protected void checkSynthesizer(Synthesizer synth)
-		throws Exception
-	{
-		long latency;
-		synth.open();
-		try
-		{
-			latency = synth.getLatency();
-			assertTrue(
-					latency >= 0, constructErrorMessage(synth, true));
-		}
-		finally
-		{
-			synth.close();
-		}
-	}
+        extends BaseSynthesizerTestCase {
+    protected void checkSynthesizer(Synthesizer synth)
+            throws Exception {
+        long latency;
+        synth.open();
+        try {
+            latency = synth.getLatency();
+            assertTrue(
+                    latency >= 0, constructErrorMessage(synth, true));
+        } finally {
+            synth.close();
+        }
+    }
 
 
-	private static String constructErrorMessage(Synthesizer synth,
-												boolean bOpen)
-	{
-		return BaseSynthesizerTestCase.constructErrorMessage(synth,
-				"getLatency() result not positive", bOpen);
-	}
+    private static String constructErrorMessage(Synthesizer synth,
+                                                boolean bOpen) {
+        return BaseSynthesizerTestCase.constructErrorMessage(synth,
+                "getLatency() result not positive", bOpen);
+    }
 }
 
 
-
-/*** GetLatencyTestCase.java ***/
+/* GetLatencyTestCase.java */

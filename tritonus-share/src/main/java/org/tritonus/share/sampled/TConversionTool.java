@@ -1,7 +1,7 @@
 /*
- *	TConversionTool.java
+ * TConversionTool.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -33,90 +33,88 @@ package org.tritonus.share.sampled;
 /**
  * Useful methods for converting audio data.
  *
+ * <pre>
+ * For convenience, a list of available methods is maintained here.
+ * Some hints:
+ * - buffers: always byte arrays
+ * - offsets: always in bytes
+ * - sampleCount: number of SAMPLES to read/write, as opposed to FRAMES or BYTES!
+ * - when in buffer and out buffer are given, the data is copied,
+ * otherwise it is replaced in the same buffer (buffer size is not checked!)
+ * - a number (except "2") gives the number of bits in which format
+ * the samples have to be.
+ * - >8 bits per sample is always treated signed.
+ * - all functions are tried to be optimized - hints welcome !
+ *
+ *
+ * * "high level" methods **
+ * changeOrderOrSign(buffer, nOffset, nByteLength, nBytesPerSample)
+ * changeOrderOrSign(inBuffer, nInOffset, outBuffer, nOutOffset, nByteLength, nBytesPerSample)
+ *
+ *
+ * * PCM byte order and sign conversion **
+ * void  convertSign8(buffer, byteOffset, sampleCount)
+ * void  swapOrder16(buffer, byteOffset, sampleCount)
+ * void  swapOrder24(buffer, byteOffset, sampleCount)
+ * void  swapOrder32(buffer, byteOffset, sampleCount)
+ * void  convertSign8(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
+ * void  swapOrder16(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
+ * void  swapOrder24(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
+ * void  swapOrder32(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
+ *
+ *
+ * * conversion functions for byte arrays **
+ * * these are for reference to see how to implement these conversions **
+ * short  bytesToShort16(highByte, lowByte)
+ * short  bytesToShort16(buffer, byteOffset, bigEndian)
+ * short  bytesToInt16(highByte, lowByte)
+ * short  bytesToInt16(buffer, byteOffset, bigEndian)
+ * short  bytesToInt24(buffer, byteOffset, bigEndian)
+ * short  bytesToInt32(buffer, byteOffset, bigEndian)
+ * void  shortToBytes16(sample, buffer, byteOffset, bigEndian)
+ * void  intToBytes24(sample, buffer, byteOffset, bigEndian)
+ * void  intToBytes32(sample, buffer, byteOffset, bigEndian)
+ *
+ *
+ * * ULAW <-> PCM **
+ * byte  linear2ulaw(int sample)
+ * short  ulaw2linear(int ulawbyte)
+ * void  pcm162ulaw(buffer, byteOffset, sampleCount, bigEndian)
+ * void  pcm162ulaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
+ * void  pcm82ulaw(buffer, byteOffset, sampleCount, signed)
+ * void  pcm82ulaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
+ * void  ulaw2pcm16(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
+ * void  ulaw2pcm8(buffer, byteOffset, sampleCount, signed)
+ * void  ulaw2pcm8(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
+ *
+ *
+ * * ALAW <-> PCM **
+ * byte linear2alaw(short pcm_val)
+ * short alaw2linear(byte ulawbyte)
+ * void pcm162alaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
+ * void pcm162alaw(buffer, byteOffset, sampleCount, bigEndian)
+ * void pcm82alaw(buffer, byteOffset, sampleCount, signed)
+ * void pcm82alaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
+ * void alaw2pcm16(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
+ * void alaw2pcm8(buffer, byteOffset, sampleCount, signed)
+ * void alaw2pcm8(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
+ *
+ *
+ * * ULAW <-> ALAW **
+ * byte  ulaw2alaw(byte sample)
+ * void  ulaw2alaw(buffer, byteOffset, sampleCount)
+ * void  ulaw2alaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
+ * byte  alaw2ulaw(byte sample)
+ * void  alaw2ulaw(buffer, byteOffset, sampleCount)
+ * void  alaw2ulaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
+ * </pre>
+ *
  * @author Florian Bomers
  * @author Matthias Pfisterer
  */
-
-/*
-For convenience, a list of available methods is maintained here.
-Some hints:
-- buffers: always byte arrays
-- offsets: always in bytes
-- sampleCount: number of SAMPLES to read/write, as opposed to FRAMES or BYTES!
-- when in buffer and out buffer are given, the data is copied,
-  otherwise it is replaced in the same buffer (buffer size is not checked!)
-- a number (except "2") gives the number of bits in which format
-  the samples have to be.
-- >8 bits per sample is always treated signed.
-- all functions are tried to be optimized - hints welcome !
-
-
- * * "high level" methods **
-changeOrderOrSign(buffer, nOffset, nByteLength, nBytesPerSample)
-changeOrderOrSign(inBuffer, nInOffset, outBuffer, nOutOffset, nByteLength, nBytesPerSample)
-
-
- * * PCM byte order and sign conversion **
-void 	convertSign8(buffer, byteOffset, sampleCount)
-void 	swapOrder16(buffer, byteOffset, sampleCount)
-void 	swapOrder24(buffer, byteOffset, sampleCount)
-void 	swapOrder32(buffer, byteOffset, sampleCount)
-void 	convertSign8(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
-void 	swapOrder16(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
-void 	swapOrder24(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
-void 	swapOrder32(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
-
-
- * * conversion functions for byte arrays **
- * * these are for reference to see how to implement these conversions **
-short 	bytesToShort16(highByte, lowByte)
-short 	bytesToShort16(buffer, byteOffset, bigEndian)
-short 	bytesToInt16(highByte, lowByte)
-short 	bytesToInt16(buffer, byteOffset, bigEndian)
-short 	bytesToInt24(buffer, byteOffset, bigEndian)
-short 	bytesToInt32(buffer, byteOffset, bigEndian)
-void 	shortToBytes16(sample, buffer, byteOffset, bigEndian)
-void 	intToBytes24(sample, buffer, byteOffset, bigEndian)
-void 	intToBytes32(sample, buffer, byteOffset, bigEndian)
-
-
- * * ULAW <-> PCM **
-byte 	linear2ulaw(int sample)
-short 	ulaw2linear(int ulawbyte)
-void 	pcm162ulaw(buffer, byteOffset, sampleCount, bigEndian)
-void 	pcm162ulaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
-void 	pcm82ulaw(buffer, byteOffset, sampleCount, signed)
-void 	pcm82ulaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
-void 	ulaw2pcm16(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
-void 	ulaw2pcm8(buffer, byteOffset, sampleCount, signed)
-void 	ulaw2pcm8(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
-
-
- * * ALAW <-> PCM **
-byte linear2alaw(short pcm_val)
-short alaw2linear(byte ulawbyte)
-void pcm162alaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
-void pcm162alaw(buffer, byteOffset, sampleCount, bigEndian)
-void pcm82alaw(buffer, byteOffset, sampleCount, signed)
-void pcm82alaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
-void alaw2pcm16(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, bigEndian)
-void alaw2pcm8(buffer, byteOffset, sampleCount, signed)
-void alaw2pcm8(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount, signed)
-
-
- * * ULAW <-> ALAW **
-byte 	ulaw2alaw(byte sample)
-void 	ulaw2alaw(buffer, byteOffset, sampleCount)
-void 	ulaw2alaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
-byte 	alaw2ulaw(byte sample)
-void 	alaw2ulaw(buffer, byteOffset, sampleCount)
-void 	alaw2ulaw(inBuffer, inByteOffset, outBuffer, outByteOffset, sampleCount)
-
- */
-
 public class TConversionTool {
 
-	///////////////// sign/byte-order conversion ///////////////////////////////////
+    // sign/byte-order conversion
 
     public static void convertSign8(byte[] buffer, int byteOffset, int sampleCount) {
         sampleCount += byteOffset;
@@ -291,7 +289,6 @@ public class TConversionTool {
                         | (buffer[byteOffset] & 0xFF));
     }
 
-
     /**
      * Converts a sample of type <code>short</code> to 2 bytes in an array.
      * <code>sample</code> is interpreted as signed (as Java does).
@@ -349,7 +346,6 @@ public class TConversionTool {
         }
     }
 
-
     /**
      * Converts a 32 bit sample of type <code>int</code> to 4 bytes in an array.
      * <code>sample</code> is interpreted as signed (as Java does).
@@ -373,13 +369,12 @@ public class TConversionTool {
         }
     }
 
-
-	/////////////////////// ULAW ///////////////////////////////////////////
+    // ULAW
 
     private static final boolean ZEROTRAP = true;
     private static final short BIAS = 0x84;
     private static final int CLIP = 32635;
-	private static final int exp_lut1[] ={
+    private static final int[] exp_lut1 = {
             0, 0, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
             4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
             5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
@@ -397,7 +392,6 @@ public class TConversionTool {
             7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
             7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7
     };
-
 
     /**
      * Converts a linear signed 16bit sample to a uLaw byte.
@@ -427,8 +421,8 @@ public class TConversionTool {
         return ((byte) ulawbyte);
     }
 
-	/* u-law to linear conversion table */
-	private static short[] u2l = {
+    /** u-law to linear conversion table */
+    private static final short[] u2l = {
             -32124, -31100, -30076, -29052, -28028, -27004, -25980, -24956,
             -23932, -22908, -21884, -20860, -19836, -18812, -17788, -16764,
             -15996, -15484, -14972, -14460, -13948, -13436, -12924, -12412,
@@ -462,11 +456,10 @@ public class TConversionTool {
             120, 112, 104, 96, 88, 80, 72, 64,
             56, 48, 40, 32, 24, 16, 8, 0
     };
+
     public static short ulaw2linear(byte ulawbyte) {
         return u2l[ulawbyte & 0xFF];
     }
-
-
 
     /**
      * Converts a buffer of signed 16bit big endian samples to uLaw.
@@ -528,6 +521,7 @@ public class TConversionTool {
     }
 
     // TODO: either direct 8bit pcm to ulaw, or better conversion from 8bit to 16bit
+
     /**
      * Converts a buffer of 8bit samples to uLaw.
      * The uLaw bytes overwrite the original 8 bit values.
@@ -592,6 +586,7 @@ public class TConversionTool {
 
 
     // TODO: either direct 8bit pcm to ulaw, or better conversion from 8bit to 16bit
+
     /**
      * Inplace-conversion of a ulaw buffer to 8bit samples.
      * The 8bit bytes overwrite the original ulaw values.
@@ -636,53 +631,52 @@ public class TConversionTool {
         }
     }
 
+    // ALAW
 
-	//////////////////// ALAW ////////////////////////////
+    // This source code is a product of Sun Microsystems, Inc. and is provided
+    // for unrestricted use.  Users may copy or modify this source code without
+    // charge.
+    //
+    // linear2alaw() - Convert a 16-bit linear PCM value to 8-bit A-law
+    //
+    // linear2alaw() accepts an 16-bit integer and encodes it as A-law data.
+    //
+    //  Linear Input Code         Compressed Code
+    //  ------------------------ ---------------
+    //  0000000wxyza    000wxyz
+    //  0000001wxyza    001wxyz
+    //  000001wxyzab    010wxyz
+    //  00001wxyzabc    011wxyz
+    //  0001wxyzabcd    100wxyz
+    //  001wxyzabcde    101wxyz
+    //  01wxyzabcdef    110wxyz
+    //  1wxyzabcdefg    111wxyz
+    //
+    // For further information see John C. Bellamy's Digital Telephony, 1982,
+    // John Wiley & Sons, pps 98-111 and 472-476.
 
-
-	/*
-	 * This source code is a product of Sun Microsystems, Inc. and is provided
-	 * for unrestricted use.  Users may copy or modify this source code without
-	 * charge.
-	 *
-	 * linear2alaw() - Convert a 16-bit linear PCM value to 8-bit A-law
-	 *
-	 * linear2alaw() accepts an 16-bit integer and encodes it as A-law data.
-	 *
-	 *		Linear Input Code	Compressed Code
-	 *	------------------------	---------------
-	 *	0000000wxyza			000wxyz
-	 *	0000001wxyza			001wxyz
-	 *	000001wxyzab			010wxyz
-	 *	00001wxyzabc			011wxyz
-	 *	0001wxyzabcd			100wxyz
-	 *	001wxyzabcde			101wxyz
-	 *	01wxyzabcdef			110wxyz
-	 *	1wxyzabcdefg			111wxyz
-	 *
-	 * For further information see John C. Bellamy's Digital Telephony, 1982,
-	 * John Wiley & Sons, pps 98-111 and 472-476.
-	 */
-	private static final byte QUANT_MASK = 0xf;		/* Quantization field mask. */
-	private static final byte SEG_SHIFT = 4;		/* Left shift for segment number. */
+    /** Quantization field mask. */
+    private static final byte QUANT_MASK = 0xf;
+    /** Left shift for segment number. **/
+    private static final byte SEG_SHIFT = 4;
     private static final short[] seg_end = {
             0xFF, 0x1FF, 0x3FF, 0x7FF, 0xFFF, 0x1FFF, 0x3FFF, 0x7FFF
     };
 
-	public static byte linear2alaw(short pcm_val)	/* 2's complement (16-bit range) */
-	{
+    /** 2's complement (16-bit range) */
+    public static byte linear2alaw(short pcm_val) {
         byte mask;
         byte seg = 8;
         byte aval;
 
         if (pcm_val >= 0) {
-			mask = (byte) 0xD5;		/* sign (7th) bit = 1 */
+            mask = (byte) 0xD5; // sign (7th) bit = 1
         } else {
-			mask = 0x55;		/* sign bit = 0 */
+            mask = 0x55; // sign bit = 0
             pcm_val = (short) (-pcm_val - 8);
         }
 
-		/* Convert the scaled magnitude to segment number. */
+        // Convert the scaled magnitude to segment number.
         for (int i = 0; i < 8; i++) {
             if (pcm_val <= seg_end[i]) {
                 seg = (byte) i;
@@ -690,20 +684,20 @@ public class TConversionTool {
             }
         }
 
-		/* Combine the sign, segment, and quantization bits. */
-		if (seg >= 8)		/* out of range, return maximum value. */
+        // Combine the sign, segment, and quantization bits.
+        if (seg >= 8) // out of range, return maximum value.
             return (byte) ((0x7F ^ mask) & 0xFF);
         else {
             aval = (byte) (seg << SEG_SHIFT);
             if (seg < 2)
-				aval |= (pcm_val >> 4) & QUANT_MASK;
+                aval = (byte) (aval | (pcm_val >> 4) & QUANT_MASK);
             else
-				aval |= (pcm_val >> (seg + 3)) & QUANT_MASK;
+                aval = (byte) (aval | (pcm_val >> (seg + 3)) & QUANT_MASK);
             return (byte) ((aval ^ mask) & 0xFF);
         }
     }
 
-	private static short[] a2l = {
+    private static final short[] a2l = {
             -5504, -5248, -6016, -5760, -4480, -4224, -4992, -4736,
             -7552, -7296, -8064, -7808, -6528, -6272, -7040, -6784,
             -2752, -2624, -3008, -2880, -2240, -2112, -2496, -2368,
@@ -753,18 +747,14 @@ public class TConversionTool {
         int alawIndex = shortIndex;
         if (bigEndian) {
             while (sampleCount > 0) {
-				buffer[alawIndex++]=
-				    linear2alaw(bytesToShort16
-				                (buffer[shortIndex], buffer[shortIndex+1]));
+                buffer[alawIndex++] = linear2alaw(bytesToShort16(buffer[shortIndex], buffer[shortIndex + 1]));
                 shortIndex++;
                 shortIndex++;
                 sampleCount--;
             }
         } else {
             while (sampleCount > 0) {
-				buffer[alawIndex++]=
-				    linear2alaw(bytesToShort16
-				                (buffer[shortIndex+1], buffer[shortIndex]));
+                buffer[alawIndex++] = linear2alaw(bytesToShort16(buffer[shortIndex + 1], buffer[shortIndex]));
                 shortIndex++;
                 shortIndex++;
                 sampleCount--;
@@ -785,16 +775,14 @@ public class TConversionTool {
         int alawIndex = outByteOffset;
         if (bigEndian) {
             while (sampleCount > 0) {
-				outBuffer[alawIndex++]=linear2alaw
-				                       (bytesToShort16(inBuffer[shortIndex], inBuffer[shortIndex+1]));
+                outBuffer[alawIndex++] = linear2alaw(bytesToShort16(inBuffer[shortIndex], inBuffer[shortIndex + 1]));
                 shortIndex++;
                 shortIndex++;
                 sampleCount--;
             }
         } else {
             while (sampleCount > 0) {
-				outBuffer[alawIndex++]=linear2alaw
-				                       (bytesToShort16(inBuffer[shortIndex+1], inBuffer[shortIndex]));
+                outBuffer[alawIndex++] = linear2alaw(bytesToShort16(inBuffer[shortIndex + 1], inBuffer[shortIndex]));
                 shortIndex++;
                 shortIndex++;
                 sampleCount--;
@@ -845,8 +833,6 @@ public class TConversionTool {
             }
         }
     }
-
-
 
     /**
      * Converts an alaw buffer to 8bit pcm samples
@@ -912,9 +898,9 @@ public class TConversionTool {
         }
     }
 
-	//////////////////////// cross conversion alaw <-> ulaw ////////////////////////////////////////
+    // cross conversion alaw <-> ulaw
 
-	private static byte[] u2a = {
+    private static final byte[] u2a = {
             -86, -85, -88, -87, -82, -81, -84, -83, -94, -93, -96, -95, -90, -89, -92, -91,
             -70, -69, -72, -71, -66, -65, -68, -67, -78, -77, -80, -79, -74, -73, -76, -75,
             -118, -117, -120, -119, -114, -113, -116, -115, -126, -125, -128, -127, -122, -121, -124, -123,
@@ -960,7 +946,7 @@ public class TConversionTool {
         }
     }
 
-	private static byte[] a2u = {
+    private static final byte[] a2u = {
             -86, -85, -88, -87, -82, -81, -84, -83, -94, -93, -96, -95, -90, -89, -92, -91,
             -71, -70, -73, -72, -67, -66, -69, -68, -79, -78, -80, -80, -75, -74, -77, -76,
             -118, -117, -120, -119, -114, -113, -116, -115, -126, -125, -128, -127, -122, -121, -124, -123,
@@ -1012,35 +998,28 @@ public class TConversionTool {
         }
     }
 
-
-	//////////////////////// high level methods /////////////////////////////////////////////////
+    // high level methods
 
     /*
      * !! Here, unlike other functions in this class, the length is
      * in bytes rather than samples !!
      */
-	public static void changeOrderOrSign(byte[] buffer, int nOffset,
-	                                     int nByteLength, int nBytesPerSample) {
+    public static void changeOrderOrSign(byte[] buffer, int nOffset, int nByteLength, int nBytesPerSample) {
         switch (nBytesPerSample) {
         case 1:
             convertSign8(buffer, nOffset, nByteLength);
             break;
-
         case 2:
             swapOrder16(buffer, nOffset, nByteLength / 2);
             break;
-
         case 3:
             swapOrder24(buffer, nOffset, nByteLength / 3);
             break;
-
         case 4:
             swapOrder32(buffer, nOffset, nByteLength / 4);
             break;
         }
     }
-
-
 
     /*
      * !! Here, unlike other functions in this class, the length is
@@ -1052,171 +1031,19 @@ public class TConversionTool {
             int nByteLength, int nBytesPerSample) {
         switch (nBytesPerSample) {
         case 1:
-			convertSign8(
-			    inBuffer, nInOffset,
-			    outBuffer, nOutOffset,
-			    nByteLength);
+            convertSign8(inBuffer, nInOffset, outBuffer, nOutOffset, nByteLength);
             break;
-
         case 2:
-			swapOrder16(
-			    inBuffer, nInOffset,
-			    outBuffer, nOutOffset,
-			    nByteLength / 2);
+            swapOrder16(inBuffer, nInOffset, outBuffer, nOutOffset, nByteLength / 2);
             break;
-
         case 3:
-			swapOrder24(
-			    inBuffer, nInOffset,
-			    outBuffer, nOutOffset,
-			    nByteLength / 3);
+            swapOrder24(inBuffer, nInOffset, outBuffer, nOutOffset, nByteLength / 3);
             break;
-
         case 4:
-			swapOrder32(
-			    inBuffer, nInOffset,
-			    outBuffer, nOutOffset,
-			    nByteLength / 4);
+            swapOrder32(inBuffer, nInOffset, outBuffer, nOutOffset, nByteLength / 4);
             break;
         }
     }
-
-
-	///////////////// Annexe: how the arrays were created. //////////////////////////////////
-
-	/*
-	 * Converts a uLaw byte to a linear signed 16bit sample.
-	 * Ported to Java by fb.
-	 * <BR>Originally by:<BR>
-	 *
-	 * Craig Reese: IDA/Supercomputing Research Center <BR>
-	 * 29 September 1989 <BR>
-	 *
-	 * References: <BR>
-	 * <OL>
-	 * <LI>CCITT Recommendation G.711  (very difficult to follow)</LI>
-	 * <LI>MIL-STD-188-113,"Interoperability and Performance Standards
-	 *     for Analog-to_Digital Conversion Techniques,"
-	 *     17 February 1987</LI>
-	 * </OL>
-	 */
-	/*
-	private static final int exp_lut2[] = {
-	0,132,396,924,1980,4092,8316,16764
-};
-
-	public static short _ulaw2linear(int ulawbyte) {
-	int sign, exponent, mantissa, sample;
-
-	ulawbyte = ~ulawbyte;
-	sign = (ulawbyte & 0x80);
-	exponent = (ulawbyte >> 4) & 0x07;
-	mantissa = ulawbyte & 0x0F;
-	sample = exp_lut2[exponent] + (mantissa << (exponent + 3));
-	if (sign != 0) sample = -sample;
-	return((short) sample);
-}*/
-
-
-	/* u- to A-law conversions: copied from CCITT G.711 specifications */
-	/*
-	private static byte[] _u2a = {
-	1,	1,	2,	2,	3,	3,	4,	4,
-	5,	5,	6,	6,	7,	7,	8,	8,
-	9,	10,	11,	12,	13,	14,	15,	16,
-	17,	18,	19,	20,	21,	22,	23,	24,
-	25,	27,	29,	31,	33,	34,	35,	36,
-	37,	38,	39,	40,	41,	42,	43,	44,
-	46,	48,	49,	50,	51,	52,	53,	54,
-	55,	56,	57,	58,	59,	60,	61,	62,
-	64,	65,	66,	67,	68,	69,	70,	71,
-	72,	73,	74,	75,	76,	77,	78,	79,
-	81,	82,	83,	84,	85,	86,	87,	88,
-	89,	90,	91,	92,	93,	94,	95,	96,
-	97,	98,	99,	100,	101,	102,	103,	104,
-	105,	106,	107,	108,	109,	110,	111,	112,
-	113,	114,	115,	116,	117,	118,	119,	120,
-	121,	122,	123,	124,	125,	126,	127,	(byte) 128};
-	*/
-
-	/* u-law to A-law conversion */
-	/*
-	 * This source code is a product of Sun Microsystems, Inc. and is provided
-	 * for unrestricted use.  Users may copy or modify this source code without
-	 * charge.
-	 */
-	/*
-	public static byte _ulaw2alaw(byte sample) {
-	sample &= 0xff;
-	return (byte) (((sample & 0x80)!=0) ? (0xD5 ^ (_u2a[(0x7F ^ sample) & 0x7F] - 1)) :
-	     (0x55 ^ (_u2a[(0x7F ^ sample) & 0x7F] - 1)));
-}*/
-
-	/* A- to u-law conversions */
-	/*
-	private static byte[] _a2u = {
-	1,	3,	5,	7,	9,	11,	13,	15,
-	16,	17,	18,	19,	20,	21,	22,	23,
-	24,	25,	26,	27,	28,	29,	30,	31,
-	32,	32,	33,	33,	34,	34,	35,	35,
-	36,	37,	38,	39,	40,	41,	42,	43,
-	44,	45,	46,	47,	48,	48,	49,	49,
-	50,	51,	52,	53,	54,	55,	56,	57,
-	58,	59,	60,	61,	62,	63,	64,	64,
-	65,	66,	67,	68,	69,	70,	71,	72,
-	73,	74,	75,	76,	77,	78,	79,	79,
-	80,	81,	82,	83,	84,	85,	86,	87,
-	88,	89,	90,	91,	92,	93,	94,	95,
-	96,	97,	98,	99,	100,	101,	102,	103,
-	104,	105,	106,	107,	108,	109,	110,	111,
-	112,	113,	114,	115,	116,	117,	118,	119,
-	120,	121,	122,	123,	124,	125,	126,	127};
-	*/
-
-	/*
-	 * This source code is a product of Sun Microsystems, Inc. and is provided
-	 * for unrestricted use.  Users may copy or modify this source code without
-	 * charge.
-	 */
-	/*
-	public static byte _alaw2ulaw(byte sample) {
-	sample &= 0xff;
-	return (byte) (((sample & 0x80)!=0) ? (0xFF ^ _a2u[(sample ^ 0xD5) & 0x7F]) :
-	     (0x7F ^ _a2u[(sample ^ 0x55) & 0x7F]));
 }
 
-	public static void print_a2u() {
-	System.out.println("\tprivate static byte[] a2u = {");
-	for (int i=-128; i<128; i++) {
-	 if (((i+128) % 16)==0) {
-	System.out.print("\t\t");
-	 }
-	 byte b=(byte) i;
-	 System.out.print(_alaw2ulaw(b)+", ");
-	 if (((i+128) % 16)==15) {
-	System.out.println("");
-	 }
-}
-	System.out.println("\t};");
-}
-
-	public static void print_u2a() {
-	System.out.println("\tprivate static byte[] u2a = {");
-	for (int i=-128; i<128; i++) {
-	 if (((i+128) % 16)==0) {
-	System.out.print("\t\t");
-	 }
-	 byte b=(byte) i;
-	 System.out.print(_ulaw2alaw(b)+", ");
-	 if (((i+128) % 16)==15) {
-	System.out.println("");
-}
-}
-	System.out.println("\t};");
-}
-	*/
-
-}
-
-
-/*** TConversionTool.java ***/
+/* TConversionTool.java */

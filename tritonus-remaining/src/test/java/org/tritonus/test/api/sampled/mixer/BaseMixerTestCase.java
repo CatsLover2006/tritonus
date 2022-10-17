@@ -1,5 +1,5 @@
 /*
- *	BaseMixerTestCase.java
+ * BaseMixerTestCase.java
  */
 
 /*
@@ -20,44 +20,41 @@
 
 package org.tritonus.test.api.sampled.mixer;
 
-import javax.sound.sampled.Mixer;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Mixer;
 
-/**	Base class for tests of javax.sound.sampled.Mixer.
+
+/**
+ * Base class for tests of javax.sound.sampled.Mixer.
  */
-public abstract class BaseMixerTestCase
-{
-	/**	Iterate over all available Mixers.
-	*/
-	protected void checkMixer(Check check)
-		throws Exception
-	{
-		Mixer.Info[] infos = AudioSystem.getMixerInfo();
-		for (int i = 0; i < infos.length; i++)
-		{
-			Mixer mixer = AudioSystem.getMixer(infos[i]);
-			System.out.println("testing mixer: " + mixer);
-			check.check(mixer);
-		}
-	}
+public abstract class BaseMixerTestCase {
+    /**
+     * Iterate over all available Mixers.
+     */
+    protected void checkMixer(Check check)
+            throws Exception {
+        Mixer.Info[] infos = AudioSystem.getMixerInfo();
+        for (Mixer.Info info : infos) {
+            Mixer mixer = AudioSystem.getMixer(info);
+            System.out.println("testing mixer: " + mixer);
+            check.check(mixer);
+        }
+    }
 
 
+    /**
+     * Get the prefix for error messages (containing the sequencer's name).
+     */
+    protected static String getMessagePrefix(Mixer mixer) {
+        return mixer.getMixerInfo().getName();
+    }
 
-	/** Get the prefix for error messages (containing the sequencer's name).
-	 */
-	protected static String getMessagePrefix(Mixer mixer)
-	{
-		return mixer.getMixerInfo().getName();
-	}
 
-
-	protected interface Check
-	{
-		public void check(Mixer mixer)
-			throws Exception;
-	}
+    protected interface Check {
+        void check(Mixer mixer)
+                throws Exception;
+    }
 }
 
 
-
-/*** BaseMixerTestCase.java ***/
+/* BaseMixerTestCase.java */

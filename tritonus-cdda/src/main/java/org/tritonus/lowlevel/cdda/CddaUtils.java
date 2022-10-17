@@ -1,7 +1,7 @@
 /*
- *	CddaUtils.java
+ * CddaUtils.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -28,24 +28,20 @@
 
 package org.tritonus.lowlevel.cdda;
 
-import org.tritonus.lowlevel.cdda.CddaMidLevel;
 import org.tritonus.lowlevel.cdda.cdparanoia.CdparanoiaMidLevel;
 
 
-
-/** Gets the preferred CDDA implementation.
+/**
+ * Gets the preferred CDDA implementation.
  */
-public class CddaUtils
-{
-	// TODO: use some automatic lookup mechanism.
-	public static CddaMidLevel getCddaMidLevel()
-	{
-		CddaMidLevel	cddaMidLevel = new CdparanoiaMidLevel();
-		// CddaMidLevel	cddaMidLevel = new CookedIoctlMidLevel();
-		return cddaMidLevel;
-	}
+public class CddaUtils {
+    // TODO: use some automatic lookup mechanism.
+    public static CddaMidLevel getCddaMidLevel() {
+        CddaMidLevel cddaMidLevel = new CdparanoiaMidLevel();
+        // CddaMidLevel cddaMidLevel = new CookedIoctlMidLevel();
+        return cddaMidLevel;
+    }
 }
 
 
-
-/*** CddaUtils.java ***/
+/* CddaUtils.java */

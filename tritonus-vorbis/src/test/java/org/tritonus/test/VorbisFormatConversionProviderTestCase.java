@@ -1,5 +1,5 @@
 /*
- *	VorbisFormatConversionProviderTestCase.java
+ * VorbisFormatConversionProviderTestCase.java
  */
 
 /*
@@ -21,16 +21,12 @@
 package org.tritonus.test;
 
 
-
 public class VorbisFormatConversionProviderTestCase
-extends BaseFormatConversionProviderTestCase
-{
-	public VorbisFormatConversionProviderTestCase()
-	{
-		setResourcePrefix("vorbis");
-	}
+        extends BaseFormatConversionProviderTestCase {
+    public VorbisFormatConversionProviderTestCase() {
+        setResourcePrefix("vorbis");
+    }
 }
 
 
-
-/*** VorbisFormatConversionProviderTestCase.java ***/
+/* VorbisFormatConversionProviderTestCase.java */

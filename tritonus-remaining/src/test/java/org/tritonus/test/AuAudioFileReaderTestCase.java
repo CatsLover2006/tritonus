@@ -1,5 +1,5 @@
 /*
- *	AuAudioFileReaderTestCase.java
+ * AuAudioFileReaderTestCase.java
  */
 
 /*
@@ -21,16 +21,12 @@
 package org.tritonus.test;
 
 
-
 public class AuAudioFileReaderTestCase
-extends BaseAudioFileReaderTestCase
-{
-	public AuAudioFileReaderTestCase()
-	{
-		setResourcePrefix("au");
-	}
+        extends BaseAudioFileReaderTestCase {
+    public AuAudioFileReaderTestCase() {
+        setResourcePrefix("au");
+    }
 }
 
 
-
-/*** AuAudioFileReaderTestCase.java ***/
+/* AuAudioFileReaderTestCase.java */

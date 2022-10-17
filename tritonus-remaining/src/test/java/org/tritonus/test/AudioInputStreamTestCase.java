@@ -1,5 +1,5 @@
 /*
- *	AudioInputStreamTestCase.java
+ * AudioInputStreamTestCase.java
  */
 
 /*
@@ -27,83 +27,77 @@ import javax.sound.sampled.AudioSystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class AudioInputStreamTestCase
-{
+
+public class AudioInputStreamTestCase {
     @Test
-	public void testConstructorNullPointers()
-	{
-		@SuppressWarnings("unused") AudioInputStream ais = null;
-//		InputStream is = new ByteArrayInputStream(new byte[0]);
-		AudioFormat format = new AudioFormat(44100.0F, 16, 2, true, false);
-		try
-		{
-			ais = new AudioInputStream(null, format, AudioSystem.NOT_SPECIFIED);
-		}
-		catch (NullPointerException e)
-		{
+    public void testConstructorNullPointers() {
+        @SuppressWarnings("unused") AudioInputStream ais = null;
+//  InputStream is = new ByteArrayInputStream(new byte[0]);
+        AudioFormat format = new AudioFormat(44100.0F, 16, 2, true, false);
+        try {
+            ais = new AudioInputStream(null, format, AudioSystem.NOT_SPECIFIED);
+        } catch (NullPointerException e) {
             Assertions.fail("no NullpointerException thrown for null InputStream");
-		}
+        }
 
-		// jdk source throws npe when format is null.
-//		try
-//		{
-//			ais = new AudioInputStream(is, null, AudioSystem.NOT_SPECIFIED);
-//			Assertions.fail("no NullpointerException thrown for null AudioFormat");
-//		}
-//		catch (NullPointerException e)
-//		{
-//		}
-	}
-
-
-
-// 	public void testLength()
-// 	{
-// 		Map prop = new HashMap();
-// 		prop.put("bitrate", new Float(22.5F));
-// 		AudioInputStream format = new AudioInputStream(AudioFormat.Encoding.PCM_SIGNED,
-// 											   44100.0F, 16, 2, 4, 44100.0F,
-// 											   true, prop);
-// 		Map propReturn = format.properties();
-// 		assertTrue(prop != propReturn);
-// 		prop.put("bitrate", new Float(42.5F));
-// 		Object result = propReturn.get("bitrate");
-// 		assertEquals(new Float(22.5F), result);
-// 	}
+        // jdk source throws npe when format is null.
+//  try
+//  {
+//   ais = new AudioInputStream(is, null, AudioSystem.NOT_SPECIFIED);
+//   Assertions.fail("no NullpointerException thrown for null AudioFormat");
+//  }
+//  catch (NullPointerException e)
+//  {
+//  }
+    }
 
 
-// 	public void testUnmodifiable()
-// 	{
-// 		Map prop = new HashMap();
-// 		AudioInputStream format = new AudioInputStream(AudioFormat.Encoding.PCM_SIGNED,
-// 											   44100.0F, 16, 2, 4, 44100.0F,
-// 											   true, prop);
-// 		Map propReturn = format.properties();
-// 		try
-// 		{
-// 			propReturn.put("author", "Matthias Pfisterer");
-// 			fail("returned Map allows modifications");
-// 		}
-// 		catch (UnsupportedOperationException e)
-// 		{
-// 		}
-// 	}
+//  public void testLength()
+//  {
+//   Map prop = new HashMap();
+//   prop.put("bitrate", new Float(22.5F));
+//   AudioInputStream format = new AudioInputStream(AudioFormat.Encoding.PCM_SIGNED,
+//               44100.0F, 16, 2, 4, 44100.0F,
+//               true, prop);
+//   Map propReturn = format.properties();
+//   assertTrue(prop != propReturn);
+//   prop.put("bitrate", new Float(42.5F));
+//   Object result = propReturn.get("bitrate");
+//   assertEquals(new Float(22.5F), result);
+//  }
 
 
-// 	public void testGet()
-// 	{
-// 		Map prop = new HashMap();
-// 		prop.put("bitrate", new Float(22.5F));
-// 		prop.put("author", "Matthias Pfisterer");
-// 		AudioInputStream format = new AudioInputStream(AudioFormat.Encoding.PCM_SIGNED,
-// 											   44100.0F, 16, 2, 4, 44100.0F,
-// 											   true, prop);
-// 		Map propReturn = format.properties();
-// 		assertEquals(new Float(22.5F), propReturn.get("bitrate"));
-// 		assertEquals("Matthias Pfisterer", propReturn.get("author"));
-// 	}
+//  public void testUnmodifiable()
+//  {
+//   Map prop = new HashMap();
+//   AudioInputStream format = new AudioInputStream(AudioFormat.Encoding.PCM_SIGNED,
+//               44100.0F, 16, 2, 4, 44100.0F,
+//               true, prop);
+//   Map propReturn = format.properties();
+//   try
+//   {
+//    propReturn.put("author", "Matthias Pfisterer");
+//    fail("returned Map allows modifications");
+//   }
+//   catch (UnsupportedOperationException e)
+//   {
+//   }
+//  }
+
+
+//  public void testGet()
+//  {
+//   Map prop = new HashMap();
+//   prop.put("bitrate", new Float(22.5F));
+//   prop.put("author", "Matthias Pfisterer");
+//   AudioInputStream format = new AudioInputStream(AudioFormat.Encoding.PCM_SIGNED,
+//               44100.0F, 16, 2, 4, 44100.0F,
+//               true, prop);
+//   Map propReturn = format.properties();
+//   assertEquals(new Float(22.5F), propReturn.get("bitrate"));
+//   assertEquals("Matthias Pfisterer", propReturn.get("author"));
+//  }
 }
 
 
-
-/*** AudioInputStreamTestCase.java ***/
+/* AudioInputStreamTestCase.java */

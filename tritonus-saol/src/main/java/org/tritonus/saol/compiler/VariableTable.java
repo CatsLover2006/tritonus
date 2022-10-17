@@ -1,7 +1,7 @@
 /*
- *	VariableTable.java
+ * VariableTable.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,25 +29,19 @@ package org.tritonus.saol.compiler;
 import java.util.HashMap;
 
 
-
-/**	The variable table.
-	TODO: use generics
+/**
+ * The variable table.
+ * TODO: use generics
  */
-public class VariableTable
-extends HashMap
-{
-	public void add(VariableEntry variableEntry)
-	{
-		put(variableEntry.getVariableName(), variableEntry);
-	}
+public class VariableTable extends HashMap<String, VariableEntry> {
 
+    public void add(VariableEntry variableEntry) {
+        put(variableEntry.getVariableName(), variableEntry);
+    }
 
-	public VariableEntry getEntry(String strVariableName)
-	{
-		return (VariableEntry) get(strVariableName);
-	}
+    public VariableEntry getEntry(String strVariableName) {
+        return get(strVariableName);
+    }
 }
 
-
-
-/*** VariableTable.java ***/
+/* VariableTable.java */

@@ -1,7 +1,7 @@
 /*
- *	Source.java
+ * Source.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -27,17 +27,17 @@
 package org.tritonus.lowlevel.dsp;
 
 
-/**	Common interface for all types of audio data sources.
-	Examples of such sources are noise generators and waveform generators.
-*/
-public interface Source
-{
-	/**	Returns one sample of the source.
-		Samples are normally in the range [-1.0 .. +1.0].
-	*/
-	public float process();
+/**
+ * Common interface for all types of audio data sources.
+ * Examples of such sources are noise generators and waveform generators.
+ */
+public interface Source {
+    /**
+     * Returns one sample of the source.
+     * Samples are normally in the range [-1.0 .. +1.0].
+     */
+    float process();
 }
 
 
-
-/*** Source.java ***/
+/* Source.java */

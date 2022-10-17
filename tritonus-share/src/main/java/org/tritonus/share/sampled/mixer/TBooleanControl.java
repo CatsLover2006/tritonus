@@ -1,7 +1,7 @@
 /*
- *	TBooleanControl.java
+ * TBooleanControl.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -33,94 +33,73 @@ import javax.sound.sampled.BooleanControl;
 import org.tritonus.share.TDebug;
 
 
-
-
-/**	Base class for classes implementing BooleanControl.
+/**
+ * Base class for classes implementing BooleanControl.
  */
 public class TBooleanControl
-extends BooleanControl
-implements TControllable
-{
-	private TControlController	m_controller;
+        extends BooleanControl
+        implements TControllable {
+    private TControlController m_controller;
 
 
-
-	public TBooleanControl(BooleanControl.Type type,
-			       boolean bInitialValue)
-	{
-		this(type, bInitialValue, null);
-	}
+    public TBooleanControl(BooleanControl.Type type,
+                           boolean bInitialValue) {
+        this(type, bInitialValue, null);
+    }
 
 
-
-	public TBooleanControl(BooleanControl.Type type,
-			       boolean bInitialValue,
-			       TCompoundControl parentControl)
-	{
-		super(type, bInitialValue);
-		if (TDebug.TraceControl)
-		{
-			TDebug.out("TBooleanControl.<init>: begin");
-		}
-		m_controller = new TControlController();
-		if (TDebug.TraceControl)
-		{
-			TDebug.out("TBooleanControl.<init>: end");
-		}
-	}
+    public TBooleanControl(BooleanControl.Type type,
+                           boolean bInitialValue,
+                           TCompoundControl parentControl) {
+        super(type, bInitialValue);
+        if (TDebug.TraceControl) {
+            TDebug.out("TBooleanControl.<init>: begin");
+        }
+        m_controller = new TControlController();
+        if (TDebug.TraceControl) {
+            TDebug.out("TBooleanControl.<init>: end");
+        }
+    }
 
 
-
-	public TBooleanControl(BooleanControl.Type type,
-			       boolean bInitialValue,
-			       String strTrueStateLabel,
-			       String strFalseStateLabel)
-	{
-		this(type, bInitialValue, strTrueStateLabel, strFalseStateLabel, null);
-	}
+    public TBooleanControl(BooleanControl.Type type,
+                           boolean bInitialValue,
+                           String strTrueStateLabel,
+                           String strFalseStateLabel) {
+        this(type, bInitialValue, strTrueStateLabel, strFalseStateLabel, null);
+    }
 
 
-
-	public TBooleanControl(BooleanControl.Type type,
-			       boolean bInitialValue,
-			       String strTrueStateLabel,
-			       String strFalseStateLabel,
-			       TCompoundControl parentControl)
-	{
-		super(type, bInitialValue, strTrueStateLabel, strFalseStateLabel);
-		if (TDebug.TraceControl)
-		{
-			TDebug.out("TBooleanControl.<init>: begin");
-		}
-		m_controller = new TControlController();
-		if (TDebug.TraceControl)
-		{
-			TDebug.out("TBooleanControl.<init>: end");
-		}
-	}
+    public TBooleanControl(BooleanControl.Type type,
+                           boolean bInitialValue,
+                           String strTrueStateLabel,
+                           String strFalseStateLabel,
+                           TCompoundControl parentControl) {
+        super(type, bInitialValue, strTrueStateLabel, strFalseStateLabel);
+        if (TDebug.TraceControl) {
+            TDebug.out("TBooleanControl.<init>: begin");
+        }
+        m_controller = new TControlController();
+        if (TDebug.TraceControl) {
+            TDebug.out("TBooleanControl.<init>: end");
+        }
+    }
 
 
-
-	public void setParentControl(TCompoundControl compoundControl)
-	{
-		m_controller.setParentControl(compoundControl);
-	}
+    public void setParentControl(TCompoundControl compoundControl) {
+        m_controller.setParentControl(compoundControl);
+    }
 
 
-
-	public TCompoundControl getParentControl()
-	{
-		return m_controller.getParentControl();
-	}
+    public TCompoundControl getParentControl() {
+        return m_controller.getParentControl();
+    }
 
 
-
-	public void commit()
-	{
-		m_controller.commit();
-	}
+    public void commit() {
+        m_controller.commit();
+    }
 }
 
 
-
-/*** TBooleanControl.java ***/
+/* TBooleanControl.java */

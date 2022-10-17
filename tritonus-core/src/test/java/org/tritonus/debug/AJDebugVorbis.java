@@ -1,7 +1,7 @@
 /*
- *	AJDebug.java
+ * AJDebug.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -26,72 +26,65 @@
 
 package org.tritonus.debug;
 
-import org.aspectj.lang.JoinPoint;
 
-import org.tritonus.share.TDebug;
-
-import org.tritonus.sampled.convert.vorbis.VorbisFormatConversionProvider;
-import org.tritonus.sampled.convert.vorbis.VorbisFormatConversionProvider.DecodedVorbisAudioInputStream;
-
-
-
-/** Debugging output aspect.
+/**
+ * Debugging output aspect.
  */
 privileged aspect AJDebugVorbis
-extends Utils
-{
-	pointcut allExceptions(): handler(Throwable+);
+        extends Utils
+        {
+        pointcut allExceptions():handler(Throwable+);
 
-	pointcut AudioConverterCalls():
-		execution(JorbisFormatConversionProvider.new(..)) ||
-		execution(* JorbisFormatConversionProvider.*(..)) ||
-		execution(DecodedJorbisAudioInputStream.new(..)) ||
-		execution(* DecodedJorbisAudioInputStream.*(..));
-
-
-// 	pointcut sourceDataLine():
-// 		call(* SourceDataLine+.*(..));
+        pointcut AudioConverterCalls():
+        execution(JorbisFormatConversionProvider.new(..))||
+        execution(*JorbisFormatConversionProvider.*(..))||
+        execution(DecodedJorbisAudioInputStream.new(..))||
+        execution(*DecodedJorbisAudioInputStream.*(..));
 
 
-	// currently not used
-// 	pointcut printVelocity(): execution(* JavaSoundToneGenerator.playTone(..)) && call(JavaSoundToneGenerator.ToneThread.new(..));
-
-	// pointcut tracedCall(): execution(protected void JavaSoundAudioPlayer.doRealize() throws Exception);
+//  pointcut sourceDataLine():
+//   call(* SourceDataLine+.*(..));
 
 
-	///////////////////////////////////////////////////////
-	//
-	//	ACTIONS
-	//
-	///////////////////////////////////////////////////////
+        // currently not used
+//  pointcut printVelocity(): execution(* JavaSoundToneGenerator.playTone(..)) && call(JavaSoundToneGenerator.ToneThread.new(..));
+
+        // pointcut tracedCall(): execution(protected void JavaSoundAudioPlayer.doRealize() throws Exception);
 
 
-	before(): AudioConverterCalls()
-		{
-			if (TDebug.TraceAudioConverter)
-			{
-				outEnteringJoinPoint(thisJoinPoint);
-			}
-		}
-
-	after(): AudioConverterCalls()
-		{
-			if (TDebug.TraceAudioConverter)
-			{
-				outLeavingJoinPoint(thisJoinPoint);
-			}
-		}
+        ///////////////////////////////////////////////////////
+        //
+        //	ACTIONS
+        //
+        ///////////////////////////////////////////////////////
 
 
-	before(Throwable t): allExceptions() && args(t)
-		{
-			if (TDebug.TraceAllExceptions)
-			{
-				TDebug.out(t);
-			}
-		}
-}
+        before():AudioConverterCalls()
+        {
+        if(TDebug.TraceAudioConverter)
+        {
+        outEnteringJoinPoint(thisJoinPoint);
+        }
+        }
+
+        after():AudioConverterCalls()
+        {
+        if(TDebug.TraceAudioConverter)
+        {
+        outLeavingJoinPoint(thisJoinPoint);
+        }
+        }
 
 
-/*** AJDebug.java ***/
+        before(Throwable t):allExceptions()&&args(t)
+        {
+        if(TDebug.TraceAllExceptions)
+        {
+        TDebug.out(t);
+        }
+        }
+        }
+
+
+/* AJDebug.java */
 

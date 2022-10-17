@@ -1,5 +1,5 @@
 /*
- *	ControlTypeTestCase.java
+ * ControlTypeTestCase.java
  */
 
 /*
@@ -25,105 +25,97 @@ import javax.sound.sampled.Control;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 // import javax.sound.sampled.BooleanControl;
 
 
-
-/**	Tests for class javax.sound.sampled.Control.
+/**
+ * Tests for class javax.sound.sampled.Control.
  */
-public class ControlTypeTestCase
-{
-	/**	Checks the constructor().
-		The test checks if the constructor does not throw an
-		exception.
-	*/
+public class ControlTypeTestCase {
+    /**
+     * Checks the constructor().
+     * The test checks if the constructor does not throw an
+     * exception.
+     */
     @Test
-	public void testConstructor()
-		throws Exception
-	{
-		String	strTypeName = "TeSt";
-		@SuppressWarnings("unused") Control.Type	type =
-			new TestControlType(strTypeName);
-	}
+    public void testConstructor()
+            throws Exception {
+        String strTypeName = "TeSt";
+        @SuppressWarnings("unused") Control.Type type =
+                new TestControlType(strTypeName);
+    }
 
 
-
-	/**	Checks equals().
-		The test checks if an object is considered equal to
-		itself.
-	*/
+    /**
+     * Checks equals().
+     * The test checks if an object is considered equal to
+     * itself.
+     */
     @Test
-	public void testEqualsSelfIdentity()
-		throws Exception
-	{
-		String	strTypeName = "TeSt";
-		Control.Type	type = new TestControlType(strTypeName);
-		assertTrue(type.equals(type), "self-identity");
-	}
+    public void testEqualsSelfIdentity()
+            throws Exception {
+        String strTypeName = "TeSt";
+        Control.Type type = new TestControlType(strTypeName);
+        assertEquals(type, type, "self-identity");
+    }
 
 
-
-	/**	Checks equals().
-		The test checks if two objects are considered unequal,
-		even if they have the same type string.
-	*/
+    /**
+     * Checks equals().
+     * The test checks if two objects are considered unequal,
+     * even if they have the same type string.
+     */
     @Test
-	public void testEqualsSelfUnequality()
-		throws Exception
-	{
-		String	strTypeName = "TeSt";
-		Control.Type	type0 = new TestControlType(strTypeName);
-		Control.Type	type1 = new TestControlType(strTypeName);
-		assertTrue(! type0.equals(type1), "unequality");
-	}
+    public void testEqualsSelfUnequality()
+            throws Exception {
+        String strTypeName = "TeSt";
+        Control.Type type0 = new TestControlType(strTypeName);
+        Control.Type type1 = new TestControlType(strTypeName);
+        assertFalse(type0.equals(type1), "unequality");
+    }
 
 
-
-	/**	Checks hashCode().
-		The test checks if two calls to hashCode() on the
-		same object return the same value.
-	*/
+    /**
+     * Checks hashCode().
+     * The test checks if two calls to hashCode() on the
+     * same object return the same value.
+     */
     @Test
-	public void testHashCode()
-		throws Exception
-	{
-		String	strTypeName = "TeSt";
-		Control.Type	type = new TestControlType(strTypeName);
-		assertTrue(type.hashCode() == type.hashCode(), "hash code");
-	}
+    public void testHashCode()
+            throws Exception {
+        String strTypeName = "TeSt";
+        Control.Type type = new TestControlType(strTypeName);
+        assertEquals(type.hashCode(), type.hashCode(), "hash code");
+    }
 
 
-
-	/**	Checks toString().
-		The test checks if the string returned by toString()
-		equals the one passed in the constructor
-		(and doesn't throw an exception).
-	*/
+    /**
+     * Checks toString().
+     * The test checks if the string returned by toString()
+     * equals the one passed in the constructor
+     * (and doesn't throw an exception).
+     */
     @Test
-	public void testToString()
-		throws Exception
-	{
-		String	strTypeName = "TeSt";
-		Control.Type	type = new TestControlType(strTypeName);
-		String		strReturnedTypeName = type.toString();
-		assertEquals(strTypeName, strReturnedTypeName, "toString() result");
-	}
+    public void testToString()
+            throws Exception {
+        String strTypeName = "TeSt";
+        Control.Type type = new TestControlType(strTypeName);
+        String strReturnedTypeName = type.toString();
+        assertEquals(strTypeName, strReturnedTypeName, "toString() result");
+    }
 
 
-
-	/**	Inner class used to get around protected constructor.
-	 */
-	private class TestControlType
-	extends Control.Type
-	{
-		public TestControlType(String strName)
-		{
-			super(strName);
-		}
-	}
+    /**
+     * Inner class used to get around protected constructor.
+     */
+    private static class TestControlType
+            extends Control.Type {
+        public TestControlType(String strName) {
+            super(strName);
+        }
+    }
 }
 
 
-
-/*** ControlTypeTestCase.java ***/
+/* ControlTypeTestCase.java */

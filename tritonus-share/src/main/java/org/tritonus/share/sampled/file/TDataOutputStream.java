@@ -1,7 +1,7 @@
 /*
- *	TDataOutputStream.java
+ * TDataOutputStream.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -40,37 +40,32 @@ import java.io.IOException;
  * @author Florian Bomers
  */
 public interface TDataOutputStream
-extends DataOutput
-{
-	public boolean supportsSeek();
+        extends DataOutput {
+    boolean supportsSeek();
 
 
-
-	public void seek(long position)
-		throws IOException;
-
+    void seek(long position)
+            throws IOException;
 
 
-	public long getFilePointer()
-		throws IOException;
+    long getFilePointer()
+            throws IOException;
 
 
-
-	public long length()
-		throws IOException;
-
-
-	public void writeLittleEndian32(int value)
-		throws IOException;
+    long length()
+            throws IOException;
 
 
-	public void writeLittleEndian16(short value)
-		throws IOException;
+    void writeLittleEndian32(int value)
+            throws IOException;
 
-	public void close()
-		throws IOException;
+
+    void writeLittleEndian16(short value)
+            throws IOException;
+
+    void close()
+            throws IOException;
 }
 
 
-
-/*** TDataOutputStream.java ***/
+/* TDataOutputStream.java */

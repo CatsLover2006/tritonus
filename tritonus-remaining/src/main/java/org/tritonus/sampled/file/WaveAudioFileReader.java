@@ -1,7 +1,7 @@
 /*
- *	WaveAudioFileReader.java
+ * WaveAudioFileReader.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -26,12 +26,11 @@
 package org.tritonus.sampled.file;
 
 import java.io.DataInputStream;
-import java.io.InputStream;
 import java.io.IOException;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.AudioFormat;
+import java.io.InputStream;
 import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.tritonus.share.TDebug;

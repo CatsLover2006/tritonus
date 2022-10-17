@@ -1,7 +1,7 @@
 /*
- *	DspState.java
+ * DspState.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -31,123 +31,128 @@ import org.tritonus.lowlevel.ogg.Packet;
 import org.tritonus.share.TDebug;
 
 
-/** Wrapper for vorbis_dsp_state.
+/**
+ * Wrapper for vorbis_dsp_state.
  */
-public class DspState
-{
-        static
-        {
-                Ogg.loadNativeLibrary();
-                if (TDebug.TraceVorbisNative)
-                {
-                        setTrace(true);
-                }
+public class DspState {
+    static {
+        Ogg.loadNativeLibrary();
+        if (TDebug.TraceVorbisNative) {
+            setTrace(true);
         }
+    }
 
 
-	/**
-	 *	Holds the pointer to vorbis_dsp_state
-	 *	for the native code.
-	 *	This must be long to be 64bit-clean.
-	 */
-	@SuppressWarnings("unused")
-	private long	m_lNativeHandle;
+    /**
+     * Holds the pointer to vorbis_dsp_state
+     * for the native code.
+     * This must be long to be 64bit-clean.
+     */
+    @SuppressWarnings("unused")
+    private long m_lNativeHandle;
 
 
-
-	public DspState()
-	{
-		if (TDebug.TraceVorbisNative) { TDebug.out("DspState.<init>(): begin"); }
-		int	nReturn = malloc();
-		if (nReturn < 0)
-		{
-			throw new RuntimeException("malloc of vorbis_dsp_state failed");
-		}
-		if (TDebug.TraceVorbisNative) { TDebug.out("DspState.<init>(): end"); }
-	}
-
-
-
-	public void finalize()
-	{
-		// TODO: call free()
-		// call super.finalize() first or last?
-		// and introduce a flag if free() has already been called?
-	}
+    public DspState() {
+        if (TDebug.TraceVorbisNative) {
+            TDebug.out("DspState.<init>(): begin");
+        }
+        int nReturn = malloc();
+        if (nReturn < 0) {
+            throw new RuntimeException("malloc of vorbis_dsp_state failed");
+        }
+        if (TDebug.TraceVorbisNative) {
+            TDebug.out("DspState.<init>(): end");
+        }
+    }
 
 
-
-	private native int malloc();
-	public native void free();
-
-
-	/** Initialize for encoding.
-	    Calls vorbis_analysis_init().
-	 */
-	public native int initAnalysis(Info info);
+    protected void finalize() {
+        // TODO: call free()
+        // call super.finalize() first or last?
+        // and introduce a flag if free() has already been called?
+    }
 
 
-	/** Calls vorbis_analysis_headerout().
-	 */
-	public native int headerOut(
-		Comment comment,
-		Packet packet,
-		Packet commentPacket,
-		Packet codePacket);
+    private native int malloc();
+
+    public native void free();
 
 
-	/** Calls vorbis_analysis_buffer() and
-	    vorbis_analysis_wrote().
-	 */
-	public native int write(float[][] values, int nValues);
+    /**
+     * Initialize for encoding.
+     * Calls vorbis_analysis_init().
+     */
+    public native int initAnalysis(Info info);
 
 
-	/** Calls vorbis_analysis_blockout().
-	 */
-	public native int blockOut(Block block);
+    /**
+     * Calls vorbis_analysis_headerout().
+     */
+    public native int headerOut(
+            Comment comment,
+            Packet packet,
+            Packet commentPacket,
+            Packet codePacket);
 
 
-	/** Calls vorbis_bitrate_flushpacket().
-	 */
-	public native int flushPacket(Packet packet);
+    /**
+     * Calls vorbis_analysis_buffer() and
+     * vorbis_analysis_wrote().
+     */
+    public native int write(float[][] values, int nValues);
 
 
-	/** Initialize for decoding.
-	    Calls vorbis_synthesis_init().
-	 */
-	public native int initSynthesis(Info info);
+    /**
+     * Calls vorbis_analysis_blockout().
+     */
+    public native int blockOut(Block block);
 
 
-	/** Calls vorbis_synthesis_blockin().
-	 */
-	public native int blockIn(Block block);
+    /**
+     * Calls vorbis_bitrate_flushpacket().
+     */
+    public native int flushPacket(Packet packet);
 
 
-	/** Calls vorbis_synthesis_pcmout().
-	 */
-	public native int pcmOut(float[][] afPcm);
+    /**
+     * Initialize for decoding.
+     * Calls vorbis_synthesis_init().
+     */
+    public native int initSynthesis(Info info);
 
 
-	/** Calls vorbis_synthesis_read().
-	 */
-	public native int read(int nSamples);
+    /**
+     * Calls vorbis_synthesis_blockin().
+     */
+    public native int blockIn(Block block);
 
 
-	/** Accesses sequence.
-	 */
-	public native long getSequence();
+    /**
+     * Calls vorbis_synthesis_pcmout().
+     */
+    public native int pcmOut(float[][] afPcm);
 
 
-	/** Calls vorbis_dsp_clear().
-	 */
-	public native void clear();
+    /**
+     * Calls vorbis_synthesis_read().
+     */
+    public native int read(int nSamples);
 
 
-	private static native void setTrace(boolean bTrace);
+    /**
+     * Accesses sequence.
+     */
+    public native long getSequence();
+
+
+    /**
+     * Calls vorbis_dsp_clear().
+     */
+    public native void clear();
+
+
+    private static native void setTrace(boolean bTrace);
 }
 
 
-
-
-
-/*** DspState.java ***/
+/* DspState.java */

@@ -1,5 +1,5 @@
 /*
- *	TNonSeekableDataOutputStreamTestCase.java
+ * TNonSeekableDataOutputStreamTestCase.java
  */
 
 /*
@@ -22,39 +22,32 @@ package org.tritonus.test.tritonus.share.sampled.file;
 
 import java.io.ByteArrayOutputStream;
 
-import org.tritonus.share.sampled.file.TNonSeekableDataOutputStream;
 import org.tritonus.share.sampled.file.TDataOutputStream;
-
-
+import org.tritonus.share.sampled.file.TNonSeekableDataOutputStream;
 
 
 public class TNonSeekableDataOutputStreamTestCase
-extends BaseDataOutputStreamTestCase
-{
-	ByteArrayOutputStream	m_baos;
+        extends BaseDataOutputStreamTestCase {
+    ByteArrayOutputStream m_baos;
 
 
-	public TNonSeekableDataOutputStreamTestCase()
-	{
-		super(false);  // non seekable
-	}
+    public TNonSeekableDataOutputStreamTestCase() {
+        super(false);  // non seekable
+    }
 
 
-	protected TDataOutputStream createDataOutputStream()
-		throws Exception
-	{
-		m_baos = new ByteArrayOutputStream();
-		return new TNonSeekableDataOutputStream(m_baos);
-	}
+    protected TDataOutputStream createDataOutputStream()
+            throws Exception {
+        m_baos = new ByteArrayOutputStream();
+        return new TNonSeekableDataOutputStream(m_baos);
+    }
 
 
-	protected byte[] getWrittenData()
-		throws Exception
-	{
-		return m_baos.toByteArray();
-	}
+    protected byte[] getWrittenData()
+            throws Exception {
+        return m_baos.toByteArray();
+    }
 }
 
 
-
-/*** TNonSeekableDataOutputStreamTestCase.java ***/
+/* TNonSeekableDataOutputStreamTestCase.java */

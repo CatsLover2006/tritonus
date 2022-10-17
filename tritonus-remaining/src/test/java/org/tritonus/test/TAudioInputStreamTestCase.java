@@ -1,5 +1,5 @@
 /*
- *	TAudioInputStreamTestCase.java
+ * TAudioInputStreamTestCase.java
  */
 
 /*
@@ -20,107 +20,93 @@
 
 package org.tritonus.test;
 
-import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.tritonus.share.sampled.convert.TAudioInputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
-
-public class TAudioInputStreamTestCase
-{
+public class TAudioInputStreamTestCase {
     @Test
-	public void testEmptyMap()
-	{
+    public void testEmptyMap() {
         AudioFormat format = new AudioFormat(44100.0F, 16, 2, true, false);
-		Map<String, Object> prop = new HashMap<>();
-		TAudioInputStream fileFormat = new TAudioInputStream(
-			null, format,
-			AudioSystem.NOT_SPECIFIED,
-			prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		assertTrue(propReturn.isEmpty());
-		Object result = propReturn.get("bitrate");
-		assertNull(result);
-	}
-
+        Map<String, Object> prop = new HashMap<>();
+        TAudioInputStream fileFormat = new TAudioInputStream(
+                null, format,
+                AudioSystem.NOT_SPECIFIED,
+                prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertTrue(propReturn.isEmpty());
+        Object result = propReturn.get("bitrate");
+        assertNull(result);
+    }
 
 
     @Test
-	public void testCopying()
-	{
+    public void testCopying() {
         AudioFormat format = new AudioFormat(22.5F, 16, 2, true, false);
-		Map<String, Object> prop = new HashMap<>();
-		prop.put("bitrate", new Float(22.5F));
-		TAudioInputStream fileFormat = new TAudioInputStream(
-			null, format,
-			AudioSystem.NOT_SPECIFIED,
-			prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		assertTrue(prop != propReturn);
-		prop.put("bitrate", new Float(42.5F));
-		Object result = propReturn.get("bitrate");
-		// TAudioInputStream.properties() returns Collections.unmodifiableMap
-		// which holds the original map object inside the class.
-		// thus copying should not be happened.
-		if (prop.hashCode() != propReturn.hashCode()) {
-		    assertEquals(new Float(22.5F), result);
-		} else {
-            assertEquals(new Float(42.5F), result);
-		}
-	}
+        Map<String, Object> prop = new HashMap<>();
+        prop.put("bitrate", 22.5F);
+        TAudioInputStream fileFormat = new TAudioInputStream(
+                null, format,
+                AudioSystem.NOT_SPECIFIED,
+                prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertNotSame(prop, propReturn);
+        prop.put("bitrate", 42.5F);
+        Object result = propReturn.get("bitrate");
+        // TAudioInputStream.properties() returns Collections.unmodifiableMap
+        // which holds the original map object inside the class.
+        // thus copying should not be happened.
+        if (prop.hashCode() != propReturn.hashCode()) {
+            assertEquals(22.5F, result);
+        } else {
+            assertEquals(42.5F, result);
+        }
+    }
 
 
     @Test
-	public void testUnmodifiable()
-	{
+    public void testUnmodifiable() {
         AudioFormat format = new AudioFormat(44100.0F, 16, 2, true, false);
-		Map<String, Object> prop = new HashMap<>();
-		TAudioInputStream fileFormat = new TAudioInputStream(
-			null, format,
-			AudioSystem.NOT_SPECIFIED,
-			prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		try
-		{
-			propReturn.put("author", "Matthias Pfisterer");
-			fail("returned Map allows modifications");
-		}
-		catch (UnsupportedOperationException e)
-		{
-		}
-	}
+        Map<String, Object> prop = new HashMap<>();
+        TAudioInputStream fileFormat = new TAudioInputStream(
+                null, format,
+                AudioSystem.NOT_SPECIFIED,
+                prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        try {
+            propReturn.put("author", "Matthias Pfisterer");
+            fail("returned Map allows modifications");
+        } catch (UnsupportedOperationException e) {
+        }
+    }
 
 
     @Test
-	public void testGet()
-	{
+    public void testGet() {
         AudioFormat format = new AudioFormat(44100.0F, 16, 2, true, false);
-		Map<String, Object> prop = new HashMap<>();
-		prop.put("bitrate", new Float(22.5F));
-		prop.put("author", "Matthias Pfisterer");
-		TAudioInputStream fileFormat = new TAudioInputStream(
-			null, format,
-			AudioSystem.NOT_SPECIFIED,
-			prop);
-		Map<String, Object> propReturn = fileFormat.properties();
-		assertEquals(new Float(22.5F), propReturn.get("bitrate"));
-		assertEquals("Matthias Pfisterer", propReturn.get("author"));
-	}
+        Map<String, Object> prop = new HashMap<>();
+        prop.put("bitrate", 22.5F);
+        prop.put("author", "Matthias Pfisterer");
+        TAudioInputStream fileFormat = new TAudioInputStream(
+                null, format,
+                AudioSystem.NOT_SPECIFIED,
+                prop);
+        Map<String, Object> propReturn = fileFormat.properties();
+        assertEquals(22.5F, propReturn.get("bitrate"));
+        assertEquals("Matthias Pfisterer", propReturn.get("author"));
+    }
 }
 
 
-
-/*** TAudioInputStreamTestCase.java ***/
+/* TAudioInputStreamTestCase.java */
