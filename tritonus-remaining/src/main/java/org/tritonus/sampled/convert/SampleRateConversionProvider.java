@@ -674,7 +674,7 @@ public class SampleRateConversionProvider extends
 										+ " history length=" + historyLength);
 							}
 						} else {
-							value += inSamples[iInIndex] * factor;
+                            value += (float) (inSamples[iInIndex] * factor);
 						}
 						factor = 1 - factor;
 						iInIndex++;
