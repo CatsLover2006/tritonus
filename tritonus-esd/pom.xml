@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -6,6 +7,7 @@
     <artifactId>tritonus</artifactId>
     <version>0.3.11</version>
   </parent>
+
   <artifactId>tritonus-esd</artifactId>
   <packaging>jar</packaging>
 
@@ -29,6 +31,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>native-maven-plugin</artifactId>
+            <version>1.0-alpha-11</version>
             <extensions>true</extensions>
             <configuration>
               <javahClassNames>
@@ -58,9 +61,10 @@
               </sources>
               <linkerStartOptions>
                 <linkerStartOption>-dynamiclib
-                  -L/usr/local/lib -lesd</linkerStartOption>
+                  -L/usr/local/lib -lesd
+                </linkerStartOption>
               </linkerStartOptions>
-              <linkerFinalName></linkerFinalName>
+              <linkerFinalName/>
               <linkerEndOptions>
                 <linkerEndOption>-o ${project.build.directory}/libtritonusesd.so</linkerEndOption>
               </linkerEndOptions>
@@ -81,7 +85,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <forkMode>once</forkMode>
               <argLine>-Djava.library.path=${project.build.directory}</argLine>
@@ -103,7 +107,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.0</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <skipTests>true</skipTests>
             </configuration>
@@ -118,9 +122,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
@@ -132,5 +138,4 @@
       <artifactId>tritonus-share</artifactId>
     </dependency>
   </dependencies>
-
 </project>

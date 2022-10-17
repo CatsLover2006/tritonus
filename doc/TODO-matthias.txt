@@ -180,7 +180,7 @@ grammar:
 
 Tests mit JSInfo, Converter Test
 ================================
-Es wird immer über die Funktion AudioSystem.isConversionPossible(AudioFormat, AudioFormat) getestet.
+Es wird immer Ã¼ber die Funktion AudioSystem.isConversionPossible(AudioFormat, AudioFormat) getestet.
 
 --------
 source format: PCM_SIGNED, 1 channel(s), 16 bit samples, 2 byte frames, 44100.0 Hz, 44100.0 frames/second, little endian
