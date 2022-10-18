@@ -1,10 +1,4 @@
 /*
- * FluidSynthesizer.java
- *
- * This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  * Copyright (c) 2006 by Henri Manson
  * Copyright (c) 2006 by Matthias Pfisterer
  * All rights reserved.
@@ -33,10 +27,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.midi.device.fluidsynth;
 
 import javax.sound.midi.Instrument;
@@ -54,9 +44,13 @@ import org.tritonus.share.midi.TDirectSynthesizer;
 import org.tritonus.share.midi.TMidiChannel;
 
 
-public class FluidSynthesizer
-        extends TDirectSynthesizer
-        implements Synthesizer {
+/*
+ * FluidSynthesizer.java
+ *
+ * This file is part of Tritonus: http://www.tritonus.org/
+ */
+public class FluidSynthesizer extends TDirectSynthesizer implements Synthesizer {
+
     private MidiChannel[] channels;
     private FluidSoundbank defaultSoundbank;
 
@@ -67,11 +61,9 @@ public class FluidSynthesizer
     private long synthPtr;
     private long audioDriverPtr;
 
-
     static {
         loadNativeLibrary();
     }
-
 
     /**
      * Load the native library for fluidsynth.
@@ -84,8 +76,7 @@ public class FluidSynthesizer
             // only reached if no exception occures
             setTrace(TDebug.TraceFluidNative);
         } catch (Error e) {
-            if (TDebug.TraceFluidNative ||
-                    TDebug.TraceAllExceptions) {
+            if (TDebug.TraceFluidNative || TDebug.TraceAllExceptions) {
                 TDebug.out(e);
             }
             // throw e;
@@ -93,14 +84,12 @@ public class FluidSynthesizer
         if (TDebug.TraceFluidNative) TDebug.out("FluidSynthesizer.loadNativeLibrary(): loaded");
     }
 
-
     /**
      * Constructor.
      */
     public FluidSynthesizer(MidiDevice.Info info) throws Exception {
         super(info);
     }
-
 
     protected void openImpl()
             throws MidiUnavailableException {
@@ -114,33 +103,27 @@ public class FluidSynthesizer
             channels[i] = new NewFluidMidiChannel(i);
         }
 
-        String sfontFile =
-                System.getProperty("tritonus.fluidsynth.defaultsoundbank");
-        if (sfontFile != null && !sfontFile.equals("")) {
+        String sfontFile = System.getProperty("tritonus.fluidsynth.defaultsoundbank");
+        if (sfontFile != null && !sfontFile.isEmpty()) {
             int sfontID = loadSoundFont(sfontFile);
             setDefaultSoundBank(sfontID);
-            String strBankOffset =
-                    System.getProperty("tritonus.fluidsynth.defaultsoundbankoffset");
+            String strBankOffset = System.getProperty("tritonus.fluidsynth.defaultsoundbankoffset");
             if (strBankOffset != null && !strBankOffset.equals("")) {
                 setBankOffset(sfontID, Integer.parseInt(strBankOffset));
             }
         }
     }
 
-
     protected void closeImpl() {
-        if (TDebug.TraceSynthesizer) TDebug.out("FluidSynthesizer.closeImpl(): "
-                + Long.toHexString(synthPtr));
+        if (TDebug.TraceSynthesizer) TDebug.out("FluidSynthesizer.closeImpl(): " + Long.toHexString(synthPtr));
         deleteSynth();
         super.closeImpl();
     }
-
 
     public void setDefaultSoundBank(int sfontID) {
         defaultSoundbank = new FluidSoundbank(this, sfontID);
         defaultbankSfontID = sfontID;
     }
-
 
     protected void finalize() {
         if (TDebug.TraceSynthesizer) TDebug.out("finalize: " + Long.toHexString(synthPtr));
@@ -153,7 +136,8 @@ public class FluidSynthesizer
 
     public native void setGain(float gain);
 
-    /* $$mp: currently not functional because fluid_synth_set_reverb_preset()
+    /**
+     * $$mp: currently not functional because fluid_synth_set_reverb_preset()
      * is not present in fluidsynth 1.0.6.
      */
     public native void setReverbPreset(int reverbPreset);
@@ -186,7 +170,6 @@ public class FluidSynthesizer
      */
     native void noteOff(int nChannel, int nNoteNumber, int nVelocity);
 
-
     /**
      * Changes a controller on the synthesizer.
      * <p>
@@ -197,7 +180,6 @@ public class FluidSynthesizer
      * @param nValue      the controller value
      */
     native void controlChange(int nChannel, int nController, int nValue);
-
 
     /**
      * Obtains the value of a controller.
@@ -210,7 +192,6 @@ public class FluidSynthesizer
      */
     native int getController(int nChannel, int nController);
 
-
     /**
      * Sets the program for a channel.
      * <p>
@@ -220,7 +201,6 @@ public class FluidSynthesizer
      * @param nProgram the program number
      */
     native void programChange(int nChannel, int nProgram);
-
 
     /**
      * Obtains the program set for a channel.
@@ -232,7 +212,6 @@ public class FluidSynthesizer
      */
     native int getProgram(int nChannel);
 
-
     /**
      * Sets the pitch bend for a channel.
      * <p>
@@ -242,7 +221,6 @@ public class FluidSynthesizer
      * @param nBend    the pitch bend value
      */
     native void setPitchBend(int nChannel, int nBend);
-
 
     /**
      * Obtains the pitch bend for a channel.
@@ -254,7 +232,6 @@ public class FluidSynthesizer
      */
     native int getPitchBend(int nChannel);
 
-
     /**
      * Sets tracing in the native code.
      * Note that this method can either be called directly or (recommended)
@@ -263,7 +240,6 @@ public class FluidSynthesizer
      * @see org.tritonus.share.TDebug
      */
     public static native void setTrace(boolean bTrace);
-
 
     public boolean isSoundbankSupported(Soundbank soundbank) {
         return (soundbank instanceof FluidSoundbank);
@@ -326,7 +302,6 @@ public class FluidSynthesizer
         return true;
     }
 
-
     /**
      * Checks if the soundbank is supported by this synthesizer implementation.
      *
@@ -350,28 +325,23 @@ public class FluidSynthesizer
         checkSoundbank(instr.getSoundbank());
     }
 
+    private class NewFluidMidiChannel extends TMidiChannel {
 
-    private class NewFluidMidiChannel
-            extends TMidiChannel {
         public NewFluidMidiChannel(int nChannel) {
             super(nChannel);
         }
-
 
         public void noteOn(int nNoteNumber, int nVelocity) {
             FluidSynthesizer.this.noteOn(getChannel(), nNoteNumber, nVelocity);
         }
 
-
         public void noteOff(int nNoteNumber, int nVelocity) {
             FluidSynthesizer.this.noteOff(getChannel(), nNoteNumber, nVelocity);
         }
 
-
         public void noteOff(int nNoteNumber) {
             noteOff(nNoteNumber, 0);
         }
-
 
         /**
          * Fluidsynth does not implement poly pressure (aftertouch). Therefore,
@@ -379,7 +349,6 @@ public class FluidSynthesizer
          */
         public void setPolyPressure(int nNoteNumber, int nPressure) {
         }
-
 
         /**
          * Fluidsynth does not implement poly pressure (aftertouch). Therefore,
@@ -389,14 +358,12 @@ public class FluidSynthesizer
             return 0;
         }
 
-
         /**
          * Fluidsynth does not implement channel pressure. Therefore,
          * this method does nothing.
          */
         public void setChannelPressure(int nPressure) {
         }
-
 
         /**
          * Fluidsynth does not implement channel pressure. Therefore,
@@ -406,52 +373,40 @@ public class FluidSynthesizer
             return 0;
         }
 
-
         public void controlChange(int nController, int nValue) {
-            FluidSynthesizer.this.controlChange(getChannel(), nController,
-                    nValue);
+            FluidSynthesizer.this.controlChange(getChannel(), nController, nValue);
         }
-
 
         public int getController(int nController) {
-            return FluidSynthesizer.this.getController(getChannel(),
-                    nController);
+            return FluidSynthesizer.this.getController(getChannel(), nController);
         }
-
 
         public void programChange(int nProgram) {
             FluidSynthesizer.this.programChange(getChannel(), nProgram);
         }
 
-
         public int getProgram() {
             return FluidSynthesizer.this.getProgram(getChannel());
         }
-
 
         public void setPitchBend(int nBend) {
             FluidSynthesizer.this.setPitchBend(getChannel(), nBend);
         }
 
-
         public int getPitchBend() {
             return FluidSynthesizer.this.getPitchBend(getChannel());
         }
-
 
         // TODO: emulate by manipulating volume
         public void setMute(boolean bMute) {
         }
 
-
         public boolean getMute() {
             return false;
         }
 
-
         public void setSolo(boolean bSolo) {
         }
-
 
         public boolean getSolo() {
             return false;

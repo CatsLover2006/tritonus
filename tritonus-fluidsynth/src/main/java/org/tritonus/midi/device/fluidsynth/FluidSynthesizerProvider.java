@@ -36,10 +36,9 @@ import org.tritonus.share.TDebug;
 import org.tritonus.share.midi.TMidiDevice;
 
 
-public class FluidSynthesizerProvider
-        extends MidiDeviceProvider {
-    private static MidiDevice.Info sm_info;
+public class FluidSynthesizerProvider extends MidiDeviceProvider {
 
+    private static MidiDevice.Info sm_info;
 
     public FluidSynthesizerProvider() {
         if (TDebug.TraceMidiDeviceProvider)

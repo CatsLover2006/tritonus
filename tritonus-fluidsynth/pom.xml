@@ -192,18 +192,25 @@
             <dependency>org.tritonus:tritonus-midishare</dependency>
           </dependenciesToScan>
           <forkMode>always</forkMode>
-          <!-- mvn clean install -Dsoundfont.path=your_soundfont_path -->
+          <!-- mvn clean install -Dtritonus.fluidsynth.defaultsoundbank=your_soundfont_path -->
           <argLine>
-            -Djava.library.path=${project.build.directory}
+            -Djava.util.logging.config.file=src/test/resources/logging.properties
+            -Djava.library.path=${project.build.directory}:/usr/local/lib
           </argLine>
           <systemProperties>
-            <tritonus.fluidsynth.defaultsoundbank>${tritonus.fluidsynth.defaultsoundbank}
-            </tritonus.fluidsynth.defaultsoundbank>
+            <tritonus.fluidsynth.defaultsoundbank>${tritonus.fluidsynth.defaultsoundbank}</tritonus.fluidsynth.defaultsoundbank>
           </systemProperties>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -237,6 +244,13 @@
       <groupId>org.tritonus</groupId>
       <artifactId>tritonus-midishare</artifactId>
       <type>test-jar</type>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons</artifactId>
+      <version>1.1.6</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

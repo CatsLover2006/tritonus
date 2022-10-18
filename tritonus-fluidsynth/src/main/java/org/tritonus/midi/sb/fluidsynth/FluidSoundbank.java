@@ -1,10 +1,4 @@
 /*
- * FluidSoundbank.java
- *
- * This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  * Copyright (c) 2006 by Henri Manson
  * All rights reserved.
  *
@@ -32,10 +26,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.midi.sb.fluidsynth;
 
 import javax.sound.midi.Instrument;
@@ -47,9 +37,13 @@ import org.tritonus.midi.device.fluidsynth.FluidSynthesizer;
 
 
 /**
+ * FluidSoundbank.java
+ *
+ * This file is part of Tritonus: http://www.tritonus.org/
  * @author Manson
  */
 public class FluidSoundbank implements Soundbank {
+
     private FluidSynthesizer synth;
     private int sfontID;
     private FluidInstrument[] instruments;
@@ -69,15 +63,11 @@ public class FluidSoundbank implements Soundbank {
         }
     }
 
-
     public FluidSoundbank(FluidSynthesizer synth, int sfontID) {
         this.synth = synth;
         this.sfontID = sfontID;
-        //TDebug.out("1");
         instruments = nGetInstruments(sfontID);
-        //TDebug.out("2");
     }
-
 
     public native FluidInstrument[] nGetInstruments(int sfontID);
 
