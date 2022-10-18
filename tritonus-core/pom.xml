@@ -39,7 +39,6 @@
               <testExcludes>
                 <testExclude>org/tritonus/debug/AJDebug.java</testExclude>
                 <testExclude>org/tritonus/debug/AJDebugVorbis.java</testExclude>
-                <testExclude>org/tritonus/debug/AJ*.java</testExclude>
               </testExcludes>
             </configuration>
             <goals>
@@ -87,19 +86,19 @@
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
-      <version>1.9.9.1</version>
+      <version>1.8.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjtools</artifactId>
-      <version>1.9.9.1</version>
+      <version>1.8.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjweaver</artifactId>
-      <version>1.9.9.1</version>
+      <version>1.8.6</version>
       <scope>test</scope>
     </dependency>
     <dependency>
