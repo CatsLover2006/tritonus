@@ -1,8 +1,4 @@
 /*
- * VorbisTruncateTestCase.java
- */
-
-/*
  *  Copyright (c) 2003 by Dan Rollo
  *
  *  [license not updated to Apache 2.0]
@@ -53,21 +49,20 @@ import static org.junit.jupiter.api.Assertions.fail;
  * which is deleted after the test completes, but be sure you have sufficient disk space.
  */
 public class VorbisTruncateTestCase {
+
     private static final File _sourceFileOgg = new File("src/test/resources/" + "sounds/testtruncate.ogg");
     private static final File _destFileWav = new File("src/test/resources/" + "sounds/testtruncate.wav");
 
     @BeforeEach
     protected void setUp() {
-        assertTrue(_sourceFileOgg.exists(),
-                "Missing required test file: " + _sourceFileOgg.getAbsolutePath());
+        assertTrue(_sourceFileOgg.exists(), "Missing required test file: " + _sourceFileOgg.getAbsolutePath());
 
         _destFileWav.deleteOnExit();
     }
 
     @AfterEach
     protected void tearDown() {
-        assertTrue(_sourceFileOgg.exists(),
-                "Deleted required test file: " + _sourceFileOgg.getAbsolutePath());
+        assertTrue(_sourceFileOgg.exists(), "Deleted required test file: " + _sourceFileOgg.getAbsolutePath());
 
         if (_destFileWav.exists()) {
             // remove converted file
@@ -77,7 +72,6 @@ public class VorbisTruncateTestCase {
                             + ". (0 size may mean file is locked by buffer loop.)");
         }
     }
-
 
     @Test
     public void testConvertTruncateOggWithAudioOutStream() throws Exception {
@@ -92,8 +86,7 @@ public class VorbisTruncateTestCase {
                 AudioSystem.NOT_SPECIFIED,
                 _destFileWav);
 
-
-        /** The total number of decoded bytes read */
+        // The total number of decoded bytes read
         long readCntPCMTotal = 0;
 
         // pump the streams
@@ -164,7 +157,7 @@ public class VorbisTruncateTestCase {
 
         line.open();
         FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-        double gain = .2d; // number between 0 and 1 (loudest)
+        double gain = .02d; // number between 0 and 1 (loudest)
         float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
         gainControl.setValue(dB);
         line.start();
@@ -182,7 +175,6 @@ public class VorbisTruncateTestCase {
         }
     }
 }
-
 
 /* VorbisTruncateTestCase.java */
 

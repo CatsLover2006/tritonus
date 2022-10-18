@@ -1,8 +1,4 @@
 /*
- * BaseAudioFileReaderTestCase.java
- */
-
-/*
  *  Copyright (c) 2001 - 2003 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -39,44 +35,25 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+/**
+ * BaseAudioFileReaderTestCase.java
+ */
 @Disabled
-public class BaseFormatConversionProviderTestCase
-        extends BaseProviderTestCase {
-    private static final AudioFormat.Encoding[] EMPTY_ENCODING_ARRAY = new AudioFormat.Encoding[0];
-    private static final AudioFormat.Encoding[] ALL_ENCODINGS = new AudioFormat.Encoding[]
-            {
-                    AudioFormat.Encoding.PCM_SIGNED,
-                    AudioFormat.Encoding.PCM_UNSIGNED,
-                    AudioFormat.Encoding.ULAW,
-                    AudioFormat.Encoding.ALAW,
-                    Encodings.getEncoding("GSM0610"),
-                    Encodings.getEncoding("MPEG1L1"),
-                    Encodings.getEncoding("MPEG1L2"),
-                    Encodings.getEncoding("MPEG1L3"),
-                    Encodings.getEncoding("MPEG2L1"),
-                    Encodings.getEncoding("MPEG2L2"),
-                    Encodings.getEncoding("MPEG2L3"),
-                    Encodings.getEncoding("MPEG2DOT5L1"),
-                    Encodings.getEncoding("MPEG2DOT5L2"),
-                    Encodings.getEncoding("MPEG2DOT5L3"),
-                    Encodings.getEncoding("VORBIS"),
-                    Encodings.getEncoding("IMA_ADPCM"),
-            };
+public class BaseFormatConversionProviderTestCase extends BaseProviderTestCase {
 
+    private static final AudioFormat.Encoding[] EMPTY_ENCODING_ARRAY = new AudioFormat.Encoding[0];
+    private static final AudioFormat.Encoding[] ALL_ENCODINGS = new AudioFormat.Encoding[] {AudioFormat.Encoding.PCM_SIGNED, AudioFormat.Encoding.PCM_UNSIGNED, AudioFormat.Encoding.ULAW, AudioFormat.Encoding.ALAW, Encodings.getEncoding("GSM0610"), Encodings.getEncoding("MPEG1L1"), Encodings.getEncoding("MPEG1L2"), Encodings.getEncoding("MPEG1L3"), Encodings.getEncoding("MPEG2L1"), Encodings.getEncoding("MPEG2L2"), Encodings.getEncoding("MPEG2L3"), Encodings.getEncoding("MPEG2DOT5L1"), Encodings.getEncoding("MPEG2DOT5L2"), Encodings.getEncoding("MPEG2DOT5L3"), Encodings.getEncoding("VORBIS"), Encodings.getEncoding("IMA_ADPCM"),};
 
     private static final boolean DEBUG = true;
     private static final String RESOURCE_BASENAME = "formatconversionprovider";
-
 
     public BaseFormatConversionProviderTestCase() {
         super(RESOURCE_BASENAME);
     }
 
-
     protected FormatConversionProvider getFormatConversionProvider() {
         return (FormatConversionProvider) getProvider();
     }
-
 
     @Test
     public void testGetSourceEncodings() {
@@ -87,7 +64,6 @@ public class BaseFormatConversionProviderTestCase
         }
     }
 
-
     @Test
     public void testGetTargetEncodings() {
         AudioFormat.Encoding[] aEncodings;
@@ -97,39 +73,32 @@ public class BaseFormatConversionProviderTestCase
         }
     }
 
-
-    private void checkEncodings(AudioFormat.Encoding[] aEncodings,
-                                boolean bSource) {
+    private void checkEncodings(AudioFormat.Encoding[] aEncodings, boolean bSource) {
         AudioFormat.Encoding[] aExpectedEncodings = getEncodings(bSource);
-        Iterator iter;
+        Iterator<AudioFormat.Encoding> iter;
         List<AudioFormat.Encoding> encodings = Arrays.asList(aEncodings);
         List<AudioFormat.Encoding> expectedEncodings = Arrays.asList(aExpectedEncodings);
         iter = encodings.iterator();
         while (iter.hasNext()) {
             Object encoding = iter.next();
-            assertTrue(expectedEncodings.contains(encoding),
-                    "returned encoding in expected encodings");
+            assertTrue(expectedEncodings.contains(encoding), "returned encoding in expected encodings");
         }
         iter = expectedEncodings.iterator();
         while (iter.hasNext()) {
             Object encoding = iter.next();
-            assertTrue(encodings.contains(encoding),
-                    "expected encoding in returned encodings");
+            assertTrue(encodings.contains(encoding), "expected encoding in returned encodings");
         }
     }
-
 
     @Test
     public void testIsSourceEncodingsSupported() {
         implTestIsEncodingSupported(true);
     }
 
-
     @Test
     public void testIsTargetEncodingsSupported() {
         implTestIsEncodingSupported(false);
     }
-
 
     private void implTestIsEncodingSupported(boolean bSource) {
         if (getTestProvider()) {
@@ -141,8 +110,7 @@ public class BaseFormatConversionProviderTestCase
                 } else {
                     bSupported = getFormatConversionProvider().isTargetEncodingSupported(aExpectedEncoding);
                 }
-                assertTrue(bSupported,
-                        "expected encoding supported");
+                assertTrue(bSupported, "expected encoding supported");
             }
             AudioFormat.Encoding[] aUnexpectedEncodings = getUnexpectedEncodings(bSource);
             for (AudioFormat.Encoding aUnexpectedEncoding : aUnexpectedEncodings) {
@@ -157,26 +125,19 @@ public class BaseFormatConversionProviderTestCase
         }
     }
 
-
-    private void checkAudioInputStream(AudioInputStream audioInputStream, boolean bRealLengthExpected)
-            throws Exception {
+    private void checkAudioInputStream(AudioInputStream audioInputStream, boolean bRealLengthExpected) throws Exception {
         checkAudioFormat(audioInputStream.getFormat());
         long lExpectedFrameLength = AudioSystem.NOT_SPECIFIED;
         if (/*getCheckRealLengths() ||*/ bRealLengthExpected) {
             lExpectedFrameLength = getFrameLength();
         }
-        assertEquals(lExpectedFrameLength,
-                audioInputStream.getFrameLength(),
-                "frame length");
+        assertEquals(lExpectedFrameLength, audioInputStream.getFrameLength(), "frame length");
         if (/*getCheckRealLengths() ||*/ bRealLengthExpected) {
             int nExpectedDataLength = (int) (lExpectedFrameLength * getFrameSize());
             byte[] abRetrievedData = new byte[nExpectedDataLength];
             int nRead = audioInputStream.read(abRetrievedData);
-            assertEquals(nExpectedDataLength,
-                    nRead,
-                    "reading data");
-// 			for (int i = 0; i < nExpectedDataLength; i++)
-// 			{
+            assertEquals(nExpectedDataLength, nRead, "reading data");
+// 			for (int i = 0; i < nExpectedDataLength; i++) {
 // 				assertEquals("data content", 0, abRetrievedData[i]);
 // 			}
         } else {
@@ -184,40 +145,20 @@ public class BaseFormatConversionProviderTestCase
         }
     }
 
-
-    private void checkAudioFormat(AudioFormat audioFormat)
-            throws Exception {
-        assertEquals(getEncoding(),
-                audioFormat.getEncoding(),
-                "encoding");
-        assertEquals(
-                getSampleRate(),
-                audioFormat.getSampleRate(),
-                DELTA, "sample rate");
-        assertEquals(getSampleSizeInBits(),
-                audioFormat.getSampleSizeInBits(),
-                "sample size (bits)");
-        assertEquals(getChannels(),
-                audioFormat.getChannels(),
-                "channels");
-        assertEquals(getFrameSize(),
-                audioFormat.getFrameSize(),
-                "frame size");
-        assertEquals(
-                getFrameRate(),
-                audioFormat.getFrameRate(),
-                DELTA, "frame rate");
-        assertEquals(getBigEndian(),
-                audioFormat.isBigEndian(),
-                "big endian");
+    private void checkAudioFormat(AudioFormat audioFormat) throws Exception {
+        assertEquals(getEncoding(), audioFormat.getEncoding(), "encoding");
+        assertEquals(getSampleRate(), audioFormat.getSampleRate(), DELTA, "sample rate");
+        assertEquals(getSampleSizeInBits(), audioFormat.getSampleSizeInBits(), "sample size (bits)");
+        assertEquals(getChannels(), audioFormat.getChannels(), "channels");
+        assertEquals(getFrameSize(), audioFormat.getFrameSize(), "frame size");
+        assertEquals(getFrameRate(), audioFormat.getFrameRate(), DELTA, "frame rate");
+        assertEquals(getBigEndian(), audioFormat.isBigEndian(), "big endian");
     }
-
 
     private String getFilename() {
         String strFileName = getResourceString(getResourcePrefix() + ".filename");
         return strFileName;
     }
-
 
     private long getByteLength() {
         String strByteLength = getResourceString(getResourcePrefix() + ".byteLength");
@@ -225,13 +166,11 @@ public class BaseFormatConversionProviderTestCase
         return lByteLength;
     }
 
-
     private AudioFormat.Encoding getEncoding() {
         String strEncodingName = getResourceString(getResourcePrefix() + ".format.encoding");
         AudioFormat.Encoding encoding = Encodings.getEncoding(strEncodingName);
         return encoding;
     }
-
 
     private float getSampleRate() {
         String strSampleRate = getResourceString(getResourcePrefix() + ".format.sampleRate");
@@ -239,13 +178,11 @@ public class BaseFormatConversionProviderTestCase
         return fSampleRate;
     }
 
-
     private int getSampleSizeInBits() {
         String strSampleSizeInBits = getResourceString(getResourcePrefix() + ".format.sampleSizeInBits");
         int nSampleSizeInBits = Integer.parseInt(strSampleSizeInBits);
         return nSampleSizeInBits;
     }
-
 
     private int getChannels() {
         String strChannels = getResourceString(getResourcePrefix() + ".format.channels");
@@ -253,13 +190,11 @@ public class BaseFormatConversionProviderTestCase
         return nChannels;
     }
 
-
     private int getFrameSize() {
         String strFrameSize = getResourceString(getResourcePrefix() + ".format.frameSize");
         int nFrameSize = Integer.parseInt(strFrameSize);
         return nFrameSize;
     }
-
 
     private float getFrameRate() {
         String strFrameRate = getResourceString(getResourcePrefix() + ".format.frameRate");
@@ -267,20 +202,17 @@ public class BaseFormatConversionProviderTestCase
         return fFrameRate;
     }
 
-
     private boolean getBigEndian() {
         String strBigEndian = getResourceString(getResourcePrefix() + ".format.bigEndian");
         boolean bBigEndian = strBigEndian.equals("true");
         return bBigEndian;
     }
 
-
     private long getFrameLength() {
         String strFrameLength = getResourceString(getResourcePrefix() + ".frameLength");
         long lFrameLength = Long.parseLong(strFrameLength);
         return lFrameLength;
     }
-
 
     private AudioFormat.Encoding[] getEncodings(boolean bSource) {
         if (bSource) {
@@ -289,7 +221,6 @@ public class BaseFormatConversionProviderTestCase
             return getEncodings("targetEncodings");
         }
     }
-
 
     private AudioFormat.Encoding[] getUnexpectedEncodings(boolean bSource) {
         AudioFormat.Encoding[] aExpectedEncodings;
@@ -311,11 +242,9 @@ public class BaseFormatConversionProviderTestCase
         return aUnexpectedEncodings;
     }
 
-
     private AudioFormat.Encoding[] getEncodings(String strKey) {
         String strEncodings = getResourceString(getResourcePrefix() + "." + strKey);
-        List<AudioFormat.Encoding> encodingsList =
-                new ArrayList<>();
+        List<AudioFormat.Encoding> encodingsList = new ArrayList<>();
         StringTokenizer tokenizer = new StringTokenizer(strEncodings);
         while (tokenizer.hasMoreTokens()) {
             String strEncodingName = tokenizer.nextToken();
@@ -325,6 +254,5 @@ public class BaseFormatConversionProviderTestCase
         return encodingsList.toArray(EMPTY_ENCODING_ARRAY);
     }
 }
-
 
 /* BaseFormatConversionProviderTestCase.java */

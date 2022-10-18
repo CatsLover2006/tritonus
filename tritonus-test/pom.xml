@@ -7,19 +7,22 @@
     <artifactId>tritonus</artifactId>
     <version>0.3.11</version>
   </parent>
+
   <artifactId>tritonus-test</artifactId>
   <packaging>jar</packaging>
 
-  <name>Tritonus Test Module</name>
+  <name>Tritonus Test1 Module</name>
 
   <build>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
@@ -31,6 +34,7 @@
       <artifactId>tritonus-remaining</artifactId>
       <version>0.3.11</version>
     </dependency>
+
     <dependency>
       <groupId>javax.media</groupId>
       <artifactId>jmf</artifactId>
@@ -44,5 +48,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 </project>
