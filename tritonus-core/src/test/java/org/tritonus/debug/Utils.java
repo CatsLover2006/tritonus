@@ -1,10 +1,4 @@
 /*
- * Utils.java
- *
- * This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  *  Copyright (c) 1999 - 2002 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,10 +14,6 @@
  *   limitations under the License.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.debug;
 
 import org.aspectj.lang.JoinPoint;
@@ -34,6 +24,7 @@ import org.tritonus.share.TDebug;
  * Utility methods for the debugging aspects.
  */
 public class Utils {
+
     /**
      * Indentation step.
      * This value determines how many spaces are added/removed
@@ -55,21 +46,17 @@ public class Utils {
      */
     private static int sm_nIndentation = -INDENTATION_STEP;
 
-
     public static void outEnteringJoinPoint(JoinPoint joinPoint) {
         outSteppingIn("-> " + getSignature(joinPoint));
     }
-
 
     public static void outLeavingJoinPoint(JoinPoint joinPoint) {
         outSteppingOut("<- " + getSignature(joinPoint));
     }
 
-
     private static String getSignature(JoinPoint joinPoint) {
         return joinPoint.getStaticPart().getSignature().toShortString();
     }
-
 
     /**
      * Print message, increasing the indentation.
@@ -79,7 +66,6 @@ public class Utils {
         out(strMessage);
     }
 
-
     /**
      * Print message, decreasing the indentation.
      */
@@ -88,7 +74,6 @@ public class Utils {
         sm_nIndentation -= INDENTATION_STEP;
     }
 
-
     /**
      * Print message with the current indentation.
      */
@@ -96,6 +81,5 @@ public class Utils {
         TDebug.out(INDENTATION_STRING.substring(0, sm_nIndentation) + strMessage);
     }
 }
-
 
 /* Utils.java */

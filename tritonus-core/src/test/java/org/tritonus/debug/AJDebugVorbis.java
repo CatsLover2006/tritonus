@@ -1,10 +1,4 @@
 /*
- * AJDebug.java
- *
- * This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  *  Copyright (c) 1999 - 2002 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,71 +14,67 @@
  *   limitations under the License.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.debug;
+
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.tritonus.share.TDebug;
 
 
 /**
  * Debugging output aspect.
  */
-privileged aspect AJDebugVorbis
-        extends Utils
-        {
-        pointcut allExceptions():handler(Throwable+);
+@Aspect /* privileged aspect */
+abstract class AJDebugVorbis extends Utils {
 
-        pointcut AudioConverterCalls():
-        execution(JorbisFormatConversionProvider.new(..))||
-        execution(*JorbisFormatConversionProvider.*(..))||
-        execution(DecodedJorbisAudioInputStream.new(..))||
-        execution(*DecodedJorbisAudioInputStream.*(..));
+    @Pointcut("handler(Throwable+)")
+    public void allExceptions() {
+    }
 
+    @Pointcut("execution(org.tritonus.sampled.convert.jorbis.JorbisFormatConversionProvider.new(..)) ||" +
+            "execution(* org.tritonus.sampled.convert.jorbis.JorbisFormatConversionProvider.*(..)) ||" +
+            "execution(org.tritonus.sampled.convert.jorbis.JorbisFormatConversionProvider.DecodedJorbisAudioInputStream.new(..)) ||" +
+            "execution(* org.tritonus.sampled.convert.jorbis.JorbisFormatConversionProvider.DecodedJorbisAudioInputStream.*(..))")
+    public void AudioConverterCalls() {}
 
-//  pointcut sourceDataLine():
-//   call(* SourceDataLine+.*(..));
+//    @Pointcut("call(* SourceDataLine+.*(..))")
+//    public void sourceDataLine() {}
 
+    // currently not used
 
-        // currently not used
-//  pointcut printVelocity(): execution(* JavaSoundToneGenerator.playTone(..)) && call(JavaSoundToneGenerator.ToneThread.new(..));
+//    @Pointcut("execution(* JavaSoundToneGenerator.playTone(..)) && call(JavaSoundToneGenerator.ToneThread.new(..))")
+//    public void printVelocity() {}
 
-        // pointcut tracedCall(): execution(protected void JavaSoundAudioPlayer.doRealize() throws Exception);
+//    @Pointcut("execution(protected void JavaSoundAudioPlayer.doRealize() throws Exception)")
+//    public void tracedCall() {}
 
+    // ACTIONS
 
-        ///////////////////////////////////////////////////////
-        //
-        //	ACTIONS
-        //
-        ///////////////////////////////////////////////////////
-
-
-        before():AudioConverterCalls()
-        {
-        if(TDebug.TraceAudioConverter)
-        {
-        outEnteringJoinPoint(thisJoinPoint);
+    @Before("AudioConverterCalls()")
+    public void beforeAudioConverterCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) {
+            outEnteringJoinPoint(thisJoinPoint);
         }
-        }
+    }
 
-        after():AudioConverterCalls()
-        {
-        if(TDebug.TraceAudioConverter)
-        {
-        outLeavingJoinPoint(thisJoinPoint);
+    @After("AudioConverterCalls()")
+    public void afterAudioConverterCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) {
+            outLeavingJoinPoint(thisJoinPoint);
         }
-        }
+    }
 
-
-        before(Throwable t):allExceptions()&&args(t)
-        {
-        if(TDebug.TraceAllExceptions)
-        {
-        TDebug.out(t);
+    @Before("allExceptions() && args(t)")
+    public void beforeThrowable(Throwable t) {
+        if (TDebug.TraceAllExceptions) {
+            TDebug.out(t);
         }
-        }
-        }
-
+    }
+}
 
 /* AJDebug.java */
 
