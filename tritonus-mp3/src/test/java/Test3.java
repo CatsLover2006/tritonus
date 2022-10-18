@@ -98,7 +98,7 @@ class Test3 {
         byte[] buf = new byte[8192];
         line.open(audioFormat, buf.length);
         FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-        double gain = .2d; // number between 0 and 1 (loudest)
+        double gain = .02d; // number between 0 and 1 (loudest)
         float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
         gainControl.setValue(dB);
         line.start();
