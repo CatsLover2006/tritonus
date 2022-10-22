@@ -23,6 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.tritonus.midi.device.fluidsynth.FluidSynthesizer;
 import org.tritonus.share.TDebug;
+import sun.util.logging.resources.logging;
 import vavi.util.Debug;
 import vavi.util.properties.annotation.Property;
 import vavi.util.properties.annotation.PropsEntity;
@@ -49,11 +50,17 @@ public class Test1 {
     @Property(name = "test.midi")
     String midi = "../tritonus-midishare/src/test/resources/sounds/trippygaia1.mid";
 
+    @Property(name = "tritonus.fluidsynth.defaultsoundbank")
+    String sf = "/usr/local/Cellar/fluid-synth/2.3.0/share/soundfonts/default.sf2";
+
     @BeforeEach
     void setup() throws Exception {
         if (localPropertiesExists()) {
             PropsEntity.Util.bind(this);
         }
+
+        System.setProperty("tritonus.fluidsynth.defaultsoundbank", sf);
+Debug.println("soundfont: " + sf);
 
         TDebug.TraceMidiDeviceProvider = true;
     }
@@ -77,7 +84,7 @@ System.err.println("sequence: " + sequence);
         synthesizer.open();
 System.err.println("synthesizer: " + synthesizer);
         if (synthesizer instanceof FluidSynthesizer) {
-            float gain = 0.02f;
+            float gain = 0.2f;
             ((FluidSynthesizer) synthesizer).setGain(gain);
 Debug.println("set gain: " + gain);
         } else {
