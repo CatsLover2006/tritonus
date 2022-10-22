@@ -1,10 +1,4 @@
 /*
- * FluidSoundbank.java
- *
- * This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  * Copyright (c) 2006 by Henri Manson
  * All rights reserved.
  *
@@ -32,10 +26,6 @@
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.midi.sb.fluidsynth;
 
 import javax.sound.midi.Instrument;
@@ -45,80 +35,67 @@ import javax.sound.midi.SoundbankResource;
 
 import org.tritonus.midi.device.fluidsynth.FluidSynthesizer;
 
+
 /**
+ * FluidSoundbank.java
  *
+ * This file is part of Tritonus: http://www.tritonus.org/
  * @author Manson
  */
-public class FluidSoundbank implements Soundbank
-{
-	private FluidSynthesizer synth;
+public class FluidSoundbank implements Soundbank {
+
+    private FluidSynthesizer synth;
     private int sfontID;
     private FluidInstrument[] instruments;
 
-	// $$mp: needs to be public for native code now
-    public class FluidInstrument extends Instrument
-    {
-        public FluidInstrument(int bank, int program, String name)
-        {
+    // $$mp: needs to be public for native code now
+    public class FluidInstrument extends Instrument {
+        public FluidInstrument(int bank, int program, String name) {
             super(FluidSoundbank.this, new Patch(bank, program), name, null);
         }
 
-        public String toString()
-        {
-	        return "Instrument "  + getName() + " (bank " + getPatch().getBank() + " program " + getPatch().getProgram() + ")";
+        public String toString() {
+            return "Instrument " + getName() + " (bank " + getPatch().getBank() + " program " + getPatch().getProgram() + ")";
         }
-        
-        public Object getData()
-        {
+
+        public Object getData() {
             return null;
         }
     }
 
-
-    public FluidSoundbank(FluidSynthesizer synth, int sfontID)
-    {
-	    this.synth = synth;
+    public FluidSoundbank(FluidSynthesizer synth, int sfontID) {
+        this.synth = synth;
         this.sfontID = sfontID;
-		//TDebug.out("1");
         instruments = nGetInstruments(sfontID);
-		//TDebug.out("2");
     }
-
 
     public native FluidInstrument[] nGetInstruments(int sfontID);
 
-    public Instrument getInstrument(Patch patch)
-    {
+    public Instrument getInstrument(Patch patch) {
         return null;
     }
 
-    public String getVersion()
-    {
+    public String getVersion() {
         return "1.0";
     }
 
-    public String getVendor()
-    {
+    public String getVendor() {
         return "Mansoft";
     }
 
-    public SoundbankResource[] getResources()
-    {
+    public SoundbankResource[] getResources() {
         return null;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return "Mansoft";
     }
 
-    public Instrument[] getInstruments()
-    {
+    public Instrument[] getInstruments() {
         return instruments;
     }
 
-    public String getDescription()
-    {
+    public String getDescription() {
         return "Mansoft";
     }
 }

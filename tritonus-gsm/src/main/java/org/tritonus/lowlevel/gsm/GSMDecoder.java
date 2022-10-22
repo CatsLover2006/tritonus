@@ -1,4 +1,4 @@
-//    $Id$	
+//    $Id$
 
 //    This file is part of the GSM 6.10 audio decoder library for Java
 //    Copyright (C) 1998 Steven Pickles (pix@test.at)
@@ -27,14 +27,14 @@ package org.tritonus.lowlevel.gsm;
 import org.tritonus.lowlevel.gsm.BitDecoder.AllocationMode;
 import org.tritonus.share.sampled.TConversionTool;
 
-public final class GSMDecoder
-{
+
+public final class GSMDecoder {
     private static final byte GSM_MAGIC = 0x0d;
 
-    private static final int[] FAC = { 18431, 20479, 22527, 24575, 26623,
-            28671, 30719, 32767 };
+    private static final int[] FAC = {18431, 20479, 22527, 24575, 26623,
+            28671, 30719, 32767};
 
-    private static final int[] QLB = { 3277, 11469, 21299, 32767 };
+    private static final int[] QLB = {3277, 11469, 21299, 32767};
 
     private static final int MIN_WORD = -32767 - 1;
     private static final int MAX_WORD = 32767;
@@ -67,64 +67,56 @@ public final class GSMDecoder
 
     private int[] m_s = new int[160];
 
-    public GSMDecoder()
-    {
+    public GSMDecoder() {
         this(GsmFrameFormat.TOAST);
     }
 
-    public GSMDecoder(GsmFrameFormat gsmFrameFormat)
-    {
+    public GSMDecoder(GsmFrameFormat gsmFrameFormat) {
         this.gsmFrameFormat = gsmFrameFormat;
     }
 
-    public void GSM()
-    {
+    public void GSM() {
         nrp = 40;
     }
 
     /*
      * This is how the method call should look like.
-     * 
+     *
      * @param abFrame the array that contains the GSM frame (encoded data)
-     * 
+     *
      * @param nFrameStart that number of the byte that should be used as
      * starting point for the GSM frame inside abFrame
-     * 
+     *
      * @param abBuffer the array where the decoded data should be written to.
      * The data are written as 16 bit linear samples (actually using the lowest
      * 13 bit), either big or little endian, depending on the value of
      * bBigEndian.
-     * 
+     *
      * @param nBufferStart the byte number where the data should be written.
-     * 
+     *
      * @param bBigEndian whether the decoded data should be written big endian
      * or little endian.
      */
     public void decode(byte[] abFrame, int nFrameStart, byte[] abBuffer,
-            int nBufferStart, boolean bBigEndian)
-            throws InvalidGSMFrameException
-    {
-        int[] anDecodedData = null;
-        switch (gsmFrameFormat)
-        {
+                       int nBufferStart, boolean bBigEndian)
+            throws InvalidGSMFrameException {
+        int[] anDecodedData;
+        switch (gsmFrameFormat) {
         case TOAST:
             anDecodedData = decode(abFrame, nFrameStart);
-            for (int i = 0; i < 160; i++)
-            {
+            for (int i = 0; i < 160; i++) {
                 TConversionTool.intToBytes16(anDecodedData[i], abBuffer, i * 2
                         + nBufferStart, bBigEndian);
             }
             break;
         case MICROSOFT:
             anDecodedData = decode(abFrame, nFrameStart);
-            for (int i = 0; i < 160; i++)
-            {
+            for (int i = 0; i < 160; i++) {
                 TConversionTool.intToBytes16(anDecodedData[i], abBuffer, i * 2
                         + nBufferStart, bBigEndian);
             }
             anDecodedData = decode(abFrame, nFrameStart + 33);
-            for (int i = 0; i < 160; i++)
-            {
+            for (int i = 0; i < 160; i++) {
                 TConversionTool.intToBytes16(anDecodedData[i], abBuffer, i * 2
                         + nBufferStart + 160 * 2, bBigEndian);
             }
@@ -136,18 +128,14 @@ public final class GSMDecoder
 
     /**
      * Decodes a single GSM frame.
-     * 
-     * @param c
-     *            byte array containing the coded frame
-     * @param bufferStartOffset
-     *            offset into the array for the coded frame
+     *
+     * @param c                 byte array containing the coded frame
+     * @param bufferStartOffset offset into the array for the coded frame
      * @return an array containing the decoded samples
      * @throws InvalidGSMFrameException
      */
-    private final int[] decode(byte[] c, int bufferStartOffset) throws InvalidGSMFrameException
-    {
-        switch (gsmFrameFormat)
-        {
+    private int[] decode(byte[] c, int bufferStartOffset) throws InvalidGSMFrameException {
+        switch (gsmFrameFormat) {
         case TOAST:
             explodeFrameToast(c, bufferStartOffset, m_gsmFrameParameters);
             break;
@@ -160,19 +148,16 @@ public final class GSMDecoder
         return decoder(m_gsmFrameParameters);
     }
 
-    private final void explodeFrameToast(byte[] c, int bufferStartIndex,
-            GsmFrameParameters gsmFrameParameters)
-            throws InvalidGSMFrameException
-    {
-        if (c.length != 33)
-        {
+    private void explodeFrameToast(byte[] c, int bufferStartIndex,
+                                   GsmFrameParameters gsmFrameParameters)
+            throws InvalidGSMFrameException {
+        if (c.length != 33) {
             throw new InvalidGSMFrameException();
         }
 
         int i = bufferStartIndex;
 
-        if (((c[i] >> 4) & 0xf) != GSM_MAGIC)
-        {
+        if (((c[i] >> 4) & 0xf) != GSM_MAGIC) {
             throw new InvalidGSMFrameException();
         }
 
@@ -277,10 +262,9 @@ public final class GSMDecoder
         gsmFrameParameters.m_xmc[51] = (c[i] & 0x7); /* 33 */
     }
 
-    private final void explodeFrameMicrosoft(byte[] c,
-            final int bufferStartIndex, GsmFrameParameters gsmFrameParameters)
-            throws InvalidGSMFrameException
-    {
+    private void explodeFrameMicrosoft(byte[] c,
+                                       int bufferStartIndex, GsmFrameParameters gsmFrameParameters)
+            throws InvalidGSMFrameException {
         bitDecoder.setCodedFrame(c, bufferStartIndex);
 
         gsmFrameParameters.m_LARc[0] = bitDecoder.getNextBits(6);
@@ -361,38 +345,30 @@ public final class GSMDecoder
         gsmFrameParameters.m_xmc[51] = bitDecoder.getNextBits(3);
     }
 
-    public final static void print(String name, int[] data)
-    {
+    public static void print(String name, int[] data) {
         System.out.print("[" + name + ":");
-        for (int i = 0; i < data.length; i++)
-        {
+        for (int i = 0; i < data.length; i++) {
             System.out.print("" + data[i]);
-            if (i < data.length - 1)
-            {
+            if (i < data.length - 1) {
                 System.out.print(",");
-            }
-            else
-            {
+            } else {
                 System.out.println("]");
             }
         }
     }
 
-    public final static void print(String name, int data)
-    {
+    public static void print(String name, int data) {
         System.out.println("[" + name + ":" + data + "]");
     }
 
-    private final int[] decoder(GsmFrameParameters gsmFrameParameters)
-    {
+    private int[] decoder(GsmFrameParameters gsmFrameParameters) {
         return decoder(gsmFrameParameters.m_LARc, gsmFrameParameters.m_Nc,
                 gsmFrameParameters.m_bc, gsmFrameParameters.m_Mc,
                 gsmFrameParameters.m_xmaxc, gsmFrameParameters.m_xmc);
     }
 
-    private final int[] decoder(int[] LARcr, int[] Ncr, int[] bcr, int[] Mcr,
-            int[] xmaxcr, int[] xMcr)
-    {
+    private int[] decoder(int[] LARcr, int[] Ncr, int[] bcr, int[] Mcr,
+                          int[] xmaxcr, int[] xMcr) {
         int j, k;
 
         // drp is just dp0+120
@@ -404,8 +380,7 @@ public final class GSMDecoder
         // print("xmaxcr",xmaxcr);
         // print("xMcr",xMcr);
 
-        for (j = 0; j < 4; j++)
-        {
+        for (j = 0; j < 4; j++) {
             // find out what is done with xMcr
             RPEDecoding(xmaxcr[j], Mcr[j], xMcr, j * 13, m_erp);
 
@@ -413,8 +388,7 @@ public final class GSMDecoder
 
             longTermSynthesisFiltering(Ncr[j], bcr[j], m_erp, m_dp0);
 
-            for (k = 0; k < 40; k++)
-            {
+            for (k = 0; k < 40; k++) {
                 m_wt[j * 40 + k] = m_dp0[120 + k];
             }
 
@@ -433,9 +407,8 @@ public final class GSMDecoder
         return s;
     }
 
-    private final void RPEDecoding(int xmaxcr, int Mcr, int[] xMcr,
-            int xMcrOffset, int[] erp)
-    {
+    private void RPEDecoding(int xmaxcr, int Mcr, int[] xMcr,
+                             int xMcrOffset, int[] erp) {
         int[] expAndMant;
 
         expAndMant = xmaxcToExpAndMant(xmaxcr);
@@ -450,26 +423,20 @@ public final class GSMDecoder
         RPE_grid_positioning(Mcr, m_xMp, erp);
     }
 
-    private final int[] xmaxcToExpAndMant(int xmaxc)
-    {
+    private int[] xmaxcToExpAndMant(int xmaxc) {
         int exp, mant;
 
         exp = 0;
-        if (xmaxc > 15)
-        {
+        if (xmaxc > 15) {
             exp = ((xmaxc >> 3) - 1);
         }
         mant = (xmaxc - (exp << 3));
 
-        if (mant == 0)
-        {
+        if (mant == 0) {
             exp = -4;
             mant = 7;
-        }
-        else
-        {
-            while (mant <= 7)
-            {
+        } else {
+            while (mant <= 7) {
                 mant = (mant << 1 | 1);
                 exp--;
             }
@@ -491,9 +458,8 @@ public final class GSMDecoder
     // }
     // }
 
-    private final void APCMInverseQuantization(int[] xMc, int xMcOffset,
-            int exp, int mant, int[] xMp)
-    {
+    private void APCMInverseQuantization(int[] xMc, int xMcOffset,
+                                         int exp, int mant, int[] xMp) {
         int i, p;
         int temp, temp1, temp2, temp3;
 
@@ -509,8 +475,7 @@ public final class GSMDecoder
 
         p = 0;
 
-        for (i = 13; i-- > 0;)
-        {
+        for (i = 13; i-- > 0; ) {
             // assert(xMc[xMcOffset] <= 7 && xMc[xMcOffset] >= 0);
 
             temp = ((xMc[xMcOffset++] << 1) - 7);
@@ -535,25 +500,21 @@ public final class GSMDecoder
         }
     }
 
-    private final static int saturate(int x)
-    {
-        return (x < MIN_WORD ? MIN_WORD : (x > MAX_WORD ? MAX_WORD : x));
+    private static int saturate(int x) {
+        return (x < MIN_WORD ? MIN_WORD : (Math.min(x, MAX_WORD)));
     }
 
-    private final static int sub(int a, int b)
-    {
+    private static int sub(int a, int b) {
         int diff = a - b;
         return saturate(diff);
     }
 
-    private final static int add(int a, int b)
-    {
+    private static int add(int a, int b) {
         int sum = a + b;
         return saturate(sum);
     }
 
-    private final static int asl(int a, int n)
-    {
+    private static int asl(int a, int n) {
         if (n >= 16)
             return 0;
         if (n <= -16)
@@ -563,8 +524,7 @@ public final class GSMDecoder
         return (a << n);
     }
 
-    private final static int asr(int a, int n)
-    {
+    private static int asr(int a, int n) {
         if (n >= 16)
             return (a < 0 ? -1 : 0);
         if (n <= -16)
@@ -574,12 +534,10 @@ public final class GSMDecoder
         return (a >> n);
     }
 
-    private final static int mult_r(int a, int b)
-    {
+    private static int mult_r(int a, int b) {
         if (b == MIN_WORD && a == MIN_WORD)
             return MAX_WORD;
-        else
-        {
+        else {
             int prod = a * b + 16384;
             // prod >>= 15;
             return saturate(prod >> 15);// &0xffff;
@@ -587,9 +545,8 @@ public final class GSMDecoder
         }
     }
 
-    private final void longTermSynthesisFiltering(int Ncr, int bcr, int[] erp,
-            int[] dp0)
-    {
+    private void longTermSynthesisFiltering(int Ncr, int bcr, int[] erp,
+                                            int[] dp0) {
         int brp, drpp, Nr;
 
         Nr = Ncr < 40 || Ncr > 120 ? nrp : Ncr;
@@ -597,20 +554,17 @@ public final class GSMDecoder
 
         brp = QLB[bcr];
 
-        for (int k = 0; k <= 39; k++)
-        {
+        for (int k = 0; k <= 39; k++) {
             drpp = mult_r(brp, dp0[120 + (k - Nr)]);
             dp0[120 + k] = add(erp[k], drpp);
         }
 
-        for (int k = 0; k <= 119; k++)
-        {
+        for (int k = 0; k <= 119; k++) {
             dp0[k] = dp0[40 + k];
         }
     }
 
-    private final int[] shortTermSynthesisFilter(int[] LARcr, int[] wt)
-    {
+    private int[] shortTermSynthesisFilter(int[] LARcr, int[] wt) {
 
         // print("wt",wt);
 
@@ -641,9 +595,8 @@ public final class GSMDecoder
 
     }
 
-    public final static void decodingOfTheCodedLogAreaRatios(int[] LARc,
-            int[] LARpp)
-    {
+    public static void decodingOfTheCodedLogAreaRatios(int[] LARc,
+                                                       int[] LARpp) {
         int temp1;
 
         // STEP( 0, -32, 13107 );
@@ -704,80 +657,62 @@ public final class GSMDecoder
 
     }
 
-    private final static void Coefficients_0_12(int[] LARpp_j_1, int[] LARpp_j,
-            int[] LARp)
-    {
-        for (int i = 0; i < 8; i++)
-        {
+    private static void Coefficients_0_12(int[] LARpp_j_1, int[] LARpp_j,
+                                          int[] LARp) {
+        for (int i = 0; i < 8; i++) {
             LARp[i] = add((LARpp_j_1[i] >> 2), (LARpp_j[i] >> 2));
             LARp[i] = add(LARp[i], (LARpp_j_1[i] >> 1));
         }
     }
 
-    private final static void Coefficients_13_26(int[] LARpp_j_1,
-            int[] LARpp_j, int[] LARp)
-    {
-        for (int i = 0; i < 8; i++)
-        {
+    private static void Coefficients_13_26(int[] LARpp_j_1,
+                                           int[] LARpp_j, int[] LARp) {
+        for (int i = 0; i < 8; i++) {
             LARp[i] = add((LARpp_j_1[i] >> 1), (LARpp_j[i] >> 1));
         }
     }
 
-    private final static void Coefficients_27_39(int[] LARpp_j_1,
-            int[] LARpp_j, int[] LARp)
-    {
-        for (int i = 0; i < 8; i++)
-        {
+    private static void Coefficients_27_39(int[] LARpp_j_1,
+                                           int[] LARpp_j, int[] LARp) {
+        for (int i = 0; i < 8; i++) {
             LARp[i] = add((LARpp_j_1[i] >> 2), (LARpp_j[i] >> 2));
             LARp[i] = add(LARp[i], (LARpp_j[i] >> 1));
         }
     }
 
-    private final static void Coefficients_40_159(int[] LARpp_j, int[] LARp)
-    {
-        for (int i = 0; i < 8; i++)
-        {
-            LARp[i] = LARpp_j[i];
-        }
+    private static void Coefficients_40_159(int[] LARpp_j, int[] LARp) {
+        System.arraycopy(LARpp_j, 0, LARp, 0, 8);
     }
 
-    private final static void LARp_to_rp(int[] LARp)
-    {
+    private static void LARp_to_rp(int[] LARp) {
 
         int temp;
 
-        for (int i = 0; i < 8; i++)
-        {
-            if (LARp[i] < 0)
-            {
+        for (int i = 0; i < 8; i++) {
+            if (LARp[i] < 0) {
                 temp = ((LARp[i] == MIN_WORD) ? MAX_WORD : -LARp[i]);
                 LARp[i] = (-((temp < 11059) ? temp << 1
                         : ((temp < 20070) ? temp + 11059 : add((temp >> 2),
-                                26112))));
-            }
-            else
-            {
+                        26112))));
+            } else {
                 temp = LARp[i];
                 LARp[i] = ((temp < 11059) ? temp << 1
                         : ((temp < 20070) ? temp + 11059 : add((temp >> 2),
-                                26112)));
+                        26112)));
             }
         }
     }
 
     // shortTermSynthesisFiltering(LARp,13,wt,s,0);
-    private final void shortTermSynthesisFiltering(int[] rrp, int k, int[] wt,
-            int[] sr, int off)
-    {
+    private void shortTermSynthesisFiltering(int[] rrp, int k, int[] wt,
+                                             int[] sr, int off) {
         int sri, tmp1, tmp2;
         int woff = off;
         int soff = off;
 
-        while (k-- > 0)
-        {
+        while (k-- > 0) {
             sri = wt[woff++];
-            for (int i = 8; i-- > 0;)
-            {
+            for (int i = 8; i-- > 0; ) {
                 tmp1 = rrp[i];
                 tmp2 = v[i];
                 tmp2 = ((tmp1 == MIN_WORD && tmp2 == MIN_WORD ? MAX_WORD
@@ -792,12 +727,10 @@ public final class GSMDecoder
         }
     }
 
-    private final void postprocessing(int[] s)
-    {
+    private void postprocessing(int[] s) {
         int soff = 0;
         int tmp;
-        for (int k = 160; k-- > 0; soff++)
-        {
+        for (int k = 160; k-- > 0; soff++) {
             tmp = mult_r(msr, (28180));
             msr = add(s[soff], tmp);
             // s[soff]=(add(msr,msr) & 0xfff8);
@@ -805,15 +738,13 @@ public final class GSMDecoder
         }
     }
 
-    private final static void RPE_grid_positioning(int Mc, int[] xMp, int[] ep)
-    {
+    private static void RPE_grid_positioning(int Mc, int[] xMp, int[] ep) {
         int i = 13;
 
         int epo = 0;
         int po = 0;
 
-        switch (Mc)
-        {
+        switch (Mc) {
         case 3:
             ep[epo++] = 0;
         case 2:
@@ -824,23 +755,20 @@ public final class GSMDecoder
             ep[epo++] = xMp[po++];
             i--;
         }
-        ;
 
-        do
-        {
+        do {
             ep[epo++] = 0;
             ep[epo++] = 0;
             ep[epo++] = xMp[po++];
         }
         while (--i > 0);
 
-        while (++Mc < 4)
-        {
+        while (++Mc < 4) {
             ep[epo++] = 0;
         }
     }
 
 }
 
-/*** GSMDecoder.java ***/
+/* GSMDecoder.java */
 

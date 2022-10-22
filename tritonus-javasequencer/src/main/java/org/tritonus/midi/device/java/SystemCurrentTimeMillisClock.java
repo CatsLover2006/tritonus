@@ -1,7 +1,7 @@
 /*
- *	SystemCurrentTimeMillisClock.java
+ * SystemCurrentTimeMillisClock.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -27,24 +27,22 @@
 package org.tritonus.midi.device.java;
 
 
-
-/** Sequencer clock based on System.currentTimeMillis().
+/**
+ * Sequencer clock based on System.currentTimeMillis().
  */
 public class SystemCurrentTimeMillisClock
-implements JavaSequencer.Clock
-{
-	/**	Retrieve system time in microseconds.
-		This method retrieves the time by calling
-		{@link java.lang.System#currentTimeMillis}.
-
-		@return the system time in microseconds
-	*/
-	public long getMicroseconds()
-	{
-		return System.currentTimeMillis() * 1000;
-	}
+        implements JavaSequencer.Clock {
+    /**
+     * Retrieve system time in microseconds.
+     * This method retrieves the time by calling
+     * {@link java.lang.System#currentTimeMillis}.
+     *
+     * @return the system time in microseconds
+     */
+    public long getMicroseconds() {
+        return System.currentTimeMillis() * 1000;
+    }
 }
 
 
-
-/*** SystemCurrentTimeMillisClock.java ***/
+/* SystemCurrentTimeMillisClock.java */

@@ -1,7 +1,7 @@
 /*
- *	TNotifier.java
+ * TNotifier.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -28,111 +28,87 @@
 
 package org.tritonus.share;
 
-import java.util.EventObject;
-import java.util.Collection;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.EventObject;
 import java.util.List;
-import java.util.Iterator;
-
-import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineEvent;
-
+import javax.sound.sampled.LineListener;
 
 
 public class TNotifier
-extends	Thread
-{
-	public static class NotifyEntry
-	{
-		private EventObject	m_event;
-		private List<LineListener>	m_listeners;
+        extends Thread {
+    public static class NotifyEntry {
+        private EventObject m_event;
+        private List<LineListener> m_listeners;
 
 
-
-		public NotifyEntry(EventObject event, Collection<LineListener> listeners)
-		{
-			m_event = event;
-			m_listeners = new ArrayList<LineListener>(listeners);
-		}
+        public NotifyEntry(EventObject event, Collection<LineListener> listeners) {
+            m_event = event;
+            m_listeners = new ArrayList<>(listeners);
+        }
 
 
-		public void deliver()
-		{
-			// TDebug.out("%% TNotifier.NotifyEntry.deliver(): called.");
-			Iterator<LineListener>	iterator = m_listeners.iterator();
-			while (iterator.hasNext())
-			{
-				LineListener	listener = iterator.next();
-				listener.update((LineEvent) m_event);
-			}
-		}
-	}
+        public void deliver() {
+            // TDebug.out("%% TNotifier.NotifyEntry.deliver(): called.");
+            for (LineListener listener : m_listeners) {
+                listener.update((LineEvent) m_event);
+            }
+        }
+    }
 
 
-	public static TNotifier	notifier = null;
+    public static TNotifier notifier;
 
-	static
-	{
-		notifier = new TNotifier();
-		notifier.setDaemon(true);
-		notifier.start();
-	}
-
+    static {
+        notifier = new TNotifier();
+        notifier.setDaemon(true);
+        notifier.start();
+    }
 
 
-	/**	The queue of events to deliver.
-	 *	The entries are of class NotifyEntry.
-	 */
-	private List<NotifyEntry>	m_entries;
+    /**
+     * The queue of events to deliver.
+     * The entries are of class NotifyEntry.
+     */
+    private final List<NotifyEntry> m_entries;
 
 
-	public TNotifier()
-	{
-		super("Tritonus Notifier");
-		m_entries = new ArrayList<NotifyEntry>();
-	}
+    public TNotifier() {
+        super("Tritonus Notifier");
+        m_entries = new ArrayList<>();
+    }
 
 
-
-	public void addEntry(EventObject event, Collection<LineListener> listeners)
-	{
-		// TDebug.out("%% TNotifier.addEntry(): called.");
-		synchronized (m_entries)
-		{
-			m_entries.add(new NotifyEntry(event, listeners));
-			m_entries.notifyAll();
-		}
-		// TDebug.out("%% TNotifier.addEntry(): completed.");
-	}
+    public void addEntry(EventObject event, Collection<LineListener> listeners) {
+        // TDebug.out("%% TNotifier.addEntry(): called.");
+        synchronized (m_entries) {
+            m_entries.add(new NotifyEntry(event, listeners));
+            m_entries.notifyAll();
+        }
+        // TDebug.out("%% TNotifier.addEntry(): completed.");
+    }
 
 
-	public void run()
-	{
-		while (true)
-		{
-			NotifyEntry	entry = null;
-			synchronized (m_entries)
-			{
-				while (m_entries.size() == 0)
-				{
-					try
-					{
-						m_entries.wait();
-					}
-					catch (InterruptedException e)
-					{
-						if (TDebug.TraceAllExceptions)
-						{
-							TDebug.out(e);
-						}
-					}
-				}
-				entry = m_entries.remove(0);
-			}
-			entry.deliver();
-		}
-	}
+    public void run() {
+        while (true) {
+            NotifyEntry entry;
+            synchronized (m_entries) {
+                while (m_entries.size() == 0) {
+                    try {
+                        m_entries.wait();
+                    } catch (InterruptedException e) {
+                        if (TDebug.TraceAllExceptions) {
+                            TDebug.out(e);
+                        }
+                    }
+                }
+                entry = m_entries.remove(0);
+            }
+            entry.deliver();
+        }
+    }
 }
 
 
-/*** TNotifier.java ***/
+/* TNotifier.java */

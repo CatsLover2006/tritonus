@@ -1,5 +1,5 @@
 /*
- *	BaseSequencerTestCase.java
+ * BaseSequencerTestCase.java
  */
 
 /*
@@ -27,46 +27,41 @@ import javax.sound.midi.Sequencer;
 import org.junit.jupiter.api.Test;
 
 
-/**	Base class for testsof javax.sound.midi.Sequencer.
+/**
+ * Base class for testsof javax.sound.midi.Sequencer.
  */
-public abstract class BaseSequencerTestCase
-{
-	private static final boolean IGNORE_SUN_SEQUENCER = true;
+public abstract class BaseSequencerTestCase {
+    private static final boolean IGNORE_SUN_SEQUENCER = true;
 
 
-	/**	Iterate over all available Sequencers.
-	*/
+    /**
+     * Iterate over all available Sequencers.
+     */
     @Test
-	public void testSeqencer()
-		throws Exception
-	{
-		MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-		for (int i = 0; i < infos.length; i++)
-		{
-			MidiDevice device = MidiSystem.getMidiDevice(infos[i]);
-			if (device instanceof Sequencer &&
-				! (IGNORE_SUN_SEQUENCER &&
-				   device.getDeviceInfo().getVendor().indexOf("Sun") != -1))
-			{
-				System.out.println("testing seq: " + device);
-				checkSequencer((Sequencer) device);
-			}
-		}
-	}
+    public void testSeqencer()
+            throws Exception {
+        MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
+        for (MidiDevice.Info info : infos) {
+            MidiDevice device = MidiSystem.getMidiDevice(info);
+            if (device instanceof Sequencer &&
+                    !(device.getDeviceInfo().getVendor().contains("Sun"))) {
+                System.out.println("testing seq: " + device);
+                checkSequencer((Sequencer) device);
+            }
+        }
+    }
 
 
+    protected abstract void checkSequencer(Sequencer seq)
+            throws Exception;
 
-	protected abstract void checkSequencer(Sequencer seq)
-		throws Exception;
-
-	/** Get the prefix for error messages (containing the sequencer's name).
-	 */
-	protected static String getMessagePrefix(Sequencer seq)
-	{
-		return seq.getDeviceInfo().getName();
-	}
+    /**
+     * Get the prefix for error messages (containing the sequencer's name).
+     */
+    protected static String getMessagePrefix(Sequencer seq) {
+        return seq.getDeviceInfo().getName();
+    }
 }
 
 
-
-/*** BaseSequencerTestCase.java ***/
+/* BaseSequencerTestCase.java */

@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.11</version>
+    <version>0.3.12</version>
   </parent>
+
   <artifactId>tritonus-alsa</artifactId>
   <packaging>jar</packaging>
 
@@ -29,6 +31,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>native-maven-plugin</artifactId>
+            <version>1.0-alpha-11</version>
             <extensions>true</extensions>
             <configuration>
               <javahClassNames>
@@ -61,9 +64,9 @@
                 <compilerStartOption>-g -Wall -O2 -fomit-frame-pointer -fPIC</compilerStartOption>
                 <!-- unless locating jdk includes, cause error why??? -->
                 <compilerStartOption>
-                      -I${java.home}/../include
-                      -I${java.home}/../include/darwin
-                      -I/usr/local/include/libasound
+                  -I${java.home}/../include
+                  -I${java.home}/../include/darwin
+                  -I/usr/local/include/libasound
                 </compilerStartOption>
               </compilerStartOptions>
               <sources>
@@ -71,33 +74,34 @@
                   <directory>src/main/native</directory>
                   <fileNames>
                     <fileName>init.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_Alsa.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaCtl.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaCtlCardInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaMixer.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaMixerElement.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcm.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParams.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParamsFormatMask.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaPcmSWParams.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeq.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqClientInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqEvent.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortSubscribe.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueInfo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueStatus.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueTempo.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqRemoveEvents.c</fileName>
-                      <fileName>org_tritonus_lowlevel_alsa_AlsaSeqSystemInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_Alsa.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaCtl.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaCtlCardInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaMixer.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaMixerElement.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcm.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParams.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcmHWParamsFormatMask.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaPcmSWParams.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeq.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqClientInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqEvent.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqPortSubscribe.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueInfo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueStatus.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqQueueTempo.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqRemoveEvents.c</fileName>
+                    <fileName>org_tritonus_lowlevel_alsa_AlsaSeqSystemInfo.c</fileName>
                   </fileNames>
                 </source>
               </sources>
               <linkerStartOptions>
                 <linkerStartOption>-dynamiclib
-                  -L/usr/local/lib -lasound</linkerStartOption>
+                  -L/usr/local/lib -lasound
+                </linkerStartOption>
               </linkerStartOptions>
-              <linkerFinalName></linkerFinalName>
+              <linkerFinalName/>
               <linkerEndOptions>
                 <linkerEndOption>-o ${project.build.directory}/libtritonusalsa.so</linkerEndOption>
               </linkerEndOptions>
@@ -118,7 +122,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.0</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <forkMode>once</forkMode>
               <argLine>-Djava.library.path=${project.build.directory}</argLine>
@@ -140,7 +144,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <skipTests>true</skipTests>
             </configuration>
@@ -155,9 +159,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
@@ -180,5 +186,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 </project>

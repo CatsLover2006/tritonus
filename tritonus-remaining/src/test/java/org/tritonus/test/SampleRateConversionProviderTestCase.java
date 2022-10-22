@@ -1,5 +1,5 @@
 /*
- *	SampleRateConversionProviderTestCase.java
+ * SampleRateConversionProviderTestCase.java
  */
 
 /*
@@ -21,16 +21,12 @@
 package org.tritonus.test;
 
 
-
 public class SampleRateConversionProviderTestCase
-extends BaseFormatConversionProviderTestCase
-{
-	public SampleRateConversionProviderTestCase()
-	{
-		setResourcePrefix("samplerate");
-	}
+        extends BaseFormatConversionProviderTestCase {
+    public SampleRateConversionProviderTestCase() {
+        setResourcePrefix("samplerate");
+    }
 }
 
 
-
-/*** SampleRateConversionProviderTestCase.java ***/
+/* SampleRateConversionProviderTestCase.java */

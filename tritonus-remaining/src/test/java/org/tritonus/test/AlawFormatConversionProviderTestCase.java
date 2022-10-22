@@ -1,5 +1,5 @@
 /*
- *	AlawFormatConversionProviderTestCase.java
+ * AlawFormatConversionProviderTestCase.java
  */
 
 /*
@@ -22,16 +22,14 @@ package org.tritonus.test;
 
 import org.junit.jupiter.api.Disabled;
 
+
 @Disabled
 public class AlawFormatConversionProviderTestCase
-extends BaseFormatConversionProviderTestCase
-{
-	public AlawFormatConversionProviderTestCase()
-	{
-		setResourcePrefix("alaw");
-	}
+        extends BaseFormatConversionProviderTestCase {
+    public AlawFormatConversionProviderTestCase() {
+        setResourcePrefix("alaw");
+    }
 }
 
 
-
-/*** AlawFormatConversionProviderTestCase.java ***/
+/* AlawFormatConversionProviderTestCase.java */

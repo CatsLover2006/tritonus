@@ -1,10 +1,4 @@
 /*
- *	NodeSemantics.java
- *
- *	This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  *  Copyright (c) 2002 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,51 +14,38 @@
  *   limitations under the License.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.saol.compiler;
 
 
+/**
+ * NodeSemantics.java
+ *
+ * This file is part of Tritonus: http://www.tritonus.org/
+ */
+public class NodeSemantics extends WidthAndRate {
 
-public class NodeSemantics
-extends WidthAndRate
-{
-	/**	Auxiliary information.
-	 */
-	private Object		m_aux;
+    /**
+     * Auxiliary information.
+     */
+    private Object m_aux;
 
-
-
-	public NodeSemantics(int nWidth, int nRate)
-	{
-		this(nWidth, nRate, null);
-	}
-
-
-
-	public NodeSemantics(Object aux)
-	{
-		this(WidthAndRate.WIDTH_UNKNOWN, WidthAndRate.RATE_UNKNOWN, aux);
-	}
+    public NodeSemantics(int nWidth, int nRate) {
+        this(nWidth, nRate, null);
+    }
 
 
+    public NodeSemantics(Object aux) {
+        this(WidthAndRate.WIDTH_UNKNOWN, WidthAndRate.RATE_UNKNOWN, aux);
+    }
 
-	public NodeSemantics(int nWidth, int nRate, Object aux)
-	{
-		super(nWidth, nRate);
-		m_aux = aux;
-	}
+    public NodeSemantics(int nWidth, int nRate, Object aux) {
+        super(nWidth, nRate);
+        m_aux = aux;
+    }
 
-
-
-	public Object getAux()
-	{
-		return m_aux;
-	}
+    public Object getAux() {
+        return m_aux;
+    }
 }
 
-
-
-/*** NodeSemantics.java ***/
+/* NodeSemantics.java */

@@ -134,8 +134,8 @@ public class Compiler {
             AInstrdeclInstrdecl startNode = entry.getStartNode();
             VariableTable localVariableTable = entry.getLocalVariableTable();
             InstrumentSemanticsCheck isc = new InstrumentSemanticsCheck(globalVariableTable,
-                                                                        localVariableTable,
-                                                                        nodeSemanticsTable);
+                    localVariableTable,
+                    nodeSemanticsTable);
             startNode.apply(isc);
         }
         // TODO: collection of variable tables, semantic checks
@@ -152,9 +152,8 @@ public class Compiler {
         }
 
         if (DEBUG) {
-            Iterator<String> it = instrumentMap.keySet().iterator();
-            while (it.hasNext()) {
-                TDebug.out("" + it.next());
+            for (String s : instrumentMap.keySet()) {
+                TDebug.out("" + s);
             }
         }
         return instrumentMap;

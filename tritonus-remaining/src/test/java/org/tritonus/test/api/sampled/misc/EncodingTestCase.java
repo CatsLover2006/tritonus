@@ -1,5 +1,5 @@
 /*
- *	EncodingTestCase.java
+ * EncodingTestCase.java
  */
 
 /*
@@ -25,71 +25,57 @@ import javax.sound.sampled.AudioFormat.Encoding;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
-
-public class EncodingTestCase
-{
+public class EncodingTestCase {
     @Test
-	public void testEquals()
-	{
-		assertTrue(! Encoding.ALAW.equals(null), "equals(null)");
-		assertTrue(Encoding.ALAW.equals(Encoding.ALAW),
-				   "equals() for same Encoding");
-		assertTrue(! Encoding.ALAW.equals(Encoding.ULAW),
-				   "equals() for different Encodings");
-		String strEncodingName = "my fancy encoding";
-		String strOtherEncodingName = "my other fancy encoding";
-		Encoding encoding1 = new Encoding(strEncodingName);
-		Encoding encoding2 = new Encoding(strEncodingName);
-		Encoding encoding3 = new Encoding(strOtherEncodingName);
-		assertTrue(encoding1.equals(encoding2),
-				   "equals() for equal custom encodings");
-		assertTrue(encoding2.equals(encoding1),
-				   "equals() for equal custom encodings");
-		assertTrue(! encoding1.equals(encoding3),
-				   "equals() for different custom encodings");
-		assertTrue(! encoding3.equals(encoding1),
-				   "equals() for different custom encodings");
-	}
-
+    public void testEquals() {
+        assertNotNull(Encoding.ALAW, "equals(null)");
+        assertEquals(Encoding.ALAW, Encoding.ALAW, "equals() for same Encoding");
+        assertNotEquals(Encoding.ALAW, Encoding.ULAW, "equals() for different Encodings");
+        String strEncodingName = "my fancy encoding";
+        String strOtherEncodingName = "my other fancy encoding";
+        Encoding encoding1 = new Encoding(strEncodingName);
+        Encoding encoding2 = new Encoding(strEncodingName);
+        Encoding encoding3 = new Encoding(strOtherEncodingName);
+        assertEquals(encoding1, encoding2, "equals() for equal custom encodings");
+        assertEquals(encoding2, encoding1, "equals() for equal custom encodings");
+        assertFalse(encoding1.equals(encoding3), "equals() for different custom encodings");
+        assertFalse(encoding3.equals(encoding1), "equals() for different custom encodings");
+    }
 
     @Test
-	public void testHashCode()
-	{
-		assertEquals(Encoding.ALAW.hashCode(), Encoding.ALAW.hashCode(), "hashCode() for multiple invocations");
-		String strEncodingName1 = "my fancy encoding";
-		String strEncodingName2 = "my fancy encoding";
-		Encoding encoding1 = new Encoding(strEncodingName1);
-		Encoding encoding2 = new Encoding(strEncodingName2);
-		assertEquals(encoding1.hashCode(), encoding2.hashCode(), "hashCode() for same custom Encoding");
-	}
-
+    public void testHashCode() {
+        assertEquals(Encoding.ALAW.hashCode(), Encoding.ALAW.hashCode(), "hashCode() for multiple invocations");
+        String strEncodingName1 = "my fancy encoding";
+        String strEncodingName2 = "my fancy encoding";
+        Encoding encoding1 = new Encoding(strEncodingName1);
+        Encoding encoding2 = new Encoding(strEncodingName2);
+        assertEquals(encoding1.hashCode(), encoding2.hashCode(), "hashCode() for same custom Encoding");
+    }
 
     @Test
-	public void testToString()
-	{
-		String strEncodingName = "my fancy encoding";
-		Encoding encoding = new Encoding(strEncodingName);
-		assertEquals(strEncodingName, encoding.toString(), "toString()");
-	}
-
+    public void testToString() {
+        String strEncodingName = "my fancy encoding";
+        Encoding encoding = new Encoding(strEncodingName);
+        assertEquals(strEncodingName, encoding.toString(), "toString()");
+    }
 
     @Test
-	public void testStaticInstances()
-	{
-		assertEquals("PCM_SIGNED",
-					 Encoding.PCM_SIGNED.toString(), "PCM_SIGNED.toString()");
-		assertEquals("PCM_UNSIGNED",
-					 Encoding.PCM_UNSIGNED.toString(), "PCM_UNSIGNED.toString()");
-		assertEquals("ALAW",
-					 Encoding.ALAW.toString(), "ALAW.toString()");
-		assertEquals("ULAW",
-					 Encoding.ULAW.toString(), "ULAW.toString()");
-	}
+    public void testStaticInstances() {
+        assertEquals("PCM_SIGNED",
+                Encoding.PCM_SIGNED.toString(), "PCM_SIGNED.toString()");
+        assertEquals("PCM_UNSIGNED",
+                Encoding.PCM_UNSIGNED.toString(), "PCM_UNSIGNED.toString()");
+        assertEquals("ALAW",
+                Encoding.ALAW.toString(), "ALAW.toString()");
+        assertEquals("ULAW",
+                Encoding.ULAW.toString(), "ULAW.toString()");
+    }
 }
 
 
-
-/*** EncodingTestCase.java ***/
+/* EncodingTestCase.java */

@@ -1,5 +1,5 @@
 /*
- *	TypeTestCase.java
+ * TypeTestCase.java
  */
 
 /*
@@ -23,23 +23,21 @@ package org.tritonus.test.api.sampled.misc;
 //import javax.sound.sampled.AudioFileFormat.Type;
 
 
-
-public class TypeTestCase
-{
-// 	public void testEquals()
-// 	{
-// 		assertTrue("equals(null)", ! Type.ALAW.equals(null));
-// 		assertTrue("equals() for same Type",
-// 				   Type.ALAW.equals(Type.ALAW));
-// 		assertTrue("equals() for different Types",
-// 				   ! Type.ALAW.equals(Type.ULAW));
-// 		String strTypeName = "my fancy encoding";
-// 		String strOtherTypeName = "my other fancy encoding";
-// 		Type encoding1 = new Type(strTypeName);
-// 		Type encoding2 = new Type(strTypeName);
-// 		Type encoding3 = new Type(strOtherTypeName);
-// 		assertTrue("equals() for equal custom encodings",
-// 				   encoding1.equals(encoding2));
+public class TypeTestCase {
+//  public void testEquals()
+//  {
+//   assertTrue("equals(null)", ! Type.ALAW.equals(null));
+//   assertTrue("equals() for same Type",
+//        Type.ALAW.equals(Type.ALAW));
+//   assertTrue("equals() for different Types",
+//        ! Type.ALAW.equals(Type.ULAW));
+//   String strTypeName = "my fancy encoding";
+//   String strOtherTypeName = "my other fancy encoding";
+//   Type encoding1 = new Type(strTypeName);
+//   Type encoding2 = new Type(strTypeName);
+//   Type encoding3 = new Type(strOtherTypeName);
+//   assertTrue("equals() for equal custom encodings",
+//    	   encoding1.equals(encoding2));
 // 		assertTrue("equals() for equal custom encodings",
 // 				   encoding2.equals(encoding1));
 // 		assertTrue("equals() for different custom encodings",
@@ -83,5 +81,4 @@ public class TypeTestCase
 }
 
 
-
-/*** TypeTestCase.java ***/
+/* TypeTestCase.java */

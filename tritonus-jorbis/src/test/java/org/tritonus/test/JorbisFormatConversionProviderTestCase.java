@@ -1,8 +1,4 @@
 /*
- *	JorbisFormatConversionProviderTestCase.java
- */
-
-/*
  *  Copyright (c) 2001 - 2002 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,16 +17,13 @@
 package org.tritonus.test;
 
 
-
-public class JorbisFormatConversionProviderTestCase
-extends BaseFormatConversionProviderTestCase
-{
-	public JorbisFormatConversionProviderTestCase()
-	{
-		setResourcePrefix("jorbis");
-	}
+/**
+ * JorbisFormatConversionProviderTestCase.java
+ */
+public class JorbisFormatConversionProviderTestCase extends BaseFormatConversionProviderTestCase {
+    public JorbisFormatConversionProviderTestCase() {
+        setResourcePrefix("jorbis");
+    }
 }
 
-
-
-/*** JorbisFormatConversionProviderTestCase.java ***/
+/* JorbisFormatConversionProviderTestCase.java */

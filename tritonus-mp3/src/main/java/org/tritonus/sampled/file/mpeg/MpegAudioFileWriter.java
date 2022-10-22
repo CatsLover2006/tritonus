@@ -1,7 +1,7 @@
 /*
- *	MpegAudioFileWriter.java
+ * MpegAudioFileWriter.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,7 +29,6 @@
 package org.tritonus.sampled.file.mpeg;
 
 import java.util.Arrays;
-
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 
@@ -37,48 +36,51 @@ import org.tritonus.share.TDebug;
 import org.tritonus.share.sampled.file.THeaderlessAudioFileWriter;
 
 
-
-/** Class for writing mpeg files
+/**
+ * Class for writing mpeg files
  *
  * @author Florian Bomers
  */
 public class MpegAudioFileWriter extends THeaderlessAudioFileWriter {
 
-	private static final AudioFileFormat.Type[]	FILE_TYPES = {
-	    //new AudioFileFormat.Type("MPEG", "mpeg"),
-	    // workaround for the fixed extension problem in AudioFileFormat.Type
-	    // see org.tritonus.share.sampled.AudioFileTypes.java
-	    new AudioFileFormat.Type("MP3", "mp3"),
-	    new AudioFileFormat.Type("MP2", "mp2"),
-	};
+    private static final AudioFileFormat.Type[] FILE_TYPES = {
+            //new AudioFileFormat.Type("MPEG", "mpeg"),
+            // workaround for the fixed extension problem in AudioFileFormat.Type
+            // see org.tritonus.share.sampled.AudioFileTypes.java
+            new AudioFileFormat.Type("MP3", "mp3"),
+            new AudioFileFormat.Type("MP2", "mp2"),
+    };
 
-	public static final AudioFormat.Encoding MPEG1L3 = new AudioFormat.Encoding("MPEG1L3");
-	public static final AudioFormat.Encoding MPEG2L3 = new AudioFormat.Encoding("MPEG2L3");
-	public static final AudioFormat.Encoding MPEG2DOT5L3 = new AudioFormat.Encoding("MPEG2DOT5L3");
+    public static final AudioFormat.Encoding MPEG1L3 = new AudioFormat.Encoding("MPEG1L3");
+    public static final AudioFormat.Encoding MPEG2L3 = new AudioFormat.Encoding("MPEG2L3");
+    public static final AudioFormat.Encoding MPEG2DOT5L3 = new AudioFormat.Encoding("MPEG2DOT5L3");
 
-	private static final AudioFormat[]	AUDIO_FORMATS = {
-	    new AudioFormat(MPEG1L3, ALL, ALL, 1, ALL, ALL, false),
-	    new AudioFormat(MPEG1L3, ALL, ALL, 1, ALL, ALL, true),
-	    new AudioFormat(MPEG1L3, ALL, ALL, 2, ALL, ALL, false),
-	    new AudioFormat(MPEG1L3, ALL, ALL, 2, ALL, ALL, true),
-	    new AudioFormat(MPEG2L3, ALL, ALL, 1, ALL, ALL, false),
-	    new AudioFormat(MPEG2L3, ALL, ALL, 1, ALL, ALL, true),
-	    new AudioFormat(MPEG2L3, ALL, ALL, 2, ALL, ALL, false),
-	    new AudioFormat(MPEG2L3, ALL, ALL, 2, ALL, ALL, true),
-	    new AudioFormat(MPEG2DOT5L3, ALL, ALL, 1, ALL, ALL, false),
-	    new AudioFormat(MPEG2DOT5L3, ALL, ALL, 1, ALL, ALL, true),
-	    new AudioFormat(MPEG2DOT5L3, ALL, ALL, 2, ALL, ALL, false),
-	    new AudioFormat(MPEG2DOT5L3, ALL, ALL, 2, ALL, ALL, true),
-	};
+    private static final AudioFormat[] AUDIO_FORMATS = {
+            new AudioFormat(MPEG1L3, ALL, ALL, 1, ALL, ALL, false),
+            new AudioFormat(MPEG1L3, ALL, ALL, 1, ALL, ALL, true),
+            new AudioFormat(MPEG1L3, ALL, ALL, 2, ALL, ALL, false),
+            new AudioFormat(MPEG1L3, ALL, ALL, 2, ALL, ALL, true),
+            new AudioFormat(MPEG2L3, ALL, ALL, 1, ALL, ALL, false),
+            new AudioFormat(MPEG2L3, ALL, ALL, 1, ALL, ALL, true),
+            new AudioFormat(MPEG2L3, ALL, ALL, 2, ALL, ALL, false),
+            new AudioFormat(MPEG2L3, ALL, ALL, 2, ALL, ALL, true),
+            new AudioFormat(MPEG2DOT5L3, ALL, ALL, 1, ALL, ALL, false),
+            new AudioFormat(MPEG2DOT5L3, ALL, ALL, 1, ALL, ALL, true),
+            new AudioFormat(MPEG2DOT5L3, ALL, ALL, 2, ALL, ALL, false),
+            new AudioFormat(MPEG2DOT5L3, ALL, ALL, 2, ALL, ALL, true),
+    };
 
-	public MpegAudioFileWriter()
-	{
-		super(Arrays.asList(FILE_TYPES),
-		      Arrays.asList(AUDIO_FORMATS));
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("MpegAudioFileWriter.<init>(): begin"); }
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("MpegAudioFileWriter.<init>(): end"); }
-	}
+    public MpegAudioFileWriter() {
+        super(Arrays.asList(FILE_TYPES),
+                Arrays.asList(AUDIO_FORMATS));
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("MpegAudioFileWriter.<init>(): begin");
+        }
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("MpegAudioFileWriter.<init>(): end");
+        }
+    }
 }
 
 
-/*** MpegAudioFileWriter.java ***/
+/* MpegAudioFileWriter.java */

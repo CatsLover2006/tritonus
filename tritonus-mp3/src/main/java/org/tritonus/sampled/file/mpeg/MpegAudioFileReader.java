@@ -16,13 +16,12 @@
 
 package org.tritonus.sampled.file.mpeg;
 
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.EOFException;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.AudioFormat;
+import java.io.IOException;
+import java.io.InputStream;
 import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import org.tritonus.share.TDebug;
@@ -36,30 +35,29 @@ import org.tritonus.share.sampled.file.TAudioFileReader;
  * @author Matthias Pfisterer
  */
 public class MpegAudioFileReader
-    extends TAudioFileReader
-{
+        extends TAudioFileReader {
     private static final int SYNC = 0xFFE00000;
 
     private static final AudioFormat.Encoding[][] sm_aEncodings = {
-        { new AudioFormat.Encoding("MPEG2DOT5L3"),
-          new AudioFormat.Encoding("MPEG2DOT5L2"),
-          new AudioFormat.Encoding("MPEG2DOT5L1") },
-        { null,
-          null,
-          null },    // reserved
-        { new AudioFormat.Encoding("MPEG2L3"),
-          new AudioFormat.Encoding("MPEG2L2"),
-          new AudioFormat.Encoding("MPEG2L1") },
-        { new AudioFormat.Encoding("MPEG1L3"),
-          new AudioFormat.Encoding("MPEG1L2"),
-          new AudioFormat.Encoding("MPEG1L1") },
+            {new AudioFormat.Encoding("MPEG2DOT5L3"),
+                    new AudioFormat.Encoding("MPEG2DOT5L2"),
+                    new AudioFormat.Encoding("MPEG2DOT5L1")},
+            {null,
+                    null,
+                    null},    // reserved
+            {new AudioFormat.Encoding("MPEG2L3"),
+                    new AudioFormat.Encoding("MPEG2L2"),
+                    new AudioFormat.Encoding("MPEG2L1")},
+            {new AudioFormat.Encoding("MPEG1L3"),
+                    new AudioFormat.Encoding("MPEG1L2"),
+                    new AudioFormat.Encoding("MPEG1L1")},
     };
 
     private static final float[][] sm_afSamplingRates = {
-        { 11025.0F, 12000.0F, 8000.0F },
-        { 0.0F, 0.0F, 0.0F},            // reserved
-        { 22050.0F, 24000.0F, 16000.0F },
-        { 44100.0F, 48000.0F, 32000.0F },
+            {11025.0F, 12000.0F, 8000.0F},
+            {0.0F, 0.0F, 0.0F},            // reserved
+            {22050.0F, 24000.0F, 16000.0F},
+            {44100.0F, 48000.0F, 32000.0F},
     };
 
     private static final int MARK_LIMIT = 4;
@@ -70,9 +68,11 @@ public class MpegAudioFileReader
 
     @Override
     protected AudioFileFormat getAudioFileFormat(InputStream inputStream, long lFileSizeInBytes)
-        throws UnsupportedAudioFileException, IOException {
+            throws UnsupportedAudioFileException, IOException {
 
-        if (TDebug.TraceAudioFileReader) { TDebug.out("MpegAudioFileReader.getAudioFileFormat(): begin"); }
+        if (TDebug.TraceAudioFileReader) {
+            TDebug.out("MpegAudioFileReader.getAudioFileFormat(): begin");
+        }
 
         int b0 = inputStream.read();
         int b1 = inputStream.read();
@@ -106,13 +106,13 @@ public class MpegAudioFileReader
         int nChannels = nMode == 3 ? 1 : 2;
 
         AudioFormat format = new AudioFormat(
-            encoding,
-            fSamplingRate,
-            AudioSystem.NOT_SPECIFIED, // ???
-            nChannels,
-            AudioSystem.NOT_SPECIFIED, // ????
-            AudioSystem.NOT_SPECIFIED, // ????
-            true);
+                encoding,
+                fSamplingRate,
+                AudioSystem.NOT_SPECIFIED, // ???
+                nChannels,
+                AudioSystem.NOT_SPECIFIED, // ????
+                AudioSystem.NOT_SPECIFIED, // ????
+                true);
         //$$fb 2000-08-15: workaround for the fixed extension problem in AudioFileFormat.Type
         // see org.tritonus.share.sampled.AudioFileTypes.java
         AudioFileFormat.Type type = new AudioFileFormat.Type("MPEG", "mpeg");
@@ -129,19 +129,21 @@ public class MpegAudioFileReader
         int nByteSize = AudioSystem.NOT_SPECIFIED;
         int nFrameSize = AudioSystem.NOT_SPECIFIED;
         if (lFileSizeInBytes != AudioSystem.NOT_SPECIFIED
-            && lFileSizeInBytes <= Integer.MAX_VALUE) {
+                && lFileSizeInBytes <= Integer.MAX_VALUE) {
             nByteSize = (int) lFileSizeInBytes;
             // TODO: check if we can calculate a useful value here
             // nFrameSize = (int) (lFileSizeInBytes / 33);
         }
 
         AudioFileFormat audioFileFormat =
-            new TAudioFileFormat(
-                type,
-                format,
-                nFrameSize,
-                nByteSize);
-        if (TDebug.TraceAudioFileReader) { TDebug.out("MpegAudioFileReader.getAudioFileFormat(): end"); }
+                new TAudioFileFormat(
+                        type,
+                        format,
+                        nFrameSize,
+                        nByteSize);
+        if (TDebug.TraceAudioFileReader) {
+            TDebug.out("MpegAudioFileReader.getAudioFileFormat(): end");
+        }
         return audioFileFormat;
     }
 }

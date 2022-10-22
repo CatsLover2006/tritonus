@@ -1,7 +1,7 @@
 /*
- *	TemplateSemanticsCheck.java
+ * TemplateSemanticsCheck.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -26,42 +26,30 @@
 
 package org.tritonus.saol.compiler;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.tritonus.saol.sablecc.analysis.*;
-import org.tritonus.saol.sablecc.node.*;
-
-
 
 public class TemplateSemanticsCheck
-extends IOTCommonSemanticsCheck
-{
-	private static final boolean	DEBUG = true;
-	// TODO: verify
-	private static final int[]	LEGAL_VARIABLE_TYPES = new int[]
-	{
-		WidthAndRate.RATE_I,
-		WidthAndRate.RATE_K,
-		WidthAndRate.RATE_A,
-		WidthAndRate.RATE_OPARRAY,
-	};
+        extends IOTCommonSemanticsCheck {
+    private static final boolean DEBUG = true;
+    // TODO: verify
+    private static final int[] LEGAL_VARIABLE_TYPES = new int[]
+            {
+                    WidthAndRate.RATE_I,
+                    WidthAndRate.RATE_K,
+                    WidthAndRate.RATE_A,
+                    WidthAndRate.RATE_OPARRAY,
+            };
 
-	private VariableTable		m_globalVariableTable;
-	private VariableTable		m_localVariableTable;
-
+    private VariableTable m_globalVariableTable;
+    private VariableTable m_localVariableTable;
 
 
-	public TemplateSemanticsCheck(VariableTable globalVariableTable,
-					VariableTable localVariableTable,
-					NodeSemanticsTable nodeSemanticsTable)
-	{
-		super(nodeSemanticsTable);
-		m_globalVariableTable = globalVariableTable;
-		m_localVariableTable = localVariableTable;
-	}
-
+    public TemplateSemanticsCheck(VariableTable globalVariableTable,
+                                  VariableTable localVariableTable,
+                                  NodeSemanticsTable nodeSemanticsTable) {
+        super(nodeSemanticsTable);
+        m_globalVariableTable = globalVariableTable;
+        m_localVariableTable = localVariableTable;
+    }
 
 
 ////////////////////////////////////////////////////////////////////////////
@@ -69,33 +57,25 @@ extends IOTCommonSemanticsCheck
 ////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
 ////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////
 
 
-
-	protected VariableTable getOwnVariableTable()
-	{
-		return m_localVariableTable;
-	}
+    protected VariableTable getOwnVariableTable() {
+        return m_localVariableTable;
+    }
 
 
-	protected VariableTable getGlobalVariableTable()
-	{
-		return m_globalVariableTable;
-	}
+    protected VariableTable getGlobalVariableTable() {
+        return m_globalVariableTable;
+    }
 
 
-	protected int[] getLegalVariableTypes()
-	{
-		return LEGAL_VARIABLE_TYPES;
-	}
+    protected int[] getLegalVariableTypes() {
+        return LEGAL_VARIABLE_TYPES;
+    }
 }
 
 
-
-/*** TemplateSemanticsCheck.java ***/
+/* TemplateSemanticsCheck.java */

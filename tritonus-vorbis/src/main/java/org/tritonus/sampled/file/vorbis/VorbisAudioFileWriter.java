@@ -1,7 +1,7 @@
 /*
- *	VorbisAudioFileWriter.java
+ * VorbisAudioFileWriter.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -28,7 +28,6 @@
 package org.tritonus.sampled.file.vorbis;
 
 import java.util.Arrays;
-
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 
@@ -36,38 +35,38 @@ import org.tritonus.share.TDebug;
 import org.tritonus.share.sampled.file.THeaderlessAudioFileWriter;
 
 
-
-/**	Class for writing Vorbis streams
+/**
+ * Class for writing Vorbis streams
  *
  * @author Florian Bomers
  * @author Matthias Pfisterer
  */
 public class VorbisAudioFileWriter
-extends THeaderlessAudioFileWriter
-{
+        extends THeaderlessAudioFileWriter {
 
-	private static final AudioFileFormat.Type[]	FILE_TYPES =
-	{
-		new AudioFileFormat.Type("Vorbis", "ogg")
-	};
+    private static final AudioFileFormat.Type[] FILE_TYPES =
+            {
+                    new AudioFileFormat.Type("Vorbis", "ogg")
+            };
 
-	private static final AudioFormat[]	AUDIO_FORMATS =
-	{
-		new AudioFormat(new AudioFormat.Encoding("VORBIS"), ALL, ALL, ALL, ALL, ALL, false),
-		new AudioFormat(new AudioFormat.Encoding("VORBIS"), ALL, ALL, ALL, ALL, ALL, true),
-	};
-
+    private static final AudioFormat[] AUDIO_FORMATS =
+            {
+                    new AudioFormat(new AudioFormat.Encoding("VORBIS"), ALL, ALL, ALL, ALL, ALL, false),
+                    new AudioFormat(new AudioFormat.Encoding("VORBIS"), ALL, ALL, ALL, ALL, ALL, true),
+            };
 
 
-	public VorbisAudioFileWriter()
-	{
-		super(Arrays.asList(FILE_TYPES),
-		      Arrays.asList(AUDIO_FORMATS));
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("VorbisAudioFileWriter.<init>(): begin"); }
-		if (TDebug.TraceAudioFileWriter) { TDebug.out("VorbisAudioFileWriter.<init>(): end"); }
-	}
+    public VorbisAudioFileWriter() {
+        super(Arrays.asList(FILE_TYPES),
+                Arrays.asList(AUDIO_FORMATS));
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("VorbisAudioFileWriter.<init>(): begin");
+        }
+        if (TDebug.TraceAudioFileWriter) {
+            TDebug.out("VorbisAudioFileWriter.<init>(): end");
+        }
+    }
 }
 
 
-
-/*** VorbisAudioFileWriter.java ***/
+/* VorbisAudioFileWriter.java */

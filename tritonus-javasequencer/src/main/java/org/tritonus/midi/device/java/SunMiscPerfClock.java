@@ -1,7 +1,7 @@
 /*
- *	SunMiscPerfClock.java
+ * SunMiscPerfClock.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -26,31 +26,30 @@
 
 package org.tritonus.midi.device.java;
 
-/** Sequencer clock based on sun.misc.Perf.
-	Sun JDK 1.4.2 or later is required to compile this class.
+/**
+ * Sequencer clock based on sun.misc.Perf.
+ * Sun JDK 1.4.2 or later is required to compile this class.
  */
 public class SunMiscPerfClock
-implements JavaSequencer.Clock
-{
-	private long m_nanos;
+        implements JavaSequencer.Clock {
+    private long m_nanos;
 
 
-	public SunMiscPerfClock()
-	{
-		m_nanos = System.nanoTime();
-	}
+    public SunMiscPerfClock() {
+        m_nanos = System.nanoTime();
+    }
 
 
-	/**	Retrieve system time in microseconds.
-		This method retrieves the time by calling
-		@return the system time in microseconds
-	*/
-	public long getMicroseconds()
-	{
-		return (System.nanoTime() - m_nanos) / 1000;
-	}
+    /**
+     * Retrieve system time in microseconds.
+     * This method retrieves the time by calling
+     *
+     * @return the system time in microseconds
+     */
+    public long getMicroseconds() {
+        return (System.nanoTime() - m_nanos) / 1000;
+    }
 }
 
 
-
-/*** SunMiscPerfClock.java ***/
+/* SunMiscPerfClock.java */

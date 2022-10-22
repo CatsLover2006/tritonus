@@ -1,10 +1,4 @@
 /*
- *	OpcodeTable.java
- *
- *	This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  *  Copyright (c) 2002 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,55 +14,41 @@
  *   limitations under the License.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.saol.engine.opcodes;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-
-/**	The opcode table.
-	TODO: use generics
+/**
+ * The opcode table.
  */
-public class OpcodeTable
-{
-	/**	Map that holds the opcode entries.
-		Key: the name of the opcode.
-		Value: a OpcodeEntry instance.
-	*/
-	private Map		m_opcodeMap;
+public class OpcodeTable {
 
+    /**
+     * Map that holds the opcode entries.
+     * Key: the name of the opcode.
+     * Value: a OpcodeEntry instance.
+     */
+    private Map<String, OpcodeEntry> m_opcodeMap;
 
-	public OpcodeTable()
-	{
-		m_opcodeMap = new HashMap();
-		buildOpcodeTable();
-	}
+    public OpcodeTable() {
+        m_opcodeMap = new HashMap<>();
+        buildOpcodeTable();
+    }
 
+    private void buildOpcodeTable() {
+        PitchOpcodes.buildOpcodeTable(this);
+        MathOpcodes.buildOpcodeTable(this);
+    }
 
-	private void buildOpcodeTable()
-	{
-		PitchOpcodes.buildOpcodeTable(this);
-		MathOpcodes.buildOpcodeTable(this);
-	}
+    public void addEntry(OpcodeEntry opcodeEntry) {
+        m_opcodeMap.put(opcodeEntry.getOpcodeName(), opcodeEntry);
+    }
 
-
-	public void addEntry(OpcodeEntry opcodeEntry)
-	{
-		m_opcodeMap.put(opcodeEntry.getOpcodeName(), opcodeEntry);
-	}
-
-
-	public OpcodeEntry getOpcode(String strOpcodeName)
-	{
-		return (OpcodeEntry) m_opcodeMap.get(strOpcodeName);
-	}
+    public OpcodeEntry getOpcode(String strOpcodeName) {
+        return m_opcodeMap.get(strOpcodeName);
+    }
 }
 
-
-
-/*** OpcodeTable.java ***/
+/* OpcodeTable.java */

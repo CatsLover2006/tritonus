@@ -1,10 +1,4 @@
 /*
- * org_tritonus_midi_device_fluidsynth_FluidSynthesizer.c
- *
- * This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  * Copyright (c) 2006 by Henri Manson
  * Copyright (c) 2006 by Matthias Pfisterer
  * All rights reserved.
@@ -34,8 +28,10 @@
  */
 
 /*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
+ * org_tritonus_midi_device_fluidsynth_FluidSynthesizer.c
+ *
+ * This file is part of Tritonus: http://www.tritonus.org/
+ */
 
 #include <jni.h>
 #include <fluidsynth.h>

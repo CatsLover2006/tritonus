@@ -1,10 +1,4 @@
 /*
- *	AJDebug.java
- *
- *	This file is part of Tritonus: http://www.tritonus.org/
- */
-
-/*
  *  Copyright (c) 1999 - 2002 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,217 +14,191 @@
  *   limitations under the License.
  */
 
-/*
-|<---            this code is formatted to fit into 80 columns             --->|
-*/
-
 package org.tritonus.debug;
 
 import org.aspectj.lang.JoinPoint;
-
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Synthesizer;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.SourceDataLine;
-
-import org.tritonus.core.TMidiConfig;
-import org.tritonus.core.TInit;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.tritonus.share.TDebug;
-import org.tritonus.share.midi.TSequencer;
-import org.tritonus.midi.device.alsa.AlsaSequencer;
-import org.tritonus.midi.device.alsa.AlsaSequencer.PlaybackAlsaMidiInListener;
-import org.tritonus.midi.device.alsa.AlsaSequencer.RecordingAlsaMidiInListener;
-import org.tritonus.midi.device.alsa.AlsaSequencer.AlsaSequencerReceiver;
-import org.tritonus.midi.device.alsa.AlsaSequencer.AlsaSequencerTransmitter;
-import org.tritonus.midi.device.alsa.AlsaSequencer.LoaderThread;
-import org.tritonus.midi.device.alsa.AlsaSequencer.MasterSynchronizer;
-
-import org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream;
 
 
-
-/** Debugging output aspect.
+/**
+ * Debugging output aspect.
  */
-public aspect AJDebug
-extends Utils
-{
-	pointcut allExceptions(): handler(Throwable+);
+@Aspect
+public abstract class AJDebug extends Utils {
 
+    @Pointcut("handler(Throwable+)")
+    public void allExceptions() {}
 
-	// TAudioConfig, TMidiConfig, TInit
+    // TAudioConfig, TMidiConfig, TInit
 
-	pointcut TMidiConfigCalls(): execution(* TMidiConfig.*(..));
-	pointcut TInitCalls(): execution(* TInit.*(..));
+    @Pointcut("execution(* org.tritonus.core.TMidiConfig.*(..))")
+    public void TMidiConfigCalls() {}
 
+    @Pointcut("execution(* org.tritonus.core.TInit.*(..))")
+    public void TInitCalls() {}
 
-	// share
+    // share
 
-	// midi
+    // midi
 
-	pointcut MidiSystemCalls(): execution(* MidiSystem.*(..));
+    @Pointcut("execution(* javax.sound.midi.MidiSystem .*(..))")
+    public void MidiSystemCalls() {}
 
-	pointcut Sequencer(): execution(TSequencer+.new(..)) ||
-		execution(* TSequencer+.*(..)) ||
-		execution(* PlaybackAlsaMidiInListener.*(..)) ||
-		execution(* RecordingAlsaMidiInListener.*(..)) ||
-		execution(* AlsaSequencerReceiver.*(..)) ||
-		execution(* AlsaSequencerTransmitter.*(..)) ||
-		execution(LoaderThread.new(..)) ||
-		execution(* LoaderThread.*(..)) ||
-		execution(MasterSynchronizer.new(..)) ||
-		execution(* MasterSynchronizer.*(..));
+    @Pointcut("execution(org.tritonus.share.midi.TSequencer+.new(..)) ||" +
+            "execution(* org.tritonus.share.midi.TSequencer+.*(..)) ||" +
+            "execution(* org.tritonus.midi.device.alsa.AlsaSequencer.PlaybackAlsaMidiInListener.*(..)) ||" +
+            "execution(* org.tritonus.midi.device.alsa.AlsaSequencer.RecordingAlsaMidiInListener.*(..)) ||" +
+            "execution(* org.tritonus.midi.device.alsa.AlsaSequencer.AlsaSequencerReceiver.*(..)) ||" +
+            "execution(* org.tritonus.midi.device.alsa.AlsaSequencer.AlsaSequencerTransmitter.*(..)) ||" +
+            "execution(org.tritonus.midi.device.alsa.AlsaSequencer.LoaderThread.new(..)) ||" +
+            "execution(* org.tritonus.midi.device.alsa.AlsaSequencer.LoaderThread.*(..)) ||" +
+            "execution(org.tritonus.midi.device.alsa.AlsaSequencer.MasterSynchronizer.new(..)) ||" +
+            "execution(* org.tritonus.midi.device.alsa.AlsaSequencer.MasterSynchronizer.*(..))")
+    public void Sequencer() {}
 
-	// audio
+    // audio
 
-	pointcut AudioSystemCalls(): execution(* AudioSystem.*(..));
+    @Pointcut("execution(* javax.sound.sampled.AudioSystem.*(..))")
+    public void AudioSystemCalls() {}
 
-	pointcut sourceDataLine():
-		call(* SourceDataLine+.*(..));
+    @Pointcut("call(* javax.sound.sampled.SourceDataLine+.*(..))")
+    public void sourceDataLine() {}
 
-	// OLD
+    // OLD
 
-// 	pointcut playerStates():
-// 		execution(private void TPlayer.setState(int));
+// 	  @Pointcut("execution(private void TPlayer.setState(int))")
+//    public abstract void playerStates();
 
+    // currently not used
+//    @Pointcut("execution(* JavaSoundToneGenerator.playTone(..)) && call(JavaSoundToneGenerator.ToneThread.new(..))")
+//    public void printVelocity() {}
 
+//    @Pointcut("execution(protected void JavaSoundAudioPlayer.doRealize() throws Exception)")
+//    public abstract void tracedCall();
 
-	// currently not used
-	pointcut printVelocity(): execution(* JavaSoundToneGenerator.playTone(..)) && call(JavaSoundToneGenerator.ToneThread.new(..));
+    // ACTIONS
 
-	// pointcut tracedCall(): execution(protected void JavaSoundAudioPlayer.doRealize() throws Exception);
+    @Before("MidiSystemCalls()")
+    public void beforeMidiSystemCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceMidiSystem) outEnteringJoinPoint(thisJoinPoint);
+    }
 
+    @After("MidiSystemCalls()")
+    public void afterMidiSystemCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceSequencer) outLeavingJoinPoint(thisJoinPoint);
+    }
 
-	///////////////////////////////////////////////////////
-	//
-	//	ACTIONS
-	//
-	///////////////////////////////////////////////////////
+    @Before("Sequencer()")
+    public void beforeSequencer(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceSequencer) outEnteringJoinPoint(thisJoinPoint);
+    }
 
+    @After("Sequencer()")
+    public void afterSequencer(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceSequencer) outLeavingJoinPoint(thisJoinPoint);
+    }
 
-	before(): MidiSystemCalls()
-		{
-			if (TDebug.TraceMidiSystem) outEnteringJoinPoint(thisJoinPoint);
-		}
+    @Before("TInitCalls()")
+    public void beforeTInitCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceInit) outEnteringJoinPoint(thisJoinPoint);
+    }
 
-	after(): MidiSystemCalls()
-		{
-			if (TDebug.TraceSequencer) outLeavingJoinPoint(thisJoinPoint);
-		}
+    @After("TInitCalls()")
+    public void afterTInitCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceInit) outLeavingJoinPoint(thisJoinPoint);
+    }
 
-	before(): Sequencer()
-		{
-			if (TDebug.TraceSequencer) outEnteringJoinPoint(thisJoinPoint);
-		}
+    @Before("TMidiConfigCalls()")
+    public void beforeTMidiConfigCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceMidiConfig) outEnteringJoinPoint(thisJoinPoint);
+    }
 
-	after(): Sequencer()
-		{
-			if (TDebug.TraceSequencer) outLeavingJoinPoint(thisJoinPoint);
-		}
+    @After("TMidiConfigCalls()")
+    public void afterTMidiConfigCalls(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceMidiConfig) outLeavingJoinPoint(thisJoinPoint);
+    }
 
-	before(): TInitCalls()
-		{
-			if (TDebug.TraceInit) outEnteringJoinPoint(thisJoinPoint);
-		}
+    // execution(* TAsynchronousFilteredAudioInputStream.read(..))
 
-	after(): TInitCalls()
-		{
-			if (TDebug.TraceInit) outLeavingJoinPoint(thisJoinPoint);
-		}
+    @Before("execution(* org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream.read())")
+    public void beforeTAsynchronousFilteredAudioInputStream_Read(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) outEnteringJoinPoint(thisJoinPoint);
+    }
 
-	before(): TMidiConfigCalls()
-		{
-			if (TDebug.TraceMidiConfig) outEnteringJoinPoint(thisJoinPoint);
-		}
+    @After("execution(* org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream.read())")
+    public void afterTAsynchronousFilteredAudioInputStream_Read(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) outLeavingJoinPoint(thisJoinPoint);
+    }
 
-	after(): TMidiConfigCalls()
-		{
-			if (TDebug.TraceMidiConfig) outLeavingJoinPoint(thisJoinPoint);
-		}
+    @Before("execution(* org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream.read(byte[]))")
+    public void beforeTAsynchronousFilteredAudioInputStream_read_XB(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) outEnteringJoinPoint(thisJoinPoint);
+    }
 
-// execution(* TAsynchronousFilteredAudioInputStream.read(..))
+    @After("execution(* org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream.read(byte[]))")
+    public void afterTAsynchronousFilteredAudioInputStream_read2_XB(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) outLeavingJoinPoint(thisJoinPoint);
+    }
 
-	before(): execution(* TAsynchronousFilteredAudioInputStream.read())
-		{
-			if (TDebug.TraceAudioConverter) outEnteringJoinPoint(thisJoinPoint);
-		}
+    @Before("execution(* org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream.read(byte[],int,int))")
+    public void beforeTAsynchronousFilteredAudioInputStream_read_XBII(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) outEnteringJoinPoint(thisJoinPoint);
+    }
 
-	after(): execution(* TAsynchronousFilteredAudioInputStream.read())
-		{
-			if (TDebug.TraceAudioConverter) outLeavingJoinPoint(thisJoinPoint);
-		}
+    @After("execution(* org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream.read(byte[],int,int))")
+    public void afterTAsynchronousFilteredAudioInputStream_read_XBII(JoinPoint thisJoinPoint) {
+        if (TDebug.TraceAudioConverter) outLeavingJoinPoint(thisJoinPoint);
+    }
 
-	before(): execution(* TAsynchronousFilteredAudioInputStream.read(byte[]))
-		{
-			if (TDebug.TraceAudioConverter) outEnteringJoinPoint(thisJoinPoint);
-		}
+    @AfterReturning(pointcut="call(* org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream.read(byte[],int,int))", returning = "nBytes")
+    public void afterReturningTAsynchronousFilteredAudioInputStream_read_XBII(int nBytes) {
+        if (TDebug.TraceAudioConverter) TDebug.out("returning bytes: " + nBytes);
+    }
 
-	after(): execution(* TAsynchronousFilteredAudioInputStream.read(byte[]))
-		{
-			if (TDebug.TraceAudioConverter) outLeavingJoinPoint(thisJoinPoint);
-		}
+//    @Before("playerStates() && args(nState)")
+//    public void beforeX(int nState) {
+//        if (TDebug.TracePlayerStates) {
+//            TDebug.out("TPlayer.setState(): " + nState);
+//        }
+//    }
 
-	before(): execution(* TAsynchronousFilteredAudioInputStream.read(byte[], int, int))
-		{
-			if (TDebug.TraceAudioConverter) outEnteringJoinPoint(thisJoinPoint);
-		}
+//    @Before("playerStateTransitions()")
+//    public void beforePlayerStateTransitions() {
+//        if (TDebug.TracePlayerStateTransitions) {
+//            TDebug.out("Entering: " + thisJoinPoint);
+//        }
+//    }
 
-	after(): execution(* TAsynchronousFilteredAudioInputStream.read(byte[], int, int))
-		{
-			if (TDebug.TraceAudioConverter) outLeavingJoinPoint(thisJoinPoint);
-		}
+//    @Around("call(*MidiSystem.getSynthesizer())")
+//    public void aroundSynthesizer() {
+//        Synthesizer s = proceed();
+//        if (TDebug.TraceToneGenerator) {
+//            TDebug.out("MidiSystem.getSynthesizer() gives:  " + s);
+//        }
+//        return s;
+//        // only to get no compilation errors
+//        return null;
+//    }
 
-	after() returning(int nBytes): call(* TAsynchronousFilteredAudioInputStream.read(byte[], int, int))
-		{
-			if (TDebug.TraceAudioConverter) TDebug.out("returning bytes: " + nBytes);
-		}
+    // TODO: v gives an error; find out what to do
+// 	@Before("printVelocity() && args(nVelocity)")
+//    public void beforePrintVelocity(int v) {
+//        if (TDebug.TraceToneGenerator) {
+//            TDebug.out("velocity: " + v);
+//        }
+//    }
 
-
-
-// 	before(int nState): playerStates() && args(nState)
-// 		{
-// // 			if (TDebug.TracePlayerStates)
-// // 			{
-// // 				TDebug.out("TPlayer.setState(): " + nState);
-// // 			}
-// 		}
-
-// 	before(): playerStateTransitions()
-// 		{
-// // 			if (TDebug.TracePlayerStateTransitions)
-// // 			{
-// // 				TDebug.out("Entering: " + thisJoinPoint);
-// // 			}
-// 		}
-
-
-// 	Synthesizer around(): call(* MidiSystem.getSynthesizer())
-// 		{
-// // 			Synthesizer	s = proceed();
-// // 			if (TDebug.TraceToneGenerator)
-// // 			{
-// // 				TDebug.out("MidiSystem.getSynthesizer() gives:  " + s);
-// // 			}
-// // 			return s;
-// 			// only to get no compilation errors
-// 			return null;
-// 		}
-
-// TODO: v gives an error; find out what to do
-// 	before(int v): printVelocity() && args(nVelocity)
-// 		{
-// 			if (TDebug.TraceToneGenerator)
-// 			{
-// 				TDebug.out("velocity: " + v);
-// 			}
-// 		}
-
-
-	before(Throwable t): allExceptions() && args(t)
-		{
-			if (TDebug.TraceAllExceptions) TDebug.out(t);
-		}
+    @AfterThrowing("allExceptions() && args(t)")
+    public void beforeAllExceptions(Throwable t) {
+        if (TDebug.TraceAllExceptions) TDebug.out(t);
+    }
 }
 
-
-/*** AJDebug.java ***/
+/* AJDebug.java */
 

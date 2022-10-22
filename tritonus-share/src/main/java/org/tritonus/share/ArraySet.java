@@ -1,7 +1,7 @@
 /*
- *	ArraySet.java
+ * ArraySet.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -33,55 +33,41 @@ import java.util.Collection;
 import java.util.Set;
 
 
-
 public class ArraySet<E>
-extends ArrayList<E>
-implements Set<E>
-{
-	private static final long serialVersionUID = 1;
+        extends ArrayList<E>
+        implements Set<E> {
+    private static final long serialVersionUID = 1;
 
-	public ArraySet()
-	{
-		super();
-	}
+    public ArraySet() {
+        super();
+    }
 
 
-
-	public ArraySet(Collection<E> c)
-	{
-		this();
-		addAll(c);
-	}
+    public ArraySet(Collection<E> c) {
+        this();
+        addAll(c);
+    }
 
 
-
-	public boolean add(E element)
-	{
-		if (!contains(element))
-		{
-			super.add(element);
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+    public boolean add(E element) {
+        if (!contains(element)) {
+            super.add(element);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
+    public void add(int index, E element) {
+        throw new UnsupportedOperationException("ArraySet.add(int index, Object element) unsupported");
+    }
 
-	public void add(int index, E element)
-	{
-		throw new UnsupportedOperationException("ArraySet.add(int index, Object element) unsupported");
-	}
-
-	public E set(int index, E element)
-	{
-		throw new UnsupportedOperationException("ArraySet.set(int index, Object element) unsupported");
-	}
+    public E set(int index, E element) {
+        throw new UnsupportedOperationException("ArraySet.set(int index, Object element) unsupported");
+    }
 
 }
 
 
-
-/*** ArraySet.java ***/
+/* ArraySet.java */

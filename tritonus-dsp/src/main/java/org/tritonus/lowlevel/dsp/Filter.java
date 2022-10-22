@@ -1,7 +1,7 @@
 /*
- *	Filter.java
+ * Filter.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -41,14 +41,13 @@ package org.tritonus.lowlevel.dsp;
  * </p>
  */
 public interface Filter {
-	/**
-	 * Process one sample through the filter.
-	 *
-	 * @param fSample
-	 *            the input sample
-	 * @return the output sample
-	 */
-	public float process(float fSample);
+    /**
+     * Process one sample through the filter.
+     *
+     * @param fSample the input sample
+     * @return the output sample
+     */
+    float process(float fSample);
 }
 
-/*** Filter.java ***/
+/* Filter.java */

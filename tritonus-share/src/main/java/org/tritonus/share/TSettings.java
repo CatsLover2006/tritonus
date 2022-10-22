@@ -1,7 +1,7 @@
 /*
- *	TSettings.java
+ * TSettings.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -28,44 +28,34 @@
 
 package org.tritonus.share;
 
-import  java.security.AccessControlException;
-
-import org.tritonus.share.TDebug;
+import java.security.AccessControlException;
 
 
-public class TSettings
-{
-	public static boolean		SHOW_ACCESS_CONTROL_EXCEPTIONS = false;
-	private static final String	PROPERTY_PREFIX = "tritonus.";
+public class TSettings {
+    public static boolean SHOW_ACCESS_CONTROL_EXCEPTIONS = false;
+    private static final String PROPERTY_PREFIX = "tritonus.";
 
 
-	public static boolean	AlsaUsePlughw = getBooleanProperty("AlsaUsePlughw");
+    public static boolean AlsaUsePlughw = getBooleanProperty("AlsaUsePlughw");
 
 
-
-	private static boolean getBooleanProperty(String strName)
-	{
-		String	strPropertyName = PROPERTY_PREFIX + strName;
-		String	strValue = "false";
-		try
-		{
-			strValue = System.getProperty(strPropertyName, "false");
-		}
-		catch (AccessControlException e)
-		{
-			if (SHOW_ACCESS_CONTROL_EXCEPTIONS)
-			{
-				TDebug.out(e);
-			}
-		}
-		// TDebug.out("property: " + strPropertyName + "=" + strValue);
-		boolean	bValue = strValue.toLowerCase().equals("true");
-		// TDebug.out("bValue: " + bValue);
-		return bValue;
-	}
+    private static boolean getBooleanProperty(String strName) {
+        String strPropertyName = PROPERTY_PREFIX + strName;
+        String strValue = "false";
+        try {
+            strValue = System.getProperty(strPropertyName, "false");
+        } catch (AccessControlException e) {
+            if (SHOW_ACCESS_CONTROL_EXCEPTIONS) {
+                TDebug.out(e);
+            }
+        }
+        // TDebug.out("property: " + strPropertyName + "=" + strValue);
+        boolean bValue = strValue.equalsIgnoreCase("true");
+        // TDebug.out("bValue: " + bValue);
+        return bValue;
+    }
 }
 
 
-
-/*** TSettings.java ***/
+/* TSettings.java */
 

@@ -1,5 +1,5 @@
 /*
- *	AudioSystemShadowTestCase.java
+ * AudioSystemShadowTestCase.java
  */
 
 /*
@@ -33,60 +33,42 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
+class AudioSystemShadowTestCase {
 
-public class AudioSystemShadowTestCase
-{
     @Test
-	public void testGetDataOutputStreamFile()
-		throws Exception
-	{
-		File file = new File("/tmp/dataoutputstream.tmp");
-		TDataOutputStream	dataOutputStream = AudioSystemShadow.getDataOutputStream(file);
-		checkTDataOutputStream(dataOutputStream, true);
- 		byte[]	abResultingData = Util.getByteArrayFromFile(file);
-		// Util.dumpByteArray(abResultingData);
-		checkTDataOutputStream2(abResultingData);
-	}
-
+    public void testGetDataOutputStreamFile() throws Exception {
+        File file = new File("/tmp/dataoutputstream.tmp");
+        TDataOutputStream dataOutputStream = AudioSystemShadow.getDataOutputStream(file);
+        checkTDataOutputStream(dataOutputStream, true);
+        byte[] abResultingData = Util.getByteArrayFromFile(file);
+        // Util.dumpByteArray(abResultingData);
+        checkTDataOutputStream2(abResultingData);
+    }
 
 
     @Test
-	public void testGetDataOutputStreamOutputStream()
-		throws Exception
-	{
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		TDataOutputStream	dataOutputStream = AudioSystemShadow.getDataOutputStream(baos);
-		checkTDataOutputStream(dataOutputStream, false);
- 		byte[]	abResultingData = baos.toByteArray();
-		// Util.dumpByteArray(abResultingData);
-		checkTDataOutputStream2(abResultingData);
-	}
+    public void testGetDataOutputStreamOutputStream() throws Exception {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        TDataOutputStream dataOutputStream = AudioSystemShadow.getDataOutputStream(baos);
+        checkTDataOutputStream(dataOutputStream, false);
+        byte[] abResultingData = baos.toByteArray();
+        // Util.dumpByteArray(abResultingData);
+        checkTDataOutputStream2(abResultingData);
+    }
 
+    private void checkTDataOutputStream(TDataOutputStream dataOutputStream, boolean bSeekable)
+            throws Exception {
+        assertNotNull(dataOutputStream);
+        assertEquals(bSeekable, dataOutputStream.supportsSeek(), "seekable");
+        dataOutputStream.writeLittleEndian32(0x12345678);
+        dataOutputStream.writeLittleEndian16((short) 0x2345);
+        dataOutputStream.close();
+    }
 
-
-    @Test
-	private void checkTDataOutputStream(TDataOutputStream dataOutputStream,
-										boolean bSeekable)
-		throws Exception
-	{
-		assertNotNull(dataOutputStream);
-		assertEquals(bSeekable, dataOutputStream.supportsSeek(), "seekable");
-		dataOutputStream.writeLittleEndian32(0x12345678);
-		dataOutputStream.writeLittleEndian16((short) 0x2345);
-		dataOutputStream.close();
-	}
-
-
-
-    @Test
-	private void checkTDataOutputStream2(byte[] abResultingData)
-		throws Exception
-	{
- 		byte[]	abExpectedData = new byte[]{0x78, 0x56, 0x34, 0x12, 0x45, 0x23};
- 		assertTrue(Util.compareByteArrays(abExpectedData, 0, abResultingData, 0, abExpectedData.length), "data ok");
-	}
+    private void checkTDataOutputStream2(byte[] abResultingData) throws Exception {
+        byte[] abExpectedData = new byte[] {0x78, 0x56, 0x34, 0x12, 0x45, 0x23};
+        assertTrue(Util.compareByteArrays(abExpectedData, 0, abResultingData, 0, abExpectedData.length), "data ok");
+    }
 }
 
-
-
-/*** AudioSystemShadowTestCase.java ***/
+/* AudioSystemShadowTestCase.java ***/

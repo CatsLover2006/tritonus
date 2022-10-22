@@ -1,8 +1,8 @@
 package org.tritonus.test.tritonus.sampled.convert.gsm;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioFormat.Encoding;
 import javax.sound.sampled.AudioInputStream;
@@ -16,13 +16,12 @@ import org.tritonus.share.sampled.Encodings;
 
 import static javax.sound.sampled.AudioSystem.NOT_SPECIFIED;
 
+
 public class GSMEncoderFormatConversionProviderTest extends
-        AbstractGsmFormatConversionProviderTest
-{
+        AbstractGsmFormatConversionProviderTest {
 
     @BeforeEach
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
         setFormatConversionProvider(new GSMEncoderFormatConversionProvider());
     }
 
@@ -30,10 +29,8 @@ public class GSMEncoderFormatConversionProviderTest extends
      * Test for {@link FormatConversionProvider#getSourceEncodings()}.
      */
     @Test
-    public void testGetSourceEncodings()
-    {
-        List<Encoding> expectedSupportedEncodings = Arrays
-                .asList(Encoding.PCM_SIGNED);
+    public void testGetSourceEncodings() {
+        List<Encoding> expectedSupportedEncodings = Collections.singletonList(Encoding.PCM_SIGNED);
         List<Encoding> expectedUnsupportedEncodings = Arrays.asList(
                 Encoding.PCM_UNSIGNED, TOAST_GSM_ENCODING, MS_GSM_ENCODING,
                 Encoding.ALAW, Encoding.ULAW);
@@ -45,8 +42,7 @@ public class GSMEncoderFormatConversionProviderTest extends
      * Test for {@link FormatConversionProvider#getTargetEncodings()}.
      */
     @Test
-    public void testGetTargetEncodings()
-    {
+    public void testGetTargetEncodings() {
         List<Encoding> expectedSupportedEncodings = Arrays.asList(
                 TOAST_GSM_ENCODING, MS_GSM_ENCODING);
         List<Encoding> expectedUnsupportedEncodings = Arrays.asList(
@@ -61,10 +57,8 @@ public class GSMEncoderFormatConversionProviderTest extends
      * {@link FormatConversionProvider#isSourceEncodingSupported(Encoding)}.
      */
     @Test
-    public void testIsSourceEncodingSupportedEncoding()
-    {
-        List<Encoding> expectedSupportedEncodings = Arrays
-                .asList(Encoding.PCM_SIGNED);
+    public void testIsSourceEncodingSupportedEncoding() {
+        List<Encoding> expectedSupportedEncodings = Collections.singletonList(Encoding.PCM_SIGNED);
         List<Encoding> expectedUnsupportedEncodings = Arrays.asList(null,
                 Encoding.PCM_UNSIGNED, TOAST_GSM_ENCODING, MS_GSM_ENCODING,
                 Encoding.ALAW, Encoding.ULAW);
@@ -78,8 +72,7 @@ public class GSMEncoderFormatConversionProviderTest extends
      * {@link FormatConversionProvider#isSourceEncodingSupported(Encoding)}.
      */
     @Test
-    public void testIsTargetEncodingSupportedEncoding()
-    {
+    public void testIsTargetEncodingSupportedEncoding() {
         List<Encoding> expectedSupportedEncodings = Arrays.asList(
                 TOAST_GSM_ENCODING, MS_GSM_ENCODING);
         List<Encoding> expectedUnsupportedEncodings = Arrays.asList(null,
@@ -95,8 +88,7 @@ public class GSMEncoderFormatConversionProviderTest extends
      * .
      */
     @Test
-    public void testGetTargetEncodingsAudioFormat()
-    {
+    public void testGetTargetEncodingsAudioFormat() {
         testGetTargetEncodingsAudioFormat(//
                 new AudioFormat(Encoding.PCM_SIGNED, 8000.0F, 16, 1, 2,
                         8000.0F, true), //
@@ -133,8 +125,7 @@ public class GSMEncoderFormatConversionProviderTest extends
      * .
      */
     @Test
-    public void testIsConversionSupportedEncodingAudioFormat()
-    {
+    public void testIsConversionSupportedEncodingAudioFormat() {
         testIsConversionSupportedEncodingAudioFormat(//
                 new AudioFormat(Encodings.PCM_SIGNED, 8000.0F, 16, 1, 2,
                         8000.0F, true), //
@@ -154,25 +145,24 @@ public class GSMEncoderFormatConversionProviderTest extends
      * {@link FormatConversionProvider#getTargetFormats(Encoding, AudioFormat)}.
      */
     @Test
-    public void testGetTargetFormatsEncodingAudioFormat()
-    {
+    public void testGetTargetFormatsEncodingAudioFormat() {
         testGetTargetFormatsEncodingAudioFormat(TOAST_GSM_ENCODING,
                 new AudioFormat(Encoding.PCM_SIGNED, 8000.0F, 16, 1, 2,
                         8000.0F, true),//
                 Arrays.asList(new AudioFormat(TOAST_GSM_ENCODING, 8000.0F, ALL,
-                        1, 33, 50.0F, true), //
+                                1, 33, 50.0F, true), //
                         new AudioFormat(TOAST_GSM_ENCODING, 8000.0F, ALL, 1,
                                 33, 50.0F, false)//
-                        ),//
+                ),//
                 EMPTY_AUDIOFORMAT_LIST);
         testGetTargetFormatsEncodingAudioFormat(MS_GSM_ENCODING,
                 new AudioFormat(Encoding.PCM_SIGNED, 8000.0F, 16, 1, 2,
                         8000.0F, true),//
                 Arrays.asList(new AudioFormat(MS_GSM_ENCODING, 8000.0F, ALL, 1,
-                        65, 25.0F, true), //
+                                65, 25.0F, true), //
                         new AudioFormat(MS_GSM_ENCODING, 8000.0F, ALL, 1, 65,
                                 25.0F, false)//
-                        ),//
+                ),//
                 EMPTY_AUDIOFORMAT_LIST);
     }
 
@@ -182,8 +172,7 @@ public class GSMEncoderFormatConversionProviderTest extends
      * .
      */
     @Test
-    public void testIsConversionSupportedAudioFormatAudioFormat()
-    {
+    public void testIsConversionSupportedAudioFormatAudioFormat() {
         testIsConversionSupportedAudioFormatAudioFormat(//
                 new AudioFormat(Encodings.PCM_SIGNED, 8000.0F, 16, 1, 2,
                         8000.0F, true), //
@@ -192,7 +181,7 @@ public class GSMEncoderFormatConversionProviderTest extends
                                 NOT_SPECIFIED, 1, 33, 50.0F, true), //
                         new AudioFormat(MS_GSM_ENCODING, 8000.0F,
                                 NOT_SPECIFIED, 1, 65, 25.0F, true)//
-                        ), //
+                ), //
                 Arrays.asList(//
                         new AudioFormat(Encoding.PCM_SIGNED, _8KHZ, 16, 1, 2,
                                 _8KHZ, true), //
@@ -202,7 +191,7 @@ public class GSMEncoderFormatConversionProviderTest extends
                                 true), //
                         new AudioFormat(Encoding.ULAW, _8KHZ, 16, 1, 2, _8KHZ,
                                 true)//
-                        )//
+                )//
         );
         testIsConversionSupportedAudioFormatAudioFormat(//
                 new AudioFormat(Encodings.PCM_SIGNED, 8000.0F, 16, 1, 2,
@@ -212,7 +201,7 @@ public class GSMEncoderFormatConversionProviderTest extends
                                 NOT_SPECIFIED, 1, 33, 50.0F, true), //
                         new AudioFormat(MS_GSM_ENCODING, 8000.0F,
                                 NOT_SPECIFIED, 1, 65, 25.0F, true)//
-                        ), //
+                ), //
                 Arrays.asList(//
                         new AudioFormat(Encoding.PCM_SIGNED, _8KHZ, 16, 1, 2,
                                 _8KHZ, true), //
@@ -222,7 +211,7 @@ public class GSMEncoderFormatConversionProviderTest extends
                                 true), //
                         new AudioFormat(Encoding.ULAW, _8KHZ, 16, 1, 2, _8KHZ,
                                 true)//
-                        )//
+                )//
         );
     }
 
@@ -232,8 +221,7 @@ public class GSMEncoderFormatConversionProviderTest extends
      * .
      */
     @Test
-    public void testGetAudioInputStreamEncodingAudioInputStream()
-    {
+    public void testGetAudioInputStreamEncodingAudioInputStream() {
         testGetAudioInputStreamEncoding(TOAST_GSM_ENCODING, //
                 new AudioFormat(Encoding.PCM_SIGNED, 8000.0F, 16, 1, 2,
                         8000.0F, true), //
@@ -295,8 +283,7 @@ public class GSMEncoderFormatConversionProviderTest extends
      * .
      */
     @Test
-    public void testGetAudioInputStreamAudioFormatAudioInputStream()
-    {
+    public void testGetAudioInputStreamAudioFormatAudioInputStream() {
         testGetAudioInputStreamAudioFormat(//
                 new AudioFormat(TOAST_GSM_ENCODING, 8000.0F, NOT_SPECIFIED, 1,
                         33, 50.0F, false), //

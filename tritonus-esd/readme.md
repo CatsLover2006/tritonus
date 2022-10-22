@@ -2,5 +2,5 @@
 
 ## See Also
 
- * https://en.wikipedia.org/wiki/PulseAudio
- * jdk PulseAudioTargetDataLine
+* https://en.wikipedia.org/wiki/PulseAudio
+* jdk PulseAudioTargetDataLine

@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.11</version>
+    <version>0.3.12</version>
   </parent>
+
   <artifactId>tritonus-fluidsynth</artifactId>
   <packaging>jar</packaging>
 
@@ -28,6 +30,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>native-maven-plugin</artifactId>
+            <version>1.0-alpha-11</version>
             <extensions>true</extensions>
             <configuration>
               <javahClassNames>
@@ -41,9 +44,9 @@
                 <compilerStartOption>-g -Wall -O2 -fomit-frame-pointer -fPIC</compilerStartOption>
                 <!-- unless locating jdk includes, cause error why??? -->
                 <compilerStartOption>-arch x86_64
-                      -I${java.home}/../include
-                      -I${java.home}/../include/darwin
-                      -I /usr/local/include
+                  -I${java.home}/../include
+                  -I${java.home}/../include/darwin
+                  -I /usr/local/include
                 </compilerStartOption>
               </compilerStartOptions>
               <sources>
@@ -57,9 +60,10 @@
               </sources>
               <linkerStartOptions>
                 <linkerStartOption>-dynamiclib -arch x86_64
-                  -L/usr/local/lib -lfluidsynth</linkerStartOption>
+                  -L/usr/local/lib -lfluidsynth
+                </linkerStartOption>
               </linkerStartOptions>
-              <linkerFinalName></linkerFinalName>
+              <linkerFinalName/>
               <linkerEndOptions>
                 <linkerEndOption>-o ${project.build.directory}/libtritonusfluid.dylib</linkerEndOption>
               </linkerEndOptions>
@@ -78,7 +82,9 @@
           </plugin>
 
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-install-plugin</artifactId>
+            <version>3.0.0-M1</version>
             <executions>
               <execution>
                 <id>install-library</id>
@@ -170,23 +176,26 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>utf-8</encoding>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>3.0.0-M7</version>
         <configuration>
           <dependenciesToScan>
             <dependency>org.tritonus:tritonus-midishare</dependency>
           </dependenciesToScan>
           <forkMode>always</forkMode>
-          <!-- mvn clean install -Dsoundfont.path=your_soundfont_path -->
+          <!-- mvn clean install -Dtritonus.fluidsynth.defaultsoundbank=your_soundfont_path -->
           <argLine>
-            -Djava.library.path=${project.build.directory}
+            -Djava.util.logging.config.file=src/test/resources/logging.properties
+            -Djava.library.path=${project.build.directory}:/usr/local/lib
           </argLine>
           <systemProperties>
             <tritonus.fluidsynth.defaultsoundbank>${tritonus.fluidsynth.defaultsoundbank}</tritonus.fluidsynth.defaultsoundbank>
@@ -195,6 +204,13 @@
       </plugin>
     </plugins>
   </build>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 
   <dependencies>
     <dependency>
@@ -230,6 +246,12 @@
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>
-  </dependencies>
 
+    <dependency>
+      <groupId>com.github.umjammer</groupId>
+      <artifactId>vavi-commons</artifactId>
+      <version>1.1.6</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

@@ -1,5 +1,5 @@
 /*
- *	VorbisSilenceTestCase.java
+ * VorbisSilenceTestCase.java
  */
 
 /*
@@ -26,7 +26,6 @@ package org.tritonus.test;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -46,172 +45,169 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 
-/** Tests conversion of Ogg files with long silence at the start of the file.
+/**
+ * Tests conversion of Ogg files with long silence at the start of the file.
  * NOTE: These tests create a large (26mb) temporary audio file in the sounds dir
  * which is deleted after the test completes, but be sure you have sufficient disk space.
  */
-public class VorbisSilenceTestCase
-{
-	private File _sourceFileOgg = new File("src/test/resources/" + "sounds/testsilence.ogg");
-	private File _destFileWav = new File("src/test/resources/" + "sounds/testsilenceout.wav");
+public class VorbisSilenceTestCase {
+    private File _sourceFileOgg = new File("src/test/resources/" + "sounds/testsilence.ogg");
+    private File _destFileWav = new File("src/test/resources/" + "sounds/testsilenceout.wav");
 
-	@BeforeEach
-	protected void setUp()
-	{
-		assertTrue(_sourceFileOgg.exists(),
-			   "Missing required test file: " + _sourceFileOgg.getAbsolutePath());
+    @BeforeEach
+    protected void setUp() {
+        assertTrue(_sourceFileOgg.exists(),
+                "Missing required test file: " + _sourceFileOgg.getAbsolutePath());
 
-		_destFileWav.deleteOnExit();
-	}
+        _destFileWav.deleteOnExit();
+    }
 
     @AfterEach
-	protected void tearDown()
-	{
-		assertTrue(_sourceFileOgg.exists(),
-			   "Deleted required test file: " + _sourceFileOgg.getAbsolutePath());
+    protected void tearDown() {
+        assertTrue(_sourceFileOgg.exists(),
+                "Deleted required test file: " + _sourceFileOgg.getAbsolutePath());
 
-		if (_destFileWav.exists())
-		{
-			// remove converted file
-			assertTrue(_destFileWav.delete(),
-				   "Couldn't delete file: " + _destFileWav.getAbsolutePath()
-                	   + "; size: " + _destFileWav.length()
-                	   + ". (0 size may mean file is locked by buffer loop.)");
-		}
-	}
+        if (_destFileWav.exists()) {
+            // remove converted file
+            assertTrue(_destFileWav.delete(),
+                    "Couldn't delete file: " + _destFileWav.getAbsolutePath()
+                            + "; size: " + _destFileWav.length()
+                            + ". (0 size may mean file is locked by buffer loop.)");
+        }
+    }
 
 
     @Test
-	public void testConvertSilentOggWithAudioOutStream() throws Exception
-	{
-		final AudioInputStream inAIStreamOgg = AudioSystem.getAudioInputStream(_sourceFileOgg);
+    public void testConvertSilentOggWithAudioOutStream() throws Exception {
+        AudioInputStream inAIStreamOgg = AudioSystem.getAudioInputStream(_sourceFileOgg);
 
-		final AudioFormat destAudioFormatPCM = new AudioFormat(44100.0F, 16, 1, true, false);
-		final AudioInputStream inAIStreamPCM = AudioSystem.getAudioInputStream(destAudioFormatPCM, inAIStreamOgg);
+        AudioFormat destAudioFormatPCM = new AudioFormat(44100.0F, 16, 1, true, false);
+        AudioInputStream inAIStreamPCM = AudioSystem.getAudioInputStream(destAudioFormatPCM, inAIStreamOgg);
 
-		final AudioOutputStream outAOStreamWavPCM = AudioSystemShadow.getAudioOutputStream(
-			AudioFileFormat.Type.WAVE,
-			destAudioFormatPCM,
-			AudioSystem.NOT_SPECIFIED,
-			_destFileWav);
+        AudioOutputStream outAOStreamWavPCM = AudioSystemShadow.getAudioOutputStream(
+                AudioFileFormat.Type.WAVE,
+                destAudioFormatPCM,
+                AudioSystem.NOT_SPECIFIED,
+                _destFileWav);
 
-		class StreamPump extends Thread {
-			boolean isRunFinished;
+        class StreamPump extends Thread {
+            boolean isRunFinished;
 
-			StreamPump() {
-				super("SilenceTest-StreamPump");
-			}
+            StreamPump() {
+                super("SilenceTest-StreamPump");
+            }
 
 
-			public void run()
-			{
-				// pump the streams
-				int readCnt;
-				final byte[] buf = new byte[65536];
+            public void run() {
+                // pump the streams
+                int readCnt;
+                byte[] buf = new byte[65536];
 
-				int cnt = 0;
-				try {
-					while ((readCnt = inAIStreamPCM.read(buf, 0, buf.length)) != -1) {
-						outAOStreamWavPCM.write(buf, 0, readCnt);
-						cnt++;
-						//System.out.println("readCnt: " + readCnt + " after write, loop cnt: " + cnt);
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-					fail("Exception pumping streams: " + e.getMessage());
-				}
-				isRunFinished = true;
-			}
-		};
-		StreamPump t = new StreamPump();
-		t.start();
-		// wait for conversion to finish, within reasonable time
-		final int maxWait = 60;
-		int waitCnt = 0;
-		while (t.isAlive() && waitCnt++ < maxWait)
-		{
-			Thread.sleep(1000);
-		}
+                int cnt = 0;
+                try {
+                    while ((readCnt = inAIStreamPCM.read(buf, 0, buf.length)) != -1) {
+                        outAOStreamWavPCM.write(buf, 0, readCnt);
+                        cnt++;
+                        //System.out.println("readCnt: " + readCnt + " after write, loop cnt: " + cnt);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    fail("Exception pumping streams: " + e.getMessage());
+                }
+                isRunFinished = true;
+            }
+        }
+        StreamPump t = new StreamPump();
+        t.start();
+        // wait for conversion to finish, within reasonable time
+        final int maxWait = 60;
+        int waitCnt = 0;
+        while (t.isAlive() && waitCnt++ < maxWait) {
+            Thread.sleep(1000);
+        }
 
-		outAOStreamWavPCM.close();
-		inAIStreamPCM.close();
-		inAIStreamOgg.close();
+        outAOStreamWavPCM.close();
+        inAIStreamPCM.close();
+        inAIStreamOgg.close();
 
-		assertTrue(_destFileWav.length() > 0, "Converted wav file is empty: " + _destFileWav.getAbsolutePath());
-		assertTrue(t.isRunFinished, "Conversion never finished run() method");
-		assertTrue(waitCnt < maxWait, "Conversion timeout expired");
+        assertTrue(_destFileWav.length() > 0, "Converted wav file is empty: " + _destFileWav.getAbsolutePath());
+        assertTrue(t.isRunFinished, "Conversion never finished run() method");
+        assertTrue(waitCnt < maxWait, "Conversion timeout expired");
 
-		// attempt to read the resulting wav file
-		final AudioInputStream aisDest = AudioSystem.getAudioInputStream(_destFileWav);
-		// attempt to play the resulting wav file - 5 minutes of silence
-		playStream(aisDest);
-	}
+        // attempt to read the resulting wav file
+        AudioInputStream aisDest = AudioSystem.getAudioInputStream(_destFileWav);
+        // attempt to play the resulting wav file - 5 minutes of silence
+        playStream(aisDest);
+    }
 
 
     @Test
-	public void testConvertSilentOggWithAudioSystem() throws Exception
-	{
-		final AudioInputStream inAIStreamOgg = AudioSystem.getAudioInputStream(_sourceFileOgg);
+    public void testConvertSilentOggWithAudioSystem() throws Exception {
+        AudioInputStream inAIStreamOgg = AudioSystem.getAudioInputStream(_sourceFileOgg);
 
-		final AudioFormat destAudioFormatPCM = new AudioFormat(44100.0F, 16, 1, true, false);
-		final AudioInputStream inAIStreamPCM = AudioSystem.getAudioInputStream(destAudioFormatPCM, inAIStreamOgg);
+        AudioFormat destAudioFormatPCM = new AudioFormat(44100.0F, 16, 1, true, false);
+        AudioInputStream inAIStreamPCM = AudioSystem.getAudioInputStream(destAudioFormatPCM, inAIStreamOgg);
 
-		AudioSystem.write(inAIStreamPCM, AudioFileFormat.Type.WAVE, _destFileWav);
+        AudioSystem.write(inAIStreamPCM, AudioFileFormat.Type.WAVE, _destFileWav);
 
-		inAIStreamPCM.close();
-		inAIStreamOgg.close();
+        inAIStreamPCM.close();
+        inAIStreamOgg.close();
 
-		assertTrue(_destFileWav.length() > 0, "Converted wav file is empty: " + _destFileWav.getAbsolutePath());
+        assertTrue(_destFileWav.length() > 0, "Converted wav file is empty: " + _destFileWav.getAbsolutePath());
 
-		// attempt to read the resulting wav file
-		final AudioInputStream aisDest = AudioSystem.getAudioInputStream(_destFileWav);
-		// attempt to play the resulting wav file - 5 minutes of silence
-		playStream(aisDest);
-	}
+        // attempt to read the resulting wav file
+        AudioInputStream aisDest = AudioSystem.getAudioInputStream(_destFileWav);
+        // attempt to play the resulting wav file - 5 minutes of silence
+        playStream(aisDest);
+    }
 
 
-	/** Play the given audio stream. Closes the stream when finised.
-	 * @param streamToPlay the audio stream to play
-	 * @throws LineUnavailableException if can't get line for stream's format
-	 * @throws IOException if problem occurs reading the stream
-	 */
-	private static void playStream(final AudioInputStream streamToPlay)
-		throws LineUnavailableException, IOException {
+    /**
+     * Play the given audio stream. Closes the stream when finised.
+     *
+     * @param streamToPlay the audio stream to play
+     * @throws LineUnavailableException if can't get line for stream's format
+     * @throws IOException              if problem occurs reading the stream
+     */
+    private static void playStream(AudioInputStream streamToPlay)
+            throws LineUnavailableException, IOException {
 
-		// @todo Comment this out to really play the file
-		if (1==1) {
-			streamToPlay.close();
-			// @todo Why is GC required to get AudioSytem to release these files???
-			// To see the error (under Win2K, jdk 1.3.1_02-b02), just comment out the gc below.
-			System.gc();
-			return;
-		}
+        // @todo Comment this out to really play the file
+        if (1 == 1) {
+            streamToPlay.close();
+            // @todo Why is GC required to get AudioSytem to release these files???
+            // To see the error (under Win2K, jdk 1.3.1_02-b02), just comment out the gc below.
+            System.gc();
+            return;
+        }
 
-		final SourceDataLine line = (SourceDataLine)AudioSystem.getLine(
-			new DataLine.Info(SourceDataLine.class, streamToPlay.getFormat()));
+        SourceDataLine line = (SourceDataLine) AudioSystem.getLine(
+                new DataLine.Info(SourceDataLine.class, streamToPlay.getFormat()));
 
-		line.open();
-FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
-double gain = .2d; // number between 0 and 1 (loudest)
-float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-gainControl.setValue(dB);
-		line.start();
-		try {
-			byte[] buf = new byte[1024];
-			int readCnt;
-			while ((readCnt = streamToPlay.read(buf, 0, buf.length)) != -1) {
-				line.write(buf, 0, readCnt);
-			}
-		} finally {
-			// kludge to get last bit played
-			try { Thread.sleep(1000); } catch(InterruptedException e) {}
-			streamToPlay.close();
-			line.stop();
-			line.close();
-		}
-	}
+        line.open();
+        FloatControl gainControl = (FloatControl) line.getControl(FloatControl.Type.MASTER_GAIN);
+        double gain = .2d; // number between 0 and 1 (loudest)
+        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+        gainControl.setValue(dB);
+        line.start();
+        try {
+            byte[] buf = new byte[1024];
+            int readCnt;
+            while ((readCnt = streamToPlay.read(buf, 0, buf.length)) != -1) {
+                line.write(buf, 0, readCnt);
+            }
+        } finally {
+            // kludge to get last bit played
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+            streamToPlay.close();
+            line.stop();
+            line.close();
+        }
+    }
 }
 
 
-
-/*** VorbisSilenceTestCase.java ***/
+/* VorbisSilenceTestCase.java */

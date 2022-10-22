@@ -1,7 +1,7 @@
 /*
- *	AlsaSeqQueueStatus.java
+ * AlsaSeqQueueStatus.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -30,63 +30,60 @@ package org.tritonus.lowlevel.alsa;
 import org.tritonus.share.TDebug;
 
 
-
-public class AlsaSeqQueueStatus
-{
-	static
-	{
-		Alsa.loadNativeLibrary();
-		if (TDebug.TraceAlsaSeqNative)
-		{
-			setTrace(true);
-		}
-	}
+public class AlsaSeqQueueStatus {
+    static {
+        Alsa.loadNativeLibrary();
+        if (TDebug.TraceAlsaSeqNative) {
+            setTrace(true);
+        }
+    }
 
 
-
-	/**
-	 *	Holds the pointer to snd_seq_queue_status_t
-	 *	for the native code.
-	 *	This must be long to be 64bit-clean.
-	 */
-	/*private*/ long	m_lNativeHandle;
-
+    /**
+     * Holds the pointer to snd_seq_queue_status_t
+     * for the native code.
+     * This must be long to be 64bit-clean.
+     */
+    /*private*/ long m_lNativeHandle;
 
 
-	public AlsaSeqQueueStatus()
-	{
-		if (TDebug.TraceAlsaSeqNative) { TDebug.out("AlsaSeq.QueueStatus.<init>(): begin"); }
-		int	nReturn = malloc();
-		if (nReturn < 0)
-		{
-			throw new RuntimeException("malloc of port_info failed");
-		}
-		if (TDebug.TraceAlsaSeqNative) { TDebug.out("AlsaSeq.QueueStatus.<init>(): end"); }
-	}
+    public AlsaSeqQueueStatus() {
+        if (TDebug.TraceAlsaSeqNative) {
+            TDebug.out("AlsaSeq.QueueStatus.<init>(): begin");
+        }
+        int nReturn = malloc();
+        if (nReturn < 0) {
+            throw new RuntimeException("malloc of port_info failed");
+        }
+        if (TDebug.TraceAlsaSeqNative) {
+            TDebug.out("AlsaSeq.QueueStatus.<init>(): end");
+        }
+    }
 
 
-
-	public void finalize()
-	{
-		// TODO: call free()
-		// call super.finalize() first or last?
-		// and introduce a flag if free() has already been called?
-	}
+    protected void finalize() {
+        // TODO: call free()
+        // call super.finalize() first or last?
+        // and introduce a flag if free() has already been called?
+    }
 
 
+    private native int malloc();
 
-	private native int malloc();
-	public native void free();
+    public native void free();
 
-	public native int getQueue();
-	public native int getEvents();
-	public native long getTickTime();
-	public native long getRealTime();
-	public native int getStatus();
+    public native int getQueue();
 
-	private static native void setTrace(boolean bTrace);
+    public native int getEvents();
+
+    public native long getTickTime();
+
+    public native long getRealTime();
+
+    public native int getStatus();
+
+    private static native void setTrace(boolean bTrace);
 }
 
 
-
-/*** AlsaSeqQueueStatus.java ***/
+/* AlsaSeqQueueStatus.java */

@@ -1,7 +1,7 @@
 /*
- *	AlsaPortMixerProvider.java
+ * AlsaPortMixerProvider.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -26,59 +26,57 @@
 
 package org.tritonus.sampled.mixer.alsa;
 
-import org.tritonus.share.TDebug;
 import org.tritonus.lowlevel.alsa.Alsa;
 import org.tritonus.lowlevel.alsa.AlsaCtl;
+import org.tritonus.share.TDebug;
 import org.tritonus.share.sampled.mixer.TMixerProvider;
 
 
-
 public class AlsaPortMixerProvider
-extends	TMixerProvider
-{
-	private static boolean		sm_bInitialized = false;
+        extends TMixerProvider {
+    private static boolean sm_bInitialized = false;
 
 
-
-	public AlsaPortMixerProvider()
-	{
-		super();
-		if (TDebug.TraceMixerProvider) { TDebug.out("AlsaPortMixerProvider.<init>(): begin"); }
-		if (! sm_bInitialized && ! isDisabled())
-		{
-			if (! Alsa.isLibraryAvailable())
-			{
-				disable();
-			}
-			else
-			{
-				staticInit();
-				sm_bInitialized = true;
-			}
-		}
-		else
-		{
-			if (TDebug.TraceMixerProvider) { TDebug.out("AlsaDataLineMixerProvider.<init>(): already initialized or disabled"); }
-		}
-		if (TDebug.TraceMixerProvider) { TDebug.out("AlsaPortMixerProvider.<init>(): end"); }
-	}
+    public AlsaPortMixerProvider() {
+        super();
+        if (TDebug.TraceMixerProvider) {
+            TDebug.out("AlsaPortMixerProvider.<init>(): begin");
+        }
+        if (!sm_bInitialized && !isDisabled()) {
+            if (!Alsa.isLibraryAvailable()) {
+                disable();
+            } else {
+                staticInit();
+                sm_bInitialized = true;
+            }
+        } else {
+            if (TDebug.TraceMixerProvider) {
+                TDebug.out("AlsaDataLineMixerProvider.<init>(): already initialized or disabled");
+            }
+        }
+        if (TDebug.TraceMixerProvider) {
+            TDebug.out("AlsaPortMixerProvider.<init>(): end");
+        }
+    }
 
 
-
-	protected void staticInit()
-	{
-		if (TDebug.TraceMixerProvider) { TDebug.out("AlsaPortMixerProvider.staticInit(): begin"); }
-		int[]	anCards = AlsaCtl.getCards();
-		if (TDebug.TraceMixerProvider) { System.out.println("AlsaPortMixerProvider.staticInit(): num cards: " + anCards.length); }
-		for (int i = 0; i < anCards.length; i++)
-		{
-			AlsaPortMixer	mixer = new AlsaPortMixer(anCards[i]);
-			addMixer(mixer);
-		}
-		if (TDebug.TraceMixerProvider) { TDebug.out("AlsaPortMixerProvider.staticInit(): end"); }
-	}
+    protected void staticInit() {
+        if (TDebug.TraceMixerProvider) {
+            TDebug.out("AlsaPortMixerProvider.staticInit(): begin");
+        }
+        int[] anCards = AlsaCtl.getCards();
+        if (TDebug.TraceMixerProvider) {
+            System.out.println("AlsaPortMixerProvider.staticInit(): num cards: " + anCards.length);
+        }
+        for (int anCard : anCards) {
+            AlsaPortMixer mixer = new AlsaPortMixer(anCard);
+            addMixer(mixer);
+        }
+        if (TDebug.TraceMixerProvider) {
+            TDebug.out("AlsaPortMixerProvider.staticInit(): end");
+        }
+    }
 }
 
 
-
-/*** AlsaPortMixerProvider.java ***/
+/* AlsaPortMixerProvider.java */

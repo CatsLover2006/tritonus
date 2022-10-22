@@ -1,5 +1,5 @@
 /*
- *	GetVoiceStatusTestCase.java
+ * GetVoiceStatusTestCase.java
  */
 
 /*
@@ -27,32 +27,27 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-/**	Test for javax.sound.midi.Synthesizer.getLatency().
+/**
+ * Test for javax.sound.midi.Synthesizer.getLatency().
  */
 public class GetVoiceStatusTestCase
-extends BaseSynthesizerTestCase
-{
-	protected void checkSynthesizer(Synthesizer synth)
-		throws Exception
-	{
-		VoiceStatus[] status;
-		synth.open();
-		try
-		{
-			status = synth.getVoiceStatus();
-			assertNotNull(status,
-					constructErrorMessage(synth, "getVoiceStatus() result null", true));
-			int numVoices = status.length;
-			assertTrue(numVoices == 0 || numVoices == synth.getMaxPolyphony(),
-					constructErrorMessage(synth, "getVoiceStatus() result has wrong length", true));
-		}
-		finally
-		{
-			synth.close();
-		}
-	}
+        extends BaseSynthesizerTestCase {
+    protected void checkSynthesizer(Synthesizer synth)
+            throws Exception {
+        VoiceStatus[] status;
+        synth.open();
+        try {
+            status = synth.getVoiceStatus();
+            assertNotNull(status,
+                    constructErrorMessage(synth, "getVoiceStatus() result null", true));
+            int numVoices = status.length;
+            assertTrue(numVoices == 0 || numVoices == synth.getMaxPolyphony(),
+                    constructErrorMessage(synth, "getVoiceStatus() result has wrong length", true));
+        } finally {
+            synth.close();
+        }
+    }
 }
 
 
-
-/*** GetVoiceStatusTestCase.java ***/
+/* GetVoiceStatusTestCase.java */

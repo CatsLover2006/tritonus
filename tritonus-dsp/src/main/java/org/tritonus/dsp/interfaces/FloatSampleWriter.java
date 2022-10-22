@@ -1,7 +1,7 @@
 /*
- *	FloatSampleWriter.java
+ * FloatSampleWriter.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,12 +29,9 @@ package org.tritonus.dsp.interfaces;
 import org.tritonus.share.sampled.FloatSampleBuffer;
 
 
-
-public interface FloatSampleWriter
-{
-	public void write(FloatSampleBuffer buffer);
+public interface FloatSampleWriter {
+    void write(FloatSampleBuffer buffer);
 }
 
 
-
-/*** FloatSampleWriter.java ***/
+/* FloatSampleWriter.java */

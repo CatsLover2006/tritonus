@@ -1,7 +1,7 @@
 /*
- *	CddaStreamHandler.java
+ * CddaStreamHandler.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -33,31 +33,26 @@ import java.net.URLStreamHandler;
 import org.tritonus.share.TDebug;
 
 
-
 public class CddaStreamHandler
-extends	URLStreamHandler
-{
-	public URLConnection openConnection(URL url)
-	{
-		if (TDebug.TraceCdda) { TDebug.out("CddaStreamHandler.openConnection():begin"); }
-		URLConnection	connection = null;
-		if (url.getFile().equals(""))
-		{
-			connection = new CddaDriveListConnection(url);
-		}
-		else if (url.getRef() == null)
-		{
-			connection = new CddaTocConnection(url);
-		}
-		else
-		{
-			connection = new CddaDataConnection(url);
-		}
-		if (TDebug.TraceCdda) { TDebug.out("CddaStreamHandler.openConnection():end"); }
-		return connection;
-	}
+        extends URLStreamHandler {
+    public URLConnection openConnection(URL url) {
+        if (TDebug.TraceCdda) {
+            TDebug.out("CddaStreamHandler.openConnection():begin");
+        }
+        URLConnection connection;
+        if (url.getFile().equals("")) {
+            connection = new CddaDriveListConnection(url);
+        } else if (url.getRef() == null) {
+            connection = new CddaTocConnection(url);
+        } else {
+            connection = new CddaDataConnection(url);
+        }
+        if (TDebug.TraceCdda) {
+            TDebug.out("CddaStreamHandler.openConnection():end");
+        }
+        return connection;
+    }
 }
-
 
 
 /*** CddaStreamHandler.java ****/

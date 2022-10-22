@@ -1,7 +1,7 @@
 /*
- *	Packet.java
+ * Packet.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,84 +29,79 @@ package org.tritonus.lowlevel.ogg;
 import org.tritonus.share.TDebug;
 
 
-
-/** Wrapper for ogg_packet.
+/**
+ * Wrapper for ogg_packet.
  */
-public class Packet
-{
-        static
-        {
-                Ogg.loadNativeLibrary();
-                if (TDebug.TraceOggNative)
-                {
-                        setTrace(true);
-                }
+public class Packet {
+    static {
+        Ogg.loadNativeLibrary();
+        if (TDebug.TraceOggNative) {
+            setTrace(true);
         }
-                                                                                
-
-	/**
-	 *	Holds the pointer to ogg_packet
-	 *	for the native code.
-	 *	This must be long to be 64bit-clean.
-	 */
-	@SuppressWarnings("unused")
-	private long	m_lNativeHandle;
+    }
 
 
-
-	public Packet()
-	{
-		if (TDebug.TraceOggNative) { TDebug.out("Packet.<init>(): begin"); }
-		int	nReturn = malloc();
-		if (nReturn < 0)
-		{
-			throw new RuntimeException("malloc of ogg_packet failed");
-		}
-		if (TDebug.TraceOggNative) { TDebug.out("Packet.<init>(): end"); }
-	}
+    /**
+     * Holds the pointer to ogg_packet
+     * for the native code.
+     * This must be long to be 64bit-clean.
+     */
+    @SuppressWarnings("unused")
+    private long m_lNativeHandle;
 
 
-
-	public void finalize()
-	{
-		// TODO: call free()
-		// call super.finalize() first or last?
-		// and introduce a flag if free() has already been called?
-	}
-
-
-
-	private native int malloc();
-	public native void free();
-
-
-
-	/** Calls ogg_packet_clear().
-	 */
-	public native void clear();
+    public Packet() {
+        if (TDebug.TraceOggNative) {
+            TDebug.out("Packet.<init>(): begin");
+        }
+        int nReturn = malloc();
+        if (nReturn < 0) {
+            throw new RuntimeException("malloc of ogg_packet failed");
+        }
+        if (TDebug.TraceOggNative) {
+            TDebug.out("Packet.<init>(): end");
+        }
+    }
 
 
-
-	/** Accesses packet and bytes.
-	 */
-	public native byte[] getData();
-
-
-	/** Accesses b_o_s.
-	 */
-	public native boolean isBos();
+    protected void finalize() {
+        // TODO: call free()
+        // call super.finalize() first or last?
+        // and introduce a flag if free() has already been called?
+    }
 
 
-	/** Accesses e_o_s.
-	 */
-	public native boolean isEos();
+    private native int malloc();
+
+    public native void free();
 
 
-	private static native void setTrace(boolean bTrace);
+    /**
+     * Calls ogg_packet_clear().
+     */
+    public native void clear();
+
+
+    /**
+     * Accesses packet and bytes.
+     */
+    public native byte[] getData();
+
+
+    /**
+     * Accesses b_o_s.
+     */
+    public native boolean isBos();
+
+
+    /**
+     * Accesses e_o_s.
+     */
+    public native boolean isEos();
+
+
+    private static native void setTrace(boolean bTrace);
 }
 
 
-
-
-
-/*** Packet.java ***/
+/* Packet.java */

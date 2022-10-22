@@ -1,7 +1,7 @@
 /*
- *	NodeSemanticsTable.java
+ * NodeSemanticsTable.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -31,25 +31,19 @@ import java.util.HashMap;
 import org.tritonus.saol.sablecc.node.Node;
 
 
-
-/**	The instrument table.
-	TODO: use generics
+/**
+ * The instrument table.
+ * TODO: use generics
  */
-public class NodeSemanticsTable
-extends HashMap
-{
-	public void setNodeSemantics(Node node, NodeSemantics nodeSemantics)
-	{
-		put(node, nodeSemantics);
-	}
+public class NodeSemanticsTable extends HashMap<Node, NodeSemantics> {
 
+    public void setNodeSemantics(Node node, NodeSemantics nodeSemantics) {
+        put(node, nodeSemantics);
+    }
 
-	public NodeSemantics getNodeSemantics(Node node)
-	{
-		return (NodeSemantics) get(node);
-	}
+    public NodeSemantics getNodeSemantics(Node node) {
+        return get(node);
+    }
 }
 
-
-
-/*** NodeSemanticsTable.java ***/
+/* NodeSemanticsTable.java */

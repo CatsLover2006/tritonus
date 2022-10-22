@@ -16,22 +16,18 @@
 
 package org.tritonus.sampled.convert.lame;
 
-import java.io.InputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
 import java.util.Arrays;
-import java.util.Iterator;
-
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
-
-import org.tritonus.share.TDebug;
-import org.tritonus.share.sampled.AudioFormatSet;
-import org.tritonus.share.sampled.convert.TSimpleFormatConversionProvider;
-import org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream;
+import javax.sound.sampled.AudioSystem;
 
 import org.tritonus.lowlevel.lame.Lame;
+import org.tritonus.share.TDebug;
+import org.tritonus.share.sampled.AudioFormatSet;
+import org.tritonus.share.sampled.convert.TAsynchronousFilteredAudioInputStream;
+import org.tritonus.share.sampled.convert.TSimpleFormatConversionProvider;
 
 
 /**
@@ -40,9 +36,10 @@ import org.tritonus.lowlevel.lame.Lame;
  * It uses a sloppy implementation of the MPEG1L3 encoding: It is used as a
  * common denominator. So users can always ask for MPEG1L3 encoding but may get
  * in fact an MPEG2L3 or MPEG2.5L3 encoded stream.
- *
+ * <p>
  * TODO: add decoding ? more work on LAME itself...
  * TODO: byte swapping support in LAME ?
+ *
  * @author Florian Bomers
  */
 public class Mp3LameFormatConversionProvider extends
@@ -193,7 +190,7 @@ public class Mp3LameFormatConversionProvider extends
     }
 
     public AudioInputStream getAudioInputStream(AudioFormat targetFormat,
-            AudioInputStream audioInputStream) {
+                                                AudioInputStream audioInputStream) {
         if (isConversionSupported(targetFormat, audioInputStream.getFormat())) {
             return new EncodedMpegAudioInputStream(getDefaultTargetFormat(
                     targetFormat, audioInputStream.getFormat(), false),
@@ -204,7 +201,7 @@ public class Mp3LameFormatConversionProvider extends
     }
 
     public AudioFormat[] getTargetFormats(AudioFormat.Encoding targetEncoding,
-            AudioFormat sourceFormat) {
+                                          AudioFormat sourceFormat) {
         if (TDebug.TraceAudioConverter) {
             TDebug.out(">MP3Lame getTargetFormats(AudioFormat.Encoding, AudioFormat):");
             TDebug.out("checking out possible target formats");
@@ -213,17 +210,15 @@ public class Mp3LameFormatConversionProvider extends
         }
         if (isConversionSupported(targetEncoding, sourceFormat)) {
             AudioFormatSet result = new AudioFormatSet();
-            Iterator<?> iterator = getCollectionTargetFormats().iterator();
-            while (iterator.hasNext()) {
-                AudioFormat targetFormat = (AudioFormat) iterator.next();
-//                if (TDebug.TraceAudioConverter) {
+            for (AudioFormat targetFormat : getCollectionTargetFormats()) {
+                //                if (TDebug.TraceAudioConverter) {
 //                    TDebug.out("-checking target format " + targetFormat);
 //                }
                 if (doMatch(targetFormat.getSampleRate(),
                         sourceFormat.getSampleRate())
                         && targetFormat.getEncoding().equals(targetEncoding)
                         && doMatch(targetFormat.getChannels(),
-                                sourceFormat.getChannels())) {
+                        sourceFormat.getChannels())) {
                     targetFormat = getDefaultTargetFormat(targetFormat,
                             sourceFormat, true);
 //                    if (TDebug.TraceAudioConverter) {
@@ -251,7 +246,7 @@ public class Mp3LameFormatConversionProvider extends
     }
 
     protected AudioFormat getDefaultTargetFormat(AudioFormat targetFormat,
-            AudioFormat sourceFormat, boolean allowNotSpecified) {
+                                                 AudioFormat sourceFormat, boolean allowNotSpecified) {
         // always set bits per sample to MPEG_BITS_PER_SAMPLE
         // set framerate to MPEG_FRAME_RATE, framesize to FRAME_SIZE
         // always retain sample rate
@@ -261,7 +256,7 @@ public class Mp3LameFormatConversionProvider extends
         }
         if ((!allowNotSpecified && targetSampleRate == AudioSystem.NOT_SPECIFIED)
                 || (targetSampleRate != AudioSystem.NOT_SPECIFIED
-                        && sourceFormat.getSampleRate() != AudioSystem.NOT_SPECIFIED && targetSampleRate != sourceFormat.getSampleRate())) {
+                && sourceFormat.getSampleRate() != AudioSystem.NOT_SPECIFIED && targetSampleRate != sourceFormat.getSampleRate())) {
             throw new IllegalArgumentException("Illegal sample rate ("
                     + targetSampleRate + ") !");
         }
@@ -271,23 +266,23 @@ public class Mp3LameFormatConversionProvider extends
         }
         if ((!allowNotSpecified && targetChannels == AudioSystem.NOT_SPECIFIED)
                 || (targetChannels != AudioSystem.NOT_SPECIFIED
-                        && sourceFormat.getChannels() != AudioSystem.NOT_SPECIFIED && targetChannels != sourceFormat.getChannels())) {
+                && sourceFormat.getChannels() != AudioSystem.NOT_SPECIFIED && targetChannels != sourceFormat.getChannels())) {
             throw new IllegalArgumentException("Illegal number of channels ("
                     + targetChannels + ") !");
         }
         AudioFormat newTargetFormat = new AudioFormat(
                 targetFormat.getEncoding(), targetSampleRate,
                 MPEG_BITS_PER_SAMPLE, targetChannels, getFrameSize(
-                        targetFormat.getEncoding(), targetSampleRate,
-                        MPEG_BITS_PER_SAMPLE, targetChannels, MPEG_FRAME_RATE,
-                        false, 0), MPEG_FRAME_RATE, false, targetFormat.properties());
+                targetFormat.getEncoding(), targetSampleRate,
+                MPEG_BITS_PER_SAMPLE, targetChannels, MPEG_FRAME_RATE,
+                false, 0), MPEG_FRAME_RATE, false, targetFormat.properties());
         return newTargetFormat;
     }
 
     // implementation from TSimpleFormatConversionProvider
     protected int getFrameSize(AudioFormat.Encoding encoding, float sampleRate,
-            int sampleSize, int channels, float frameRate, boolean bigEndian,
-            int oldFrameSize) {
+                               int sampleSize, int channels, float frameRate, boolean bigEndian,
+                               int oldFrameSize) {
         if (encoding.equals(AudioFormat.Encoding.PCM_SIGNED)
                 || encoding.equals(AudioFormat.Encoding.PCM_UNSIGNED)) {
             return super.getFrameSize(encoding, sampleRate, sampleSize,
@@ -306,7 +301,7 @@ public class Mp3LameFormatConversionProvider extends
         private byte[] encodedBuffer;
 
         public EncodedMpegAudioInputStream(AudioFormat targetFormat,
-                AudioInputStream sourceStream) {
+                                           AudioInputStream sourceStream) {
             super(targetFormat, -1);
             pcmStream = sourceStream;
             encoder = new Lame(sourceStream.getFormat(), targetFormat);
@@ -348,11 +343,7 @@ public class Mp3LameFormatConversionProvider extends
                 if (encoder == null) {
                     getCircularBuffer().close();
                 }
-            } catch (ArrayIndexOutOfBoundsException e) {
-                if (TDebug.TraceAudioConverter || TDebug.TraceAllExceptions) {
-                    TDebug.out(e);
-                }
-            } catch (IOException e) {
+            } catch (ArrayIndexOutOfBoundsException | IOException e) {
                 if (TDebug.TraceAudioConverter || TDebug.TraceAllExceptions) {
                     TDebug.out(e);
                 }

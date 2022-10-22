@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.11</version>
+    <version>0.3.12</version>
   </parent>
+
   <artifactId>tritonus-vorbis</artifactId>
   <packaging>jar</packaging>
 
@@ -28,6 +30,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>native-maven-plugin</artifactId>
+            <version>1.0-alpha-11</version>
             <extensions>true</extensions>
             <configuration>
               <javahClassNames>
@@ -51,8 +54,8 @@
                 <compilerStartOption>-g -Wall -O2 -fomit-frame-pointer -fPIC</compilerStartOption>
                 <!-- unless locating jdk includes, cause error why??? -->
                 <compilerStartOption>-arch x86_64
-                      -I${java.home}/../include
-                      -I${java.home}/../include/darwin
+                  -I${java.home}/../include
+                  -I${java.home}/../include/darwin
                 </compilerStartOption>
               </compilerStartOptions>
               <sources>
@@ -74,9 +77,10 @@
               </sources>
               <linkerStartOptions>
                 <linkerStartOption>-dynamiclib -arch x86_64
-                  -L/usr/local/lib -logg -lvorbis -lvorbisenc</linkerStartOption>
+                  -L/usr/local/lib -logg -lvorbis -lvorbisenc
+                </linkerStartOption>
               </linkerStartOptions>
-              <linkerFinalName></linkerFinalName>
+              <linkerFinalName/>
               <linkerEndOptions>
                 <linkerEndOption>-o ${project.build.directory}/libtritonusvorbis.dylib</linkerEndOption>
               </linkerEndOptions>
@@ -95,7 +99,9 @@
           </plugin>
 
           <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-install-plugin</artifactId>
+            <version>3.0.0-M1</version>
             <executions>
               <execution>
                 <id>install-library</id>
@@ -156,15 +162,17 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.0.0-M5</version>
+        <version>3.0.0-M7</version>
         <configuration>
           <forkMode>once</forkMode>
           <argLine>-Djava.library.path=${project.build.directory}</argLine>
@@ -197,5 +205,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 </project>

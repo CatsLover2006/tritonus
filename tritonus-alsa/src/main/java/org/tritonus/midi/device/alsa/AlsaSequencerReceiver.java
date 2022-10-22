@@ -1,7 +1,7 @@
 /*
- *	AlsaSequencerReceiver.java
+ * AlsaSequencerReceiver.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,13 +29,10 @@
 package org.tritonus.midi.device.alsa;
 
 
-
-public interface AlsaSequencerReceiver
-{
-	public boolean subscribeTo(int nClient, int nPort);
+public interface AlsaSequencerReceiver {
+    boolean subscribeTo(int nClient, int nPort);
 }
 
 
-
-/*** AlsaSequencerReceiver.java ***/
+/* AlsaSequencerReceiver.java */
 

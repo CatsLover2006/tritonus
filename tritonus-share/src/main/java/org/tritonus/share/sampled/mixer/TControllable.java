@@ -1,7 +1,7 @@
 /*
- *	TControllable.java
+ * TControllable.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,14 +29,13 @@
 package org.tritonus.share.sampled.mixer;
 
 
+public interface TControllable {
+    void setParentControl(TCompoundControl compoundControl);
 
-public interface TControllable
-{
-	public void setParentControl(TCompoundControl compoundControl);
-	public TCompoundControl getParentControl();
-	public void commit();
+    TCompoundControl getParentControl();
+
+    void commit();
 }
 
 
-
-/*** TControllable.java ***/
+/* TControllable.java */

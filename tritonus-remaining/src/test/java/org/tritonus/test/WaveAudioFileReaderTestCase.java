@@ -1,5 +1,5 @@
 /*
- *	WaveAudioFileReaderTestCase.java
+ * WaveAudioFileReaderTestCase.java
  */
 
 /*
@@ -21,16 +21,12 @@
 package org.tritonus.test;
 
 
-
 public class WaveAudioFileReaderTestCase
-extends BaseAudioFileReaderTestCase
-{
-	public WaveAudioFileReaderTestCase()
-	{
-		setResourcePrefix("wave");
-	}
+        extends BaseAudioFileReaderTestCase {
+    public WaveAudioFileReaderTestCase() {
+        setResourcePrefix("wave");
+    }
 }
 
 
-
-/*** WaveAudioFileReaderTestCase.java ***/
+/* WaveAudioFileReaderTestCase.java */

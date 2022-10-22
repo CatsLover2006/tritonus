@@ -1,11 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <groupId>org.tritonus</groupId>
     <artifactId>tritonus</artifactId>
-    <version>0.3.11</version>
+    <version>0.3.12</version>
   </parent>
+
   <artifactId>tritonus-cdda</artifactId>
   <packaging>jar</packaging>
 
@@ -29,6 +31,7 @@
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>native-maven-plugin</artifactId>
+            <version>1.0-alpha-11</version>
             <extensions>true</extensions>
             <configuration>
               <javahSearchJNIFromDependencies>false</javahSearchJNIFromDependencies>
@@ -38,11 +41,11 @@
                 <compilerStartOption>-g -Wall -O2 -fomit-frame-pointer -fPIC</compilerStartOption>
                 <!-- unless locating jdk includes, cause error why??? -->
                 <compilerStartOption>
-                      -I${java.home}/../include
-                      -I${java.home}/../include/darwin
+                  -I${java.home}/../include
+                  -I${java.home}/../include/darwin
                 </compilerStartOption>
               </compilerStartOptions>
-              <linkerFinalName></linkerFinalName>
+              <linkerFinalName/>
             </configuration>
             <executions>
               <execution>
@@ -67,7 +70,8 @@
                   </sources>
                   <linkerStartOptions>
                     <linkerStartOption>-dynamiclib
-                      -L/usr/local/lib -lcdda_interface -lcdda_paranoia</linkerStartOption>
+                      -L/usr/local/lib -lcdda_interface -lcdda_paranoia
+                    </linkerStartOption>
                   </linkerStartOptions>
                   <linkerEndOptions>
                     <linkerEndOption>-o ${project.build.directory}/libtritonuscdparanoia.so</linkerEndOption>
@@ -96,7 +100,8 @@
                   </sources>
                   <linkerStartOptions>
                     <linkerStartOption>-dynamiclib
-                      -L/usr/local/lib</linkerStartOption>
+                      -L/usr/local/lib
+                    </linkerStartOption>
                   </linkerStartOptions>
                   <linkerEndOptions>
                     <linkerEndOption>-o ${project.build.directory}/libtritonuscooked_ioctl.so</linkerEndOption>
@@ -109,7 +114,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.0</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <forkMode>once</forkMode>
               <argLine>-Djava.library.path=${project.build.directory}</argLine>
@@ -131,7 +136,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.0.0-M5</version>
+            <version>3.0.0-M7</version>
             <configuration>
               <skipTests>true</skipTests>
             </configuration>
@@ -146,9 +151,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
@@ -171,5 +178,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 </project>

@@ -1,5 +1,5 @@
 /*
- *	TSeekableDataOutputStreamTestCase.java
+ * TSeekableDataOutputStreamTestCase.java
  */
 
 /*
@@ -22,41 +22,33 @@ package org.tritonus.test.tritonus.share.sampled.file;
 
 import java.io.File;
 
-import org.tritonus.share.sampled.file.TSeekableDataOutputStream;
 import org.tritonus.share.sampled.file.TDataOutputStream;
-
+import org.tritonus.share.sampled.file.TSeekableDataOutputStream;
 import org.tritonus.test.Util;
 
 
-
 public class TSeekableDataOutputStreamTestCase
-extends BaseDataOutputStreamTestCase
-{
-	private File	m_file;
+        extends BaseDataOutputStreamTestCase {
+    private File m_file;
 
 
-	public TSeekableDataOutputStreamTestCase()
-	{
-		super(true); // seekable
-	}
+    public TSeekableDataOutputStreamTestCase() {
+        super(true); // seekable
+    }
 
 
-
-	protected TDataOutputStream createDataOutputStream()
-		throws Exception
-	{
-		m_file = new File("/tmp/dataoutputstream.tmp");
-		return new TSeekableDataOutputStream(m_file);
-	}
+    protected TDataOutputStream createDataOutputStream()
+            throws Exception {
+        m_file = new File("/tmp/dataoutputstream.tmp");
+        return new TSeekableDataOutputStream(m_file);
+    }
 
 
-	protected byte[] getWrittenData()
-		throws Exception
-	{
-		return Util.getByteArrayFromFile(m_file);
-	}
+    protected byte[] getWrittenData()
+            throws Exception {
+        return Util.getByteArrayFromFile(m_file);
+    }
 }
 
 
-
-/*** TSeekableDataOutputStreamTestCase.java ***/
+/* TSeekableDataOutputStreamTestCase.java */

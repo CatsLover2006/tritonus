@@ -1,10 +1,8 @@
 package org.tritonus.lowlevel.gsm;
 
-public class BitDecoder
-{
-    public static enum AllocationMode
-    {
-        MSBitFirst, LSBitFirst;
+public class BitDecoder {
+    public enum AllocationMode {
+        MSBitFirst, LSBitFirst
     }
 
     private AllocationMode allocationMode;
@@ -16,13 +14,12 @@ public class BitDecoder
 
     /**
      * Constructor.
-     * 
+     *
      * @param codedBytes
      * @param allocationMode
      */
     public BitDecoder(byte[] codedBytes, int bufferStartIndex,
-            AllocationMode allocationMode)
-    {
+                      AllocationMode allocationMode) {
         super();
         this.allocationMode = allocationMode;
         m_codedFrame = codedBytes;
@@ -31,32 +28,26 @@ public class BitDecoder
         m_currentBits = 0;
     }
 
-    public void setCodedFrame(byte[] c, final int bufferStartIndex)
-    {
+    public void setCodedFrame(byte[] c, int bufferStartIndex) {
         m_codedFrame = c;
         m_codedFrameByteIndex = bufferStartIndex;
     }
 
-    private final void addNextCodedByteValue()
-    {
+    private void addNextCodedByteValue() {
         m_sr |= getNextCodedByteValue() << m_currentBits;
         m_currentBits += 8;
     }
 
-    private final int getNextCodedByteValue()
-    {
+    private int getNextCodedByteValue() {
         int value = m_codedFrame[m_codedFrameByteIndex];
         m_codedFrameByteIndex++;
         return value & 0xFF;
     }
 
-    public final int getNextBits(int bits)
-    {
-        switch (allocationMode)
-        {
+    public final int getNextBits(int bits) {
+        switch (allocationMode) {
         case LSBitFirst:
-            while (m_currentBits < bits)
-            {
+            while (m_currentBits < bits) {
                 addNextCodedByteValue();
             }
             int value = m_sr & Gsm_Def.BITMASKS[bits];

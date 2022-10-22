@@ -1,5 +1,5 @@
 /*
- *	BaseSynthesizerTestCase.java
+ * BaseSynthesizerTestCase.java
  */
 
 /*
@@ -27,57 +27,53 @@ import javax.sound.midi.Synthesizer;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-/**	Base class for testsof javax.sound.midi.Synthesizer.
+
+/**
+ * Base class for testsof javax.sound.midi.Synthesizer.
  */
 @Disabled
-public abstract class BaseSynthesizerTestCase
-{
-	private static final boolean IGNORE_SUN_SYNTHESIZER = false;
+public abstract class BaseSynthesizerTestCase {
+    private static final boolean IGNORE_SUN_SYNTHESIZER = false;
 
 
-	/**	Iterate over all available Sequencers.
-	*/
+    /**
+     * Iterate over all available Sequencers.
+     */
     @Test
-	public void testSeqencer()
-		throws Exception
-	{
-		MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-		for (int i = 0; i < infos.length; i++)
-		{
-			MidiDevice device = MidiSystem.getMidiDevice(infos[i]);
-			if (device instanceof Synthesizer &&
-				! (IGNORE_SUN_SYNTHESIZER &&
-				   device.getDeviceInfo().getVendor().indexOf("Sun") != -1))
-			{
-				System.out.println("testing synth: " + device);
-				checkSynthesizer((Synthesizer) device);
-			}
-		}
-	}
+    public void testSeqencer()
+            throws Exception {
+        MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
+        for (MidiDevice.Info info : infos) {
+            MidiDevice device = MidiSystem.getMidiDevice(info);
+            if (device instanceof Synthesizer &&
+                    !(IGNORE_SUN_SYNTHESIZER &&
+                            device.getDeviceInfo().getVendor().contains("Sun"))) {
+                System.out.println("testing synth: " + device);
+                checkSynthesizer((Synthesizer) device);
+            }
+        }
+    }
 
 
+    protected abstract void checkSynthesizer(Synthesizer seq)
+            throws Exception;
 
-	protected abstract void checkSynthesizer(Synthesizer seq)
-		throws Exception;
-
-	protected static String constructErrorMessage(Synthesizer synth,
-						String strMessage,
-						boolean bOpen)
-	{
-		String strAll = getMessagePrefix(synth) + strMessage;
-		strAll += " in " + (bOpen ? "open" : "closed") + " state";
-		return strAll;
-	}
+    protected static String constructErrorMessage(Synthesizer synth,
+                                                  String strMessage,
+                                                  boolean bOpen) {
+        String strAll = getMessagePrefix(synth) + strMessage;
+        strAll += " in " + (bOpen ? "open" : "closed") + " state";
+        return strAll;
+    }
 
 
-	/** Get the prefix for error messages (containing the Synthesizer's name).
-	 */
-	protected static String getMessagePrefix(Synthesizer seq)
-	{
-		return seq.getDeviceInfo().getName() + ": ";
-	}
+    /**
+     * Get the prefix for error messages (containing the Synthesizer's name).
+     */
+    protected static String getMessagePrefix(Synthesizer seq) {
+        return seq.getDeviceInfo().getName() + ": ";
+    }
 }
 
 
-
-/*** BaseSynthesizerTestCase.java ***/
+/* BaseSynthesizerTestCase.java */

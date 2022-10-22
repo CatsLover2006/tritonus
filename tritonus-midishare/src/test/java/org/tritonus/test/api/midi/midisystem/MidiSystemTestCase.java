@@ -1,8 +1,4 @@
 /*
- *	MidiSystemTestCase.java
- */
-
-/*
  *  Copyright (c) 2004 by Matthias Pfisterer
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,83 +23,60 @@ import javax.sound.midi.MidiUnavailableException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-//import javax.sound.midi.Sequencer;
-//import javax.sound.midi.Synthesizer;
 
 
+/*
+ * MidiSystemTestCase.java
+ */
+public class MidiSystemTestCase {
 
-public class MidiSystemTestCase
-{
-	private static final float DELTA = 1E-9F;
-
+    private static final float DELTA = 1E-9F;
 
     @Test
-	public void testGetDevices()
-		throws Exception
-	{
-		assertNotNull(MidiSystem.getSynthesizer(), "getSynthesizer()");
-System.err.println(MidiSystem.getSynthesizer());
-		assertNotNull(MidiSystem.getSequencer(), "getSequencer()");
-System.err.println(MidiSystem.getSequencer());
- 		assertNotNull(MidiSystem.getSequencer(true), "getSequencer(true)");
-System.err.println(MidiSystem.getSequencer(true));
- 		assertNotNull(MidiSystem.getSequencer(false), "getSequencer(false)");
-System.err.println(MidiSystem.getSequencer(false));
-		assertNotNull(MidiSystem.getReceiver(), "getReceiver()");
-System.err.println(MidiSystem.getReceiver());
+    public void testGetDevices() throws Exception {
+        assertNotNull(MidiSystem.getSynthesizer(), "getSynthesizer()");
+        System.err.println(MidiSystem.getSynthesizer());
+        assertNotNull(MidiSystem.getSequencer(), "getSequencer()");
+        System.err.println(MidiSystem.getSequencer());
+        assertNotNull(MidiSystem.getSequencer(true), "getSequencer(true)");
+        System.err.println(MidiSystem.getSequencer(true));
+        assertNotNull(MidiSystem.getSequencer(false), "getSequencer(false)");
+        System.err.println(MidiSystem.getSequencer(false));
+        assertNotNull(MidiSystem.getReceiver(), "getReceiver()");
+        System.err.println(MidiSystem.getReceiver());
         try {
             assertNotNull(MidiSystem.getTransmitter(), "getTransmitter()");
-System.err.println(MidiSystem.getTransmitter());
+            System.err.println(MidiSystem.getTransmitter());
         } catch (MidiUnavailableException e) {
             // accept
         }
-	}
-
-
-    @Test
-	public void testGetEachMidiDevice()
-		throws Exception
-	{
-		MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
-		assertTrue(infos.length > 0, "MidiDevice.Info array");
-		for (int i = 0; i < infos.length; i++)
-		{
-			assertNotNull(MidiSystem.getMidiDevice(infos[i]), "getMidiDevice()");
-		}
-	}
-
+    }
 
     @Test
-	public void testGetWrongMidiDevice()
-		throws Exception
-	{
-		MidiDevice.Info info = new TestInfo("name", "vendor",
-											"description", "version");
-		try
-		{
-			MidiSystem.getMidiDevice(info);
-			fail("wrong MidiDevice.Info should throw exception");
-		}
-		catch (IllegalArgumentException e)
-		{
-		}
-	}
+    public void testGetEachMidiDevice() throws Exception {
+        MidiDevice.Info[] infos = MidiSystem.getMidiDeviceInfo();
+        assertTrue(infos.length > 0, "MidiDevice.Info array");
+        for (MidiDevice.Info info : infos) {
+            assertNotNull(MidiSystem.getMidiDevice(info), "getMidiDevice()");
+        }
+    }
 
+    @Test
+    public void testGetWrongMidiDevice() throws Exception {
+        MidiDevice.Info info = new TestInfo("name", "vendor", "description", "version");
+        assertThrows(IllegalArgumentException.class, () -> {
+            MidiSystem.getMidiDevice(info);
+        }, "wrong MidiDevice.Info should throw exception");
+    }
 
-	private class TestInfo
-	extends MidiDevice.Info
-	{
-		public TestInfo(String name, String vendor,
-						String description, String version)
-		{
-			super(name, vendor,
-				  description, version);
-		}
-	}
+    private static class TestInfo extends MidiDevice.Info {
+        public TestInfo(String name, String vendor, String description, String version) {
+            super(name, vendor, description, version);
+        }
+    }
 }
 
-
-
-/*** MidiSystemTestCase.java ***/
+/* MidiSystemTestCase.java */

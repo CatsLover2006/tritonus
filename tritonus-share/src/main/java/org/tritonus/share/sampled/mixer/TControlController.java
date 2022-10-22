@@ -1,7 +1,7 @@
 /*
- *	TControlController.java
+ * TControlController.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -31,51 +31,42 @@ package org.tritonus.share.sampled.mixer;
 import org.tritonus.share.TDebug;
 
 
-
-
-/**	Base class for classes implementing Line.
+/**
+ * Base class for classes implementing Line.
  */
 public class TControlController
-implements TControllable
-{
-	/**	The parent (compound) control.
-		In case this control is part of a compound control, the parentControl
-		property is set to a value other than null.
-	 */
-	private TCompoundControl	m_parentControl;
+        implements TControllable {
+    /**
+     * The parent (compound) control.
+     * In case this control is part of a compound control, the parentControl
+     * property is set to a value other than null.
+     */
+    private TCompoundControl m_parentControl;
 
 
-	public TControlController()
-	{
-	}
+    public TControlController() {
+    }
 
 
-
-	public void setParentControl(TCompoundControl compoundControl)
-	{
-		m_parentControl = compoundControl;
-	}
+    public void setParentControl(TCompoundControl compoundControl) {
+        m_parentControl = compoundControl;
+    }
 
 
-	public TCompoundControl getParentControl()
-	{
-		return m_parentControl;
-	}
+    public TCompoundControl getParentControl() {
+        return m_parentControl;
+    }
 
 
-	public void commit()
-	{
-		if (TDebug.TraceControl)
-		{
-			TDebug.out("TControlController.commit(): called [" + this.getClass().getName() + "]");
-		}
-		if (getParentControl() != null)
-		{
-			getParentControl().commit();
-		}
-	}
+    public void commit() {
+        if (TDebug.TraceControl) {
+            TDebug.out("TControlController.commit(): called [" + this.getClass().getName() + "]");
+        }
+        if (getParentControl() != null) {
+            getParentControl().commit();
+        }
+    }
 }
 
 
-
-/*** TControlController.java ***/
+/* TControlController.java */

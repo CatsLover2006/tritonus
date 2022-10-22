@@ -1,5 +1,5 @@
 /*
- *	Aiff12bitAudioFileReaderTestCase.java
+ * Aiff12bitAudioFileReaderTestCase.java
  */
 
 /*
@@ -21,16 +21,12 @@
 package org.tritonus.test;
 
 
-
 public class Aiff12bitAudioFileReaderTestCase
-extends BaseAudioFileReaderTestCase
-{
-	public Aiff12bitAudioFileReaderTestCase()
-	{
-		setResourcePrefix("aiff12bit");
-	}
+        extends BaseAudioFileReaderTestCase {
+    public Aiff12bitAudioFileReaderTestCase() {
+        setResourcePrefix("aiff12bit");
+    }
 }
 
 
-
-/*** AiffAudioFileReaderTestCase.java ***/
+/* AiffAudioFileReaderTestCase.java */

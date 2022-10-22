@@ -1,7 +1,7 @@
 /*
- *	AudioFormatSet.java
+ * AudioFormatSet.java
  *
- *	This file is part of Tritonus: http://www.tritonus.org/
+ * This file is part of Tritonus: http://www.tritonus.org/
  */
 
 /*
@@ -29,12 +29,9 @@
 package org.tritonus.share.sampled;
 
 import java.util.Collection;
-import java.util.Iterator;
-
 import javax.sound.sampled.AudioFormat;
 
 import org.tritonus.share.ArraySet;
-import org.tritonus.share.sampled.AudioFormats;
 
 
 /**
@@ -59,99 +56,94 @@ import org.tritonus.share.sampled.AudioFormats;
  * be integrated into AudioFormat.
  */
 
-public class AudioFormatSet extends ArraySet<AudioFormat>
-{
-	private static final long serialVersionUID = 1;
-	
-	protected static final AudioFormat[]		EMPTY_FORMAT_ARRAY = new AudioFormat[0];
+public class AudioFormatSet extends ArraySet<AudioFormat> {
+    private static final long serialVersionUID = 1;
 
-	public AudioFormatSet() {
-		super();
-	}
+    protected static final AudioFormat[] EMPTY_FORMAT_ARRAY = new AudioFormat[0];
 
-	public AudioFormatSet(Collection<AudioFormat> c) {
-		super(c);
-	}
+    public AudioFormatSet() {
+        super();
+    }
 
-	@Override
-	public boolean add(AudioFormat elem) {
-		if (elem==null) {
-			return false;
-		}
-		return super.add(elem);
-	}
+    public AudioFormatSet(Collection<AudioFormat> c) {
+        super(c);
+    }
 
-	public boolean contains(AudioFormat elem) {
-		if (elem==null) {
-			return false;
-		}
-		AudioFormat comp= elem;
-		Iterator<AudioFormat> it=iterator();
-		while (it.hasNext()) {
-			if (AudioFormats.equals(comp, it.next())) {
-				return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    public boolean add(AudioFormat elem) {
+        if (elem == null) {
+            return false;
+        }
+        return super.add(elem);
+    }
 
-	public AudioFormat get(AudioFormat elem) {
-		if (elem==null) {
-			return null;
-		}
-		AudioFormat comp= elem;
-		Iterator<AudioFormat> it=iterator();
-		while (it.hasNext()) {
-			AudioFormat thisElem=it.next();
-			if (AudioFormats.equals(comp, thisElem)) {
-				return thisElem;
-			}
-		}
-		return null;
-	}
+    public boolean contains(AudioFormat elem) {
+        if (elem == null) {
+            return false;
+        }
+        AudioFormat comp = elem;
+        for (AudioFormat audioFormat : this) {
+            if (AudioFormats.equals(comp, audioFormat)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	public AudioFormat getAudioFormat(AudioFormat elem) {
-		return get(elem);
-	}
+    public AudioFormat get(AudioFormat elem) {
+        if (elem == null) {
+            return null;
+        }
+        AudioFormat comp = elem;
+        for (AudioFormat thisElem : this) {
+            if (AudioFormats.equals(comp, thisElem)) {
+                return thisElem;
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Checks whether this Set contains an AudioFormat
-	 * that matches <code>elem</code>.
-	 * The first matching format is returned. If no element
-	 * matches <code>elem</code>, <code>null</code> is returned.
-	 * <p>
-	 * @see AudioFormats#matches(AudioFormat, AudioFormat)
-	 */
-	public AudioFormat matches(AudioFormat elem) {
-		if (elem==null) {
-			return null;
-		}
-		Iterator<AudioFormat> it=iterator();
-		while (it.hasNext()) {
-			AudioFormat thisElem=it.next();
-			if (AudioFormats.matches(elem, thisElem)) {
-				return thisElem;
-			}
-		}
-		return null;
-	}
+    public AudioFormat getAudioFormat(AudioFormat elem) {
+        return get(elem);
+    }
+
+    /**
+     * Checks whether this Set contains an AudioFormat
+     * that matches <code>elem</code>.
+     * The first matching format is returned. If no element
+     * matches <code>elem</code>, <code>null</code> is returned.
+     * <p>
+     *
+     * @see AudioFormats#matches(AudioFormat, AudioFormat)
+     */
+    public AudioFormat matches(AudioFormat elem) {
+        if (elem == null) {
+            return null;
+        }
+        for (AudioFormat thisElem : this) {
+            if (AudioFormats.matches(elem, thisElem)) {
+                return thisElem;
+            }
+        }
+        return null;
+    }
 
 
-	// $$mp: TODO: remove; should be obsolete
-	public AudioFormat[] toAudioFormatArray() {
-		return toArray(EMPTY_FORMAT_ARRAY);
-	}
+    // $$mp: TODO: remove; should be obsolete
+    public AudioFormat[] toAudioFormatArray() {
+        return toArray(EMPTY_FORMAT_ARRAY);
+    }
 
 
-	@Override
-	public void add(int index, AudioFormat element) {
-		throw new UnsupportedOperationException("unsupported");
-	}
+    @Override
+    public void add(int index, AudioFormat element) {
+        throw new UnsupportedOperationException("unsupported");
+    }
 
-	@Override
-	public AudioFormat set(int index, AudioFormat element) {
-		throw new UnsupportedOperationException("unsupported");
-	}
+    @Override
+    public AudioFormat set(int index, AudioFormat element) {
+        throw new UnsupportedOperationException("unsupported");
+    }
 }
 
-/*** AudioFormatSet.java ***/
+/* AudioFormatSet.java */

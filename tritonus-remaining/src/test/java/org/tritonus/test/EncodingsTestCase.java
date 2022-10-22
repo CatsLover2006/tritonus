@@ -1,5 +1,5 @@
 /*
- *	EncodingsTestCase.java
+ * EncodingsTestCase.java
  */
 
 /*
@@ -25,24 +25,22 @@ import javax.sound.sampled.AudioFormat;
 import org.junit.jupiter.api.Test;
 import org.tritonus.share.sampled.Encodings;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-
-/**	Tests for class org.tritonus.share.sampled.Encodings.
+/**
+ * Tests for class org.tritonus.share.sampled.Encodings.
  */
-public class EncodingsTestCase
-{
+public class EncodingsTestCase {
     @Test
-	public void testGetEncodings()
-	{
-		AudioFormat.Encoding[]	aEncodings = Encodings.getEncodings();
-		assertTrue(aEncodings != null);
-		assertTrue(aEncodings.length > 0);
-	}
+    public void testGetEncodings() {
+        AudioFormat.Encoding[] aEncodings = Encodings.getEncodings();
+        assertNotNull(aEncodings);
+        assertTrue(aEncodings.length > 0);
+    }
 
 }
 
 
-
-/*** EncodingsTestCase.java ***/
+/* EncodingsTestCase.java */
